@@ -1,0 +1,22 @@
+{
+  "name": "MikCore",
+  "version": "0.1.0",
+  "summary": "A short description of MikCore.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/1070824493@qq.com/MikCore",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "1070824493@qq.com": "tangyi.get@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/1070824493@qq.com/MikCore.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "MikCore/Classes/**/*"
+}

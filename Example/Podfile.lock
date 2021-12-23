@@ -1,0 +1,16 @@
+PODS:
+  - MikCore (0.1.0)
+
+DEPENDENCIES:
+  - MikCore (from `../`)
+
+EXTERNAL SOURCES:
+  MikCore:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  MikCore: da2223f607520a7158d1b8e02565a8c09a6747a8
+
+PODFILE CHECKSUM: f1dc990cf930f9d1177838c2c1d2730ab0aa5253
+
+COCOAPODS: 1.10.1

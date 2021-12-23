@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/1070824493@qq.com/MikCore'
+  s.homepage         = 'https://github.com/1070824493/MikCore'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '1070824493@qq.com' => 'tangyi.get@gmail.com' }
@@ -62,7 +62,7 @@ TODO: Add long description of the pod here.
   mf.subspec 'MikMedia' do |d|
       d.source_files  = 'MikCore/Classes/MikFoundation/MikMedia/**/*'
         
-        d.dependency 'ZLPhotoBrowser', '4.1.7'
+        d.dependency 'ZLPhotoBrowser'
         d.dependency 'MikCore/MikFoundation/Extensions'
         d.frameworks = 'Photos'
   end
@@ -81,13 +81,13 @@ TODO: Add long description of the pod here.
     mf.subspec 'MikLog' do |f|
         f.source_files  = 'MikCore/Classes/MikFoundation/MikLog/**/*'
         f.dependency 'HandyJSON'
-        f.dependency 'SwiftyBeaver', '1.9.5'
-        f.dependency 'Firebase/Storage', '8.7.0'
-        f.dependency 'Firebase/Auth', '8.7.0'
-        f.dependency 'Firebase/Analytics', '8.7.0'
-        f.dependency 'Firebase/Messaging', '8.7.0'
-        f.dependency 'Firebase/Crashlytics', '8.7.0'
-        f.dependency 'Firebase/DynamicLinks', '8.7.0'
+        f.dependency 'SwiftyBeaver'
+        f.dependency 'Firebase/Storage'
+        f.dependency 'Firebase/Auth'
+        f.dependency 'Firebase/Analytics'
+        f.dependency 'Firebase/Messaging'
+        f.dependency 'Firebase/Crashlytics'
+        f.dependency 'Firebase/DynamicLinks'
         
         f.dependency 'MikCore/MikFoundation/Extensions'
         f.dependency 'MikCore/MikKit/MikToast'
@@ -111,7 +111,7 @@ TODO: Add long description of the pod here.
         b.source_files  = 'MikCore/Classes/MikKit/MikCalendarView/**/*'
         
         b.dependency 'SnapKit'
-        b.dependency 'JTAppleCalendar', '8.0.3'
+        b.dependency 'JTAppleCalendar'
         b.dependency 'MikCore/MikFoundation/Extensions'
     end
 
@@ -129,7 +129,7 @@ TODO: Add long description of the pod here.
         e.source_files  = 'MikCore/Classes/MikKit/MikSegmentedView/**/*'
         
         e.dependency 'SnapKit'
-        e.dependency 'JXSegmentedView', '1.2.7'
+        e.dependency 'JXSegmentedView'
         e.dependency 'MikCore/MikFoundation/Extensions'
     end
 
@@ -147,7 +147,7 @@ TODO: Add long description of the pod here.
         g.source_files  = 'MikCore/Classes/MikKit/MikPopoverView/**/*'
         
         g.dependency 'SnapKit'
-        g.dependency 'ActiveLabel', '1.1.0'
+        g.dependency 'ActiveLabel'
         g.dependency 'MikCore/MikFoundation/Extensions'
     end
 

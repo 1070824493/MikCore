@@ -16,7 +16,505 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "9.0"
+    "ios": "13.0"
   },
-  "source_files": "MikCore/Classes/**/*"
+  "swift_versions": "5.0",
+  "resource_bundles": {
+    "MikCoreBundle": [
+      "MikCore/Assets.xcassets",
+      "MikCore/Gifs/*",
+      "MikCore/Fonts/*"
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "MikFoundation",
+      "subspecs": [
+        {
+          "name": "NameSpace",
+          "source_files": "MikCore/Classes/MikFoundation/NameSpace/**/*",
+          "frameworks": "UIKit"
+        },
+        {
+          "name": "Extensions",
+          "source_files": "MikCore/Classes/MikFoundation/Extensions/**/*",
+          "dependencies": {
+            "Kingfisher": [
+
+            ],
+            "MikCore/MikFoundation/NameSpace": [
+
+            ]
+          },
+          "frameworks": "Photos"
+        },
+        {
+          "name": "MikValidateRegex",
+          "source_files": "MikCore/Classes/MikFoundation/MikValidateRegex/**/*",
+          "frameworks": "Foundation"
+        },
+        {
+          "name": "MikMedia",
+          "source_files": "MikCore/Classes/MikFoundation/MikMedia/**/*",
+          "dependencies": {
+            "ZLPhotoBrowser": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          },
+          "frameworks": "Photos"
+        },
+        {
+          "name": "MikNetWork",
+          "source_files": "MikCore/Classes/MikFoundation/MikNetWork/**/*",
+          "dependencies": {
+            "Alamofire": [
+
+            ],
+            "HandyJSON": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ],
+            "MikCore/MikFoundation/MikLog": [
+
+            ],
+            "RxSwift": [
+
+            ],
+            "RxCocoa": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikLog",
+          "source_files": "MikCore/Classes/MikFoundation/MikLog/**/*",
+          "dependencies": {
+            "HandyJSON": [
+
+            ],
+            "SwiftyBeaver": [
+
+            ],
+            "Firebase/Storage": [
+
+            ],
+            "Firebase/Auth": [
+
+            ],
+            "Firebase/Analytics": [
+
+            ],
+            "Firebase/Messaging": [
+
+            ],
+            "Firebase/Crashlytics": [
+
+            ],
+            "Firebase/DynamicLinks": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ],
+            "MikCore/MikKit/MikToast": [
+
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "MikKit",
+      "subspecs": [
+        {
+          "name": "MikDropBoxView",
+          "source_files": "MikCore/Classes/MikKit/MikDropBoxView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikCalendarView",
+          "source_files": "MikCore/Classes/MikKit/MikCalendarView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "JTAppleCalendar": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikPaymentCardsOCR",
+          "source_files": "MikCore/Classes/MikKit/MikPaymentCardsOCR/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ],
+            "MikCore/MikKit/MikToast": [
+
+            ]
+          },
+          "frameworks": [
+            "Vision",
+            "VisionKit"
+          ]
+        },
+        {
+          "name": "MikSegmentedView",
+          "source_files": "MikCore/Classes/MikKit/MikSegmentedView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "JXSegmentedView": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikAlertView",
+          "source_files": "MikCore/Classes/MikKit/MikAlertView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ],
+            "MikCore/MikKit/MikTextViewCell": [
+
+            ],
+            "RxSwift": [
+
+            ],
+            "RxCocoa": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikPopoverView",
+          "source_files": "MikCore/Classes/MikKit/MikPopoverView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "ActiveLabel": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikGuideView",
+          "source_files": "MikCore/Classes/MikKit/MikGuideView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikTextViewCell",
+          "source_files": "MikCore/Classes/MikKit/MikTextViewCell/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "RxSwift": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ],
+            "MikCore/MikFoundation/MikValidateRegex": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikStarRateView",
+          "source_files": "MikCore/Classes/MikKit/MikStarRateView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikFilterViewCell",
+          "source_files": "MikCore/Classes/MikKit/MikFilterViewCell/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikBottomButtonView",
+          "source_files": "MikCore/Classes/MikKit/MikBottomButtonView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikDotProgressView",
+          "source_files": "MikCore/Classes/MikKit/MikDotProgressView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikImageView",
+          "source_files": "MikCore/Classes/MikKit/MikImageView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikGrowTextView",
+          "source_files": "MikCore/Classes/MikKit/MikGrowTextView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikScrollView",
+          "source_files": "MikCore/Classes/MikKit/MikScrollView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikEmptyView",
+          "source_files": "MikCore/Classes/MikKit/MikEmptyView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikToast",
+          "source_files": "MikCore/Classes/MikKit/MikToast/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikBottomPopController",
+          "source_files": "MikCore/Classes/MikKit/MikBottomPopController/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikStepView",
+          "source_files": "MikCore/Classes/MikKit/MikStepView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikButton",
+          "source_files": "MikCore/Classes/MikKit/MikButton/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikNavigationController",
+          "source_files": "MikCore/Classes/MikKit/MikNavigationController/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikNumberControl",
+          "source_files": "MikCore/Classes/MikKit/MikNumberControl/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikSwitch",
+          "source_files": "MikCore/Classes/MikKit/MikSwitch/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikPickerView",
+          "source_files": "MikCore/Classes/MikKit/MikPickerView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ],
+            "MikCore/MikKit/MikBottomPopController": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikPullToRefresh",
+          "source_files": "MikCore/Classes/MikKit/MikPullToRefresh/**/*",
+          "dependencies": {
+            "Kingfisher": [
+
+            ],
+            "ESPullToRefresh": [
+
+            ],
+            "MikCore/MikFoundation/NameSpace": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ]
+          }
+        },
+        {
+          "name": "MikCommon",
+          "source_files": "MikCore/Classes/MikKit/MikCommon/**/*"
+        },
+        {
+          "name": "MikTextField",
+          "source_files": "MikCore/Classes/MikKit/MikTextField/**/*",
+          "dependencies": {
+            "RxSwift": [
+
+            ],
+            "RxCocoa": [
+
+            ],
+            "MikCore/MikFoundation/NameSpace": [
+
+            ],
+            "MikCore/MikFoundation/Extensions": [
+
+            ],
+            "SnapKit": [
+
+            ]
+          },
+          "frameworks": [
+            "UIKit",
+            "Foundation"
+          ]
+        },
+        {
+          "name": "MikOmitTextView",
+          "source_files": "MikCore/Classes/MikKit/MikOmitTextView/**/*",
+          "dependencies": {
+            "SnapKit": [
+
+            ]
+          },
+          "frameworks": [
+            "UIKit",
+            "Foundation"
+          ]
+        }
+      ]
+    }
+  ],
+  "swift_version": "5.0"
 }

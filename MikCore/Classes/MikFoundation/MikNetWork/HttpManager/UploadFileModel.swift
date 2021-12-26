@@ -8,7 +8,9 @@
 import Foundation
 
 public enum FileType: Equatable {
-    case image(suffix: String), video(suffix: String), pdf(suffix: String)
+    case image(suffix: String)
+    case video(suffix: String)
+    case pdf(suffix: String)
     
     public static func == (lhs: FileType, rhs: FileType) -> Bool {
         switch (lhs, rhs) {
@@ -54,7 +56,7 @@ public class UploadFileModel: NSObject {
     public var fileName: String?
     
     public var fileType: FileType = .image(suffix: "jpeg")
-        
+    
     /// 随机文件名
     static public func randomFileName(fileType: FileType, index: Int) -> String {
         return DateFormatter.mik.formatter("yyyyMMddHHmmss").string(from: Date()) + "\(index).\(fileType.suffix)"

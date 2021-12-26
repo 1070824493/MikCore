@@ -7,6 +7,25 @@
 
 import UIKit
 
+public extension MikToast {
+    
+    struct HUDConifgure {
+        let view: UIView?
+        var style: MikHUDStyle = .activity
+        var isInteraction: Bool = false
+        
+        public init(view: UIView?, style: MikHUDStyle = .activity, isInteraction: Bool = false) {
+            self.view = view
+            self.style = style
+            self.isInteraction = isInteraction
+        }
+    }
+    
+    static func showHUD(configure: HUDConifgure) {
+        Self.showHUD(style: configure.style, in: configure.view, isInteraction: configure.isInteraction)
+    }
+    
+}
 
 public class MikToast {
     

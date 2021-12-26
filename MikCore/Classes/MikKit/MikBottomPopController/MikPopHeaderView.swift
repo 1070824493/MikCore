@@ -20,7 +20,7 @@ open class MikPopHeaderView: UIView {
     
     public private(set) lazy var titleLabel: UILabel = {
         let aLabel = UILabel()
-        aLabel.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16.rate)
+        aLabel.font = UIFont.mik.font(.nunitoSansBold, size: 16.rate)
         aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
         aLabel.text = title
         return aLabel

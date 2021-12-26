@@ -78,7 +78,7 @@ extension MikNavigationController {
         config.shadowImage = UIImage()
         config.shadowColor = .clear
         config.titleTextAttributes = [.foregroundColor : UIColor.mik.general(.hex1B1B1B),
-                                        .font: UIFont.mik.font(.IBMPlexSerifBold, size: 16.rate)]
+                                        .font: UIFont.mik.font(.nunitoSansBold, size: 16.rate)]
 
         navigationBar.barStyle = UIBarStyle.default
         navigationBar.barTintColor = UIColor.mik.general(.hexFFFFFF)
@@ -96,7 +96,7 @@ extension MikNavigationController {
         
         let backButton = UIButton(type: .custom)
         backButton.contentHorizontalAlignment = .left
-        backButton.titleLabel?.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16.rate)
+        backButton.titleLabel?.font = UIFont.mik.font(.nunitoSansBold, size: 16.rate)
         backButton.setTitleColor(UIColor.mik.general(.hex1B1B1B), for: .normal)
         backButton.setImage(UIImage.image("nav_back"), for: .normal)
         backButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 4, bottom: 10, right: 14)

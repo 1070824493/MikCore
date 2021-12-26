@@ -18,29 +18,8 @@ public enum FontType {
     case nunitoSansSemibold
     /// 特粗体：h4、h5、h6、body-large/bold、body-medium/bold、body-small/bold
     case nunitoSansExtraBold
-    /// 标题字体：hero、h1、h2
-    case newYorkExtraBold
     /// 细体
     case nunitoSansLight
-    
-    /// weight: 700, 8月24新字体:所有nav/tabs/menu/header以及其他各种组件的标题/正文中的标题全部的字体改为：IBM Plex Serif Bold
-    case IBMPlexSerifBold
-    
-    case IBMPlexSerifSemiBoldItalic
-    case IBMPlexSerifBoldItalic
-    case IBMPlexSerifExtraLight
-    case IBMPlexSerifExtraLightItalic
-    case IBMPlexSerifItalic
-    case IBMPlexSerifLight
-    case IBMPlexSerifLightItalic
-    case IBMPlexSerifMedium
-    case IBMPlexSerifMediumItalic
-    case IBMPlexSerifRegular
-    case IBMPlexSerifSemiBold
-    case IBMPlexSerifText
-    case IBMPlexSerifTextItalic
-    case IBMPlexSerifThin
-    case IBMPlexSerifThinItalic
     
     var fontName: String {
         switch self {
@@ -49,25 +28,6 @@ public enum FontType {
         case .nunitoSansLight: return "NunitoSans-Light"
         case .nunitoSansSemibold: return "NunitoSans-SemiBold"
         case .nunitoSansExtraBold: return "NunitoSans-ExtraBold"
-        
-        case .newYorkExtraBold: return "NewYork-Bold"
-            
-        case .IBMPlexSerifBold: return "IBMPlexSerif-Bold"
-        case .IBMPlexSerifSemiBoldItalic: return "IBMPlexSerif-SemiBoldItalic"
-        case .IBMPlexSerifBoldItalic: return "IBMPlexSerif-BoldItalic"
-        case .IBMPlexSerifExtraLight: return "IBMPlexSerif-ExtraLight"
-        case .IBMPlexSerifExtraLightItalic: return "IBMPlexSerif-ExtraLightItalic"
-        case .IBMPlexSerifItalic: return "IBMPlexSerif-Italic"
-        case .IBMPlexSerifLight: return "IBMPlexSerif-Light"
-        case .IBMPlexSerifLightItalic: return "IBMPlexSerif-LightItalic"
-        case .IBMPlexSerifMedium: return "IBMPlexSerif-Medium"
-        case .IBMPlexSerifMediumItalic: return "IBMPlexSerif-MediumItalic"
-        case .IBMPlexSerifRegular: return "IBMPlexSerif-Regular"
-        case .IBMPlexSerifSemiBold: return "IBMPlexSerif-SemiBold"
-        case .IBMPlexSerifText: return "IBMPlexSerif-Text"
-        case .IBMPlexSerifTextItalic: return "IBMPlexSerif-TextItalic"
-        case .IBMPlexSerifThin: return "IBMPlexSerif-Thin"
-        case .IBMPlexSerifThinItalic: return "IBMPlexSerif-ThinItalic"
         }
     }
 }

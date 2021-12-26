@@ -89,7 +89,7 @@ public class MikAlertView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let aLabel = UILabel()
-        aLabel.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16)
+        aLabel.font = UIFont.mik.font(.nunitoSansBold, size: 16)
         aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
         aLabel.preferredMaxLayoutWidth = kContentMaxWidth
         aLabel.textAlignment = .center

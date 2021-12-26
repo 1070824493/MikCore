@@ -8,8 +8,7 @@
 import UIKit
 import SwiftyBeaver
 import HandyJSON
-import FirebaseStorage
-import FirebaseCore
+import SwiftyJSON
 
 public struct MikLogModel : HandyJSON {
     public init() {
@@ -72,21 +71,6 @@ fileprivate enum AppType : String {
             return MikLog.shopAndScanIpadBundleID
         }
     }
-    
-    var uploadFilePath : String {
-        switch self {
-        
-        case .buyer:
-            return "iOSBuyerLog"
-        case .seller:
-            return "iOSSellerLog"
-        case .shopAndScan:
-            return "iOSShopScanLog"
-        case .shopAndScanIpad:
-            return "iOSShopScanIpadLog"
-        }
-    }
-    
     
 }
 
@@ -272,13 +256,7 @@ public extension MikLog{
     func logInit(blackList: [String] = []){
         
         self.blackRequestList = blackList
-        
-        DispatchQueue.main.async {
-            if FirebaseApp.app() == nil {
-                FirebaseApp.configure()
-            }
-        }
-        
+
         DispatchQueue.global().async {
             
             //控制台日志(仅DEBUG生效)
@@ -324,87 +302,6 @@ public extension MikLog{
     /// 登录成功后需调用此方法,记录当前的用户email,写进日志
     func logConfig(email : String) {
         self.email = email
-    }
-
-    func uploadLogFile() {
-
-        guard Date().timeIntervalSince1970 - lastUploadLogTime > 60 else {
-            MikToast.showToast(style: .information(title: "Operation too frequent, wait a minute", message: nil))
-            return
-        }
-        lastUploadLogTime = Date().timeIntervalSince1970
-        let view = UIApplication.shared.windows.first
-        MikToast.showHUD(in: view)
-        
-        MikLog.logHardwareInformation()
-        MikLog.shared.startPingOnce { [weak self](res) in
-            MikLog.shared.startFPSOnce { [weak self](_) in
-                guard let self = self else { return }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-                    guard let fileName = MikLog.getLogFileList().last else {
-                        MikToast.hideHUD(in: view)
-                        return
-                    }
-                    
-                    let fullPath = MikLog.getLogFullPath(fileName: fileName)
-                    let url = URL(fileURLWithPath: fullPath)
-                    let storage = Storage.storage()
-                    
-                    
-                    var logFileName = MikLog.logFileNameFormatter.string(from: Date())
-                    
-                    //区分APP
-                    var logfilePath = ""
-                    if let bundleId = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as? String{
-                        if bundleId == AppType.buyer.bundleId {
-                            logfilePath = AppType.buyer.uploadFilePath
-                        }else if bundleId == AppType.seller.bundleId {
-                            logfilePath = AppType.seller.uploadFilePath
-                        }else if bundleId == AppType.shopAndScan.bundleId {
-                            logfilePath = AppType.shopAndScan.uploadFilePath
-                        }else if bundleId == AppType.shopAndScanIpad.bundleId {
-                            logfilePath = AppType.shopAndScanIpad.uploadFilePath
-                        }else{
-                            logfilePath = bundleId
-                        }
-                    }
-                    
-                    //文件名邮箱
-                    if let email = MikLog.shared.email{
-                        logFileName = logFileName + "|" + email
-                    }
-                    
-                    logFileName = logFileName + "|" + UIDevice.mik.modelName + "|" + UIDevice.current.systemName + UIDevice.current.systemVersion + ".log"
-                    
-                    let storageRef = storage.reference(withPath: logfilePath)
-                    let riversRef = storageRef.child("\(logFileName)")
-
-                    let task = riversRef.putFile(from: url, metadata: nil) { metadata, error in
-                        
-                        NSObject.cancelPreviousPerformRequests(withTarget: self)    //取消超时任务
-                        DispatchQueue.main.async {
-                            MikToast.hideHUD(in: view)
-                        }
-                        if error == nil {
-                            MikToast.showToast(style: .success(title: "upload success", message: nil))
-                        }else {
-                            MikToast.showToast(style: .success(title: "upload failed", message: nil))
-                        }
-                    }
-                    
-                    //此方法没开代理超时时间特别久,故手动增加一个超时30S
-                    self.perform(#selector(self.timeoutTask(task:)), with: task, afterDelay: 30)
-                }
-            }
-        }
-    }
-    
-    @objc func timeoutTask(task : StorageUploadTask) {
-//        DispatchQueue.main.async {
-//            MikToast.hideHUD(in: view)
-//        }
-//        MikToast.showToast(style: .success(title: "upload failed", message: nil))
-        task.cancel()
     }
     
     /// ping一次服务器

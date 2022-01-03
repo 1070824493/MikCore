@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import ZLPhotoBrowser
+import MikCore
 
 class MikAlertViewViewController: MikBaseViewController {
     
@@ -72,17 +73,17 @@ class MikAlertViewViewController: MikBaseViewController {
         
         // 常用的‘Cancel’样式
         let cancelAction = MikAlertAction.cancelAction(title: "No!") {
-            MikPrint("click on cancel button......")
+            MikLogger.debug("click on cancel button......")
         }
         
         // 常用的‘Confirm’样式
         let confirmAction = MikAlertAction.confirmAction(title: "Confirm") {
-            MikPrint("click on ok button......")
+            MikLogger.debug("click on ok button......")
         }
         
         // 其它样式
         let otherStyleAction = MikAlertAction.action(title: "other", style: .normal) {
-            MikPrint("click on other button......")
+            MikLogger.debug("click on other button......")
         }
         
         // 自定义样式
@@ -98,7 +99,7 @@ class MikAlertViewViewController: MikBaseViewController {
                 aBtn.setImage(UIImage.image("nav_del"), for: .normal)
                 aBtn.mik.setImageDirection(.left, space: 4)
             } handle: {
-                MikPrint("click on ok custom...but it's not hidden")
+                MikLogger.debug("click on ok custom...but it's not hidden")
             }
             
             aAction.isHiddenEnable = false
@@ -106,7 +107,7 @@ class MikAlertViewViewController: MikBaseViewController {
         }()
         
         let inputHiddenAction = MikAlertAction.confirmAction(title: "hidden") { [weak self] in
-            MikPrint("input value is: \(String(describing: self?.inputViewsTuple?.inputView.text))")
+            MikLogger.debug("input value is: \(String(describing: self?.inputViewsTuple?.inputView.text))")
             self?.inputViewsTuple?.controller.hidden(nil)
         }
         

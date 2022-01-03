@@ -42,6 +42,9 @@
             "Kingfisher": [
 
             ],
+            "KingfisherWebP": [
+
+            ],
             "MikCore/MikFoundation/NameSpace": [
 
             ]
@@ -79,7 +82,7 @@
             "MikCore/MikFoundation/Extensions": [
 
             ],
-            "MikCore/MikFoundation/MikLog": [
+            "MikCore/MikFoundation/MikLogger": [
 
             ],
             "RxSwift": [
@@ -91,8 +94,8 @@
           }
         },
         {
-          "name": "MikLog",
-          "source_files": "MikCore/Classes/MikFoundation/MikLog/**/*",
+          "name": "MikLogger",
+          "source_files": "MikCore/Classes/MikFoundation/MikLogger/**/*",
           "dependencies": {
             "HandyJSON": [
 

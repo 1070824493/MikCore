@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = MikNavigationController(rootViewController: Test0ViewController())
         window?.makeKeyAndVisible()
         
+        MikLogger.logInit()
+        
         return true
     }
 

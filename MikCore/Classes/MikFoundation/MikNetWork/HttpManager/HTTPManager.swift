@@ -94,7 +94,7 @@ public extension HTTPManager {
             let request = HTTPManager.getUploadRequest(with: config)
             
             request.uploadProgress { (p) in
-                MikPrint("upload.... \(p.completedUnitCount) / \(p.totalUnitCount)")
+                MikLogger.debug("upload.... \(p.completedUnitCount) / \(p.totalUnitCount)")
                 config.progress?(p)
             }
             

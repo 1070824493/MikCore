@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import Kingfisher
+import KingfisherWebP
 
 
 public enum MikOptionsType {
@@ -21,12 +22,22 @@ public enum MikOptionsType {
     var options: KingfisherOptionsInfo? {
         switch self {
         case .thumbnail(let size):
-            let bSize = CGSize(width: size.width * 3, height: size.height * 3)
-            return [.processor(DownsamplingImageProcessor(size: bSize))]
-        case .custom(let ops): return ops
-        default: return nil
+            return [.processor(MikDownsamplingImageProcessor(size: size)),
+                    .cacheSerializer(WebPSerializer.default),
+                    .transition(.fade(0.25))]
+        case .custom(let ops):
+            guard !ops.isEmpty else {
+                return [.processor(WebPProcessor.default),
+                        .cacheSerializer(WebPSerializer.default),
+                        .transition(.fade(0.25))]
+            }
+            return ops
+        default:
+            return [.processor(WebPProcessor.default),
+                    .cacheSerializer(WebPSerializer.default),
+                    .transition(.fade(0.25))]
         }
-    }        
+    }
 }
 
 fileprivate extension Resource {
@@ -60,7 +71,7 @@ fileprivate extension Resource {
         let path: String? = {
             let eles = self.downloadURL.path.split(separator: "/")
             guard let first = eles.first, let last = eles.last else { return nil }
-            return [first, "fill/\(Int(size.width * 1.5))/\(Int(size.height * 1.5))/ce/1", last].joined(separator: "/")
+            return [first, "fill/\(Int(size.width))/\(Int(size.height))/ce/1", last].joined(separator: "/")
         }()
         
         guard let bPath = path else { return self }
@@ -79,6 +90,56 @@ fileprivate extension Resource {
     
 }
 
+// MARK: - Custom ImageProcessor
+private struct MikDownsamplingImageProcessor: ImageProcessor {
+        
+    public let size: CGSize
+        
+    public let identifier: String
+        
+    public init(size: CGSize) {
+        self.size = CGSize(width: size.width * 2, height: 2)
+        self.identifier = "com.onevcat.Kingfisher.MikDownsamplingImageProcessor(\(size))"
+    }
+        
+    public func process(item: ImageProcessItem, options: KingfisherParsedOptionsInfo) -> KFCrossPlatformImage? {
+        let bData: Data?
+        let originSize: CGSize
+        
+        switch item {
+        case .image(let image):
+            bData = image.kf.data(format: .unknown)
+            originSize = image.size
+        case .data(let data):
+            bData = data
+            originSize = UIImage(data: data)?.size ?? .zero
+        }
+        
+        guard let bData = bData else { return nil }
+        
+        if bData.isWebPFormat {
+            return KingfisherWrapper<KFCrossPlatformImage>.image(webpData: bData, scale: options.scaleFactor, onlyFirstFrame: options.onlyLoadFirstFrame)
+        } else {            
+            let bSize = convertImageSize(originSize: originSize, targetSize: size)
+            return KingfisherWrapper.downsampledImage(data: bData, to: bSize, scale: options.scaleFactor)
+        }
+    }
+    
+    private func convertImageSize(originSize: CGSize, targetSize: CGSize) -> CGSize {
+        let originRate = originSize.width / originSize.height
+        
+        if originRate > 1 {
+            let height = max(targetSize.width, targetSize.height)
+            return CGSize(width: height * originRate, height: height)
+        }
+        
+        let width = max(targetSize.width, targetSize.height)
+        return CGSize(width: width, height: width / originRate)
+    }
+    
+}
+
+// MARK: - MikKingfisher
 public struct MikKingfisher {
     
     /// 设置 Kingfisher 默认配置
@@ -86,6 +147,63 @@ public struct MikKingfisher {
     public static func configKingfisher(optionsInfo: KingfisherOptionsInfo? = nil) {
         guard let optionsInfo = optionsInfo else { return }
         KingfisherManager.shared.defaultOptions += optionsInfo
+    }
+    
+    /// 取视频某帧图片
+    /// - Parameters:
+    ///   - url: 视频地址
+    ///   - size: 图片大小, 默认为.zero, 取原图
+    ///   - seconds: 取图片的时间点
+    ///   - beginDownloadHandler: 开始下载回调
+    ///   - completeHandle: 获取图片结果回调
+    public static func image(videoUrl: URL?,
+                             size: CGSize = .zero,
+                             seconds: TimeInterval,
+                             beginDownloadHandler: (() -> Void)? = nil,
+                             completeHandler:((UIImage?) -> Void)? = nil)  {
+        guard let videoUrl = videoUrl else {
+            completeHandler?(nil)
+            return
+        }
+        
+        /// 下载并缓存图片
+        func loadAndCacheImage(url: URL, cacheKey: String, completeHandle:((UIImage?) -> Void)?) {
+            beginDownloadHandler?()
+            
+            AVAssetImageDataProvider(assetImageGenerator: {
+                let aImageGenerato = AVAssetImageGenerator(asset: AVAsset(url: videoUrl))
+                aImageGenerato.maximumSize = size
+                return aImageGenerato
+            }(), time: CMTime(seconds: seconds, preferredTimescale: 600)).data { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data):
+                        if let image = UIImage(data: data) {
+                            ImageCache.default.store(image, original: data, forKey: cacheKey)
+                            completeHandle?(image)
+                        }
+                        completeHandle?(nil)
+                    case .failure(_):
+                        completeHandle?(nil)
+                    }
+                }
+            }
+        }
+                
+        let cacheKey = [videoUrl.absoluteString, "\(seconds)", "w\(size.width)", "h\(size.height)"].joined(separator: "_")
+        
+        // 读取缓存
+        ImageCache.default.retrieveImage(forKey: cacheKey) { rs in
+            switch rs {
+            case .success(let iRs):
+                guard let image = iRs.image else {
+                    loadAndCacheImage(url: videoUrl, cacheKey: cacheKey, completeHandle: completeHandler)
+                    return
+                }
+                DispatchQueue.main.async { completeHandler?(image) }
+            case .failure(_): loadAndCacheImage(url: videoUrl, cacheKey: cacheKey, completeHandle: completeHandler)
+            }
+        }
     }
     
 }
@@ -150,41 +268,11 @@ public extension MikNameSpace where Base: UIImageView {
             return
         }
         
-        /// 下载并缓存图片
-        func loadAndCacheImage(url: URL, cacheKey: String) {
+        MikKingfisher.image(videoUrl: url, size: size, seconds: seconds) {
             self.base.image = placeholder
-            
-            AVAssetImageDataProvider(assetImageGenerator: {
-                let aImageGenerato = AVAssetImageGenerator(asset: AVAsset(url: url))
-                aImageGenerato.maximumSize = size
-                return aImageGenerato
-            }(), time: CMTime(seconds: seconds, preferredTimescale: 600)).data { (result) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let data):
-                        if let image = UIImage(data: data) {
-                            self.base.image = image
-                            ImageCache.default.store(image, original: data, forKey: cacheKey)
-                        }
-                    case .failure(_):
-                        self.base.image = placeholder
-                    }
-                    completeHandle?(self.base.image)
-                }
-            }
-        }
-                
-        let cacheKey = [url.absoluteString, "\(seconds)", "w\(size.width)_h\(size.height)"].joined(separator: "_")
-        
-        // 读取缓存
-        ImageCache.default.retrieveImage(forKey: cacheKey) { rs in
-            switch rs {
-            case .success(let iRs):
-                DispatchQueue.main.async {
-                    self.base.image = iRs.image
-                }
-            case .failure(_): loadAndCacheImage(url: url, cacheKey: cacheKey)
-            }
+        } completeHandler: { image in
+            self.base.image = image ?? placeholder
+            completeHandle?(image)
         }
     }
     

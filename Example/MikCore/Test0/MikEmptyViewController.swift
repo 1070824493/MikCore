@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MikCore
 
 class MikEmptyViewController: MikBaseViewController {
 
@@ -17,7 +18,7 @@ class MikEmptyViewController: MikBaseViewController {
         
         // 一般的调用方法
         self.view.showEmpty(image: UIImage(named: "tabbar_dash_n"), title: "No reviews yet", message: "Please click here to select a product group for this Featured Listing section.", buttonTitle: "Retry", buttonStyle: .blackFill, offsetCenterY: 0) {
-            MikPrint("handler call back")
+            MikLogger.debug("handler call back")
         }
         
         // 全视图响应点击事件
@@ -27,7 +28,7 @@ class MikEmptyViewController: MikBaseViewController {
 //            config.titleValues = MikEmptyValuesConfig.TitleValues(text: "No reviews yet", textColor: UIColor.blue)
 //            config.messageValues = MikEmptyValuesConfig.MessageValues(text: "Please click here to select a product group for this Featured Listing section.")
 //            config.tapHandler = { [weak self] in
-//                MikPrint("handler call back")
+//                MikLog.debug("handler call back")
 //            }
 //            return config
 //        }())

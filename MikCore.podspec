@@ -48,6 +48,7 @@ TODO: Add long description of the pod here.
         b.source_files  = 'MikCore/Classes/MikFoundation/Extensions/**/*'
         
         b.dependency 'Kingfisher'
+        b.dependency 'KingfisherWebP'
         b.dependency 'MikCore/MikFoundation/NameSpace'
 
         b.frameworks = 'Photos'
@@ -73,13 +74,13 @@ TODO: Add long description of the pod here.
         e.dependency 'Alamofire'
         e.dependency 'HandyJSON'
         e.dependency 'MikCore/MikFoundation/Extensions'
-        e.dependency 'MikCore/MikFoundation/MikLog'
+        e.dependency 'MikCore/MikFoundation/MikLogger'
         e.dependency 'RxSwift'
         e.dependency 'RxCocoa'
   end
 
-    mf.subspec 'MikLog' do |f|
-        f.source_files  = 'MikCore/Classes/MikFoundation/MikLog/**/*'
+    mf.subspec 'MikLogger' do |f|
+        f.source_files  = 'MikCore/Classes/MikFoundation/MikLogger/**/*'
         f.dependency 'HandyJSON'
         f.dependency 'SwiftyBeaver'
         f.dependency 'SwiftyJSON'

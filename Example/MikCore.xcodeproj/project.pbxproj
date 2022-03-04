@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		105A00252778257200DEE731 /* MikSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105A00062778257100DEE731 /* MikSwitchViewController.swift */; };
 		105A00262778257200DEE731 /* MikNumberControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105A00072778257100DEE731 /* MikNumberControlViewController.swift */; };
-		105A00272778257200DEE731 /* MikEmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105A00082778257100DEE731 /* MikEmptyViewController.swift */; };
 		105A00282778257200DEE731 /* MikStarsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105A00092778257100DEE731 /* MikStarsViewViewController.swift */; };
 		105A00292778257200DEE731 /* TestCalendarStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105A000A2778257100DEE731 /* TestCalendarStyleViewController.swift */; };
 		105A002A2778257200DEE731 /* TestListContraintsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105A000B2778257100DEE731 /* TestListContraintsViewController.swift */; };
@@ -46,7 +45,6 @@
 /* Begin PBXFileReference section */
 		105A00062778257100DEE731 /* MikSwitchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikSwitchViewController.swift; sourceTree = "<group>"; };
 		105A00072778257100DEE731 /* MikNumberControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikNumberControlViewController.swift; sourceTree = "<group>"; };
-		105A00082778257100DEE731 /* MikEmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikEmptyViewController.swift; sourceTree = "<group>"; };
 		105A00092778257100DEE731 /* MikStarsViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikStarsViewViewController.swift; sourceTree = "<group>"; };
 		105A000A2778257100DEE731 /* TestCalendarStyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCalendarStyleViewController.swift; sourceTree = "<group>"; };
 		105A000B2778257100DEE731 /* TestListContraintsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestListContraintsViewController.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 			children = (
 				105A00062778257100DEE731 /* MikSwitchViewController.swift */,
 				105A00072778257100DEE731 /* MikNumberControlViewController.swift */,
-				105A00082778257100DEE731 /* MikEmptyViewController.swift */,
 				105A00092778257100DEE731 /* MikStarsViewViewController.swift */,
 				105A000A2778257100DEE731 /* TestCalendarStyleViewController.swift */,
 				105A000B2778257100DEE731 /* TestListContraintsViewController.swift */,
@@ -359,7 +356,6 @@
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework",
@@ -379,7 +375,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
@@ -428,7 +423,6 @@
 				105A00342778257200DEE731 /* MikPickerTestViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				105A002A2778257200DEE731 /* TestListContraintsViewController.swift in Sources */,
-				105A00272778257200DEE731 /* MikEmptyViewController.swift in Sources */,
 				105A00252778257200DEE731 /* MikSwitchViewController.swift in Sources */,
 				105A00362778257200DEE731 /* MikListContainerViewController.swift in Sources */,
 				105A002F2778257200DEE731 /* MikDotProgressViewViewController.swift in Sources */,

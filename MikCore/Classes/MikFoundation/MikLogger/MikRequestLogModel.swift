@@ -46,11 +46,17 @@ public struct MikRequestLogModel: HandyJSON {
 
 
 public struct MikLogConfig {
-    public var email : String?
-    public var fcmToken : String?
 
-    public init(email: String? = nil, fcmToken: String? = nil) {
-        self.email = email
-        self.fcmToken = fcmToken
+
+    public var email : String?
+
+    public var enableConsoleLog : Bool = true
+    public var enableFileLog : Bool = true
+
+    public init(enableConsoleLog : Bool = true,
+                enableFileLog : Bool = true) {
+        self.enableFileLog = enableFileLog
+        self.enableConsoleLog = enableConsoleLog
     }
 }
+

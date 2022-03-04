@@ -16,7 +16,6 @@ class Test0ViewController: UITableViewController {
         case MikSwitch = "MikSwitch"
         case MikNumberControl = "MikNumberControl"
         case MikToast = "MikToast"
-        case MikEmptyView = "MikEmptyView"
         case MikGrowTextView = "MikGrowTextView"
         case MikDotProgressView = "MikDotProgressView"
         case MinStarsView = "MikStarsView"
@@ -101,8 +100,6 @@ extension Test0ViewController {
             self.navigationController?.pushViewController(MikNumberControlViewController(), animated: true)
         case .MikToast:
             self.navigationController?.pushViewController(MikToastViewController(), animated: true)
-        case .MikEmptyView:
-            self.navigationController?.pushViewController(MikEmptyViewController(), animated: true)
         case .MikGrowTextView:
             self.navigationController?.pushViewController(MikGrowTextViewViewController(), animated: true)
         case .MikDotProgressView:

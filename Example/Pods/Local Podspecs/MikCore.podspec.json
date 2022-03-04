@@ -33,23 +33,15 @@
         {
           "name": "NameSpace",
           "source_files": "MikCore/Classes/MikFoundation/NameSpace/**/*",
-          "frameworks": "UIKit"
-        },
-        {
-          "name": "Extensions",
-          "source_files": "MikCore/Classes/MikFoundation/Extensions/**/*",
+          "frameworks": "Photos",
           "dependencies": {
             "Kingfisher": [
-
+              "7.0.0"
             ],
             "KingfisherWebP": [
-
-            ],
-            "MikCore/MikFoundation/NameSpace": [
-
+              "1.4.0"
             ]
-          },
-          "frameworks": "Photos"
+          }
         },
         {
           "name": "MikValidateRegex",
@@ -63,7 +55,7 @@
             "ZLPhotoBrowser": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           },
@@ -79,7 +71,7 @@
             "HandyJSON": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ],
             "MikCore/MikFoundation/MikLogger": [
@@ -100,13 +92,10 @@
             "HandyJSON": [
 
             ],
-            "SwiftyBeaver": [
-
-            ],
             "SwiftyJSON": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ],
             "MikCore/MikKit/MikToast": [
@@ -129,7 +118,7 @@
             "JTAppleCalendar": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -144,7 +133,7 @@
             "JXSegmentedView": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -156,7 +145,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ],
             "RxSwift": [
@@ -177,7 +166,7 @@
             "ActiveLabel": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -189,7 +178,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -201,7 +190,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -213,7 +202,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -225,7 +214,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -237,7 +226,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -249,7 +238,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -261,7 +250,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -273,7 +262,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -285,7 +274,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -297,7 +286,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -309,7 +298,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ]
           }
@@ -321,7 +310,7 @@
             "SnapKit": [
 
             ],
-            "MikCore/MikFoundation/Extensions": [
+            "MikCore/MikFoundation/NameSpace": [
 
             ],
             "MikCore/MikKit/MikBottomPopController": [
@@ -341,9 +330,6 @@
             ],
             "MikCore/MikFoundation/NameSpace": [
 
-            ],
-            "MikCore/MikFoundation/Extensions": [
-
             ]
           }
         },
@@ -358,9 +344,6 @@
 
             ],
             "MikCore/MikFoundation/NameSpace": [
-
-            ],
-            "MikCore/MikFoundation/Extensions": [
 
             ],
             "SnapKit": [

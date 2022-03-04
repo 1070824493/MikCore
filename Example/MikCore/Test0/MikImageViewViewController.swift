@@ -27,16 +27,11 @@ class MikImageViewViewController: MikBaseViewController {
         return aStackView
     }()
 
-    override func loadView() {
-        view = MikScrollView(axis: .vertical)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        (view as? MikScrollView)?.setupSubViews([mStackView])
-        
+        view.addSubview(mStackView)
+
         mStackView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(UIViewController.mik.safeAreaMax.top)
             make.bottom.lessThanOrEqualToSuperview().inset(40)

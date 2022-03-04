@@ -5,8 +5,6 @@
 //  Created by ty on 2021/7/12.
 //
 
-
-import SwiftyBeaver
 import SwiftyJSON
 import UIKit
 
@@ -20,6 +18,7 @@ public func MikPrint(file: String = #file,
     MikLogger.debugPrint(message, file: file, method: method, line: line)
 }
 
+/// 日志库上传时用来区分APP
 private enum AppType: String {
     case buyer = "com.michaels.MikMobile.BuyerTool"
     case seller = "com.michaels.sellertool"
@@ -36,85 +35,63 @@ private enum AppType: String {
         }
     }
 
-    /// Datadog Service Name
-    var serverName: String {
-        switch self {
-        case .buyer:
-            return "mobile-ios-buyer"
-        case .seller:
-            return "mobile-ios-seller"
-        case .shopAndScan:
-            return "mobile-ios-shopscan"
-        case .shopAndScanIpad:
-            return "mobile-ios-shopscan-ipad"
-        case .unknown:
-            return self.bundleId
-        }
-    }
-
-    var uploadFilePath: String {
-        switch self {
-        case .buyer:
-            return "iOSBuyerLog"
-        case .seller:
-            return "iOSSellerLog"
-        case .shopAndScan:
-            return "iOSShopScanLog"
-        case .shopAndScanIpad:
-            return "iOSShopScanIpadLog"
-        case .unknown:
-            return self.bundleId
-        }
-    }
 }
 
 public class MikLogger: NSObject {
-
     fileprivate static let shared = MikLogger()
 
-    // ping
-    fileprivate var ping: SwiftyPing?
-    fileprivate var lastPing: Double = 0
+    fileprivate static var config: MikLogConfig? = MikLogConfig()
 
-    // fps
-    fileprivate var displayLink: CADisplayLink!
-    fileprivate var lastTime: CFTimeInterval = 0
-    fileprivate var count: Int = 0
-
-    fileprivate var fpsCallback: ((Double) -> ())?
-    fileprivate var pingCallback: ((PingResult?) -> ())?
-
-
-    fileprivate static var config: MikLogConfig?
+    // 本地日志队列
+    fileprivate static var mikLoggerQueue = DispatchQueue(label: "com.MikLogger.MikLogger.queue")
 
     fileprivate static var blackRequestList: [String] = []
+    fileprivate static var fileLogUrl: URL?
 
-    /// call init app type
     fileprivate var appType: AppType
 
     // api 耗时
     fileprivate static var durationTime: TimeInterval? {
         didSet {
-            let format = MikLogger.getFormatString()
-            MikLogger.console.format = format
-            MikLogger.file.format = format
+//            let format = MikLogger.getFormatString()
+//            MikLogger.console.format = format
+//            MikLogger.file.format = format
         }
     }
 
     fileprivate static var lastUploadLogTime: TimeInterval = 0
-
-    fileprivate static let console = ConsoleDestination() // log to Xcode Console
-    fileprivate static let file = FileDestination() // log to file
-
-
-
-    static let swiftyBeaver = SwiftyBeaver.self
-
     fileprivate static let saveLogDays = 7
 
     fileprivate static let datadogContext = "context"
     fileprivate static let datadogAttributeEmail = "email"
-    fileprivate static let datadogAttributeFCMToken = "fcmToken"
+
+    // 日志打印时间格式
+    static let logAPITimeFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "YYYY-MM-dd|HH:mm:ss.SSS"
+        f.timeZone = TimeZone.current
+        return f
+    }()
+
+    fileprivate enum LogLevelType {
+        case debug
+        case info
+        case warn
+        case error
+
+        func levelString() -> String {
+            switch self {
+            case .debug:
+                return " 💚 DEBUG "
+            case .info:
+                return " 💙 INFO "
+            case .warn:
+                return " 💛 WARN "
+            case .error:
+                return " ❤️ ERROR "
+            }
+        }
+    }
 
     override private init() {
         if let bundleId = Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as? String, let type = AppType(rawValue: bundleId) {
@@ -131,41 +108,16 @@ public extension MikLogger {
     /// 初始化日志库
     /// - Parameter blackList: 需要过滤的黑名单
     static func logInit(blackList: [String] = []) {
-
         MikLogger.blackRequestList = blackList
 
-        DispatchQueue.global().async {
+        let fileLogUrl = URL(string: MikLogger.getLogFilePath())
+        MikLogger.fileLogUrl = fileLogUrl
 
-            // 控制台日志(仅DEBUG生效)
-            let format = MikLogger.getFormatString()
-            #if DEBUG
-            MikLogger.console.format = format
-            MikLogger.swiftyBeaver.addDestination(MikLogger.console)
-            #endif
+        MikLogger.cleanLogFileWeeksAgo()
 
-            // 文件日志(需求：暂时不需要记录文件日志了)
-//            if let logFileUrl = URL(string: MikLogger.getLogFilePath()) {
-//                self.file.logFileURL = logFileUrl
-//                self.file.format = format
-//                MikLogger.swiftyBeaver.addDestination(self.file)
-//
-//                let line = FileDestination()
-//                line.logFileURL = logFileUrl
-//                line.format = "\n"
-//                MikLogger.swiftyBeaver.addDestination(line)
-//            }
+        MikLogger.debug(fileLogUrl?.absoluteString ?? "", nil)
 
-
-            MikLogger.cleanLogFileWeeksAgo()
-
-            MikLogger.logHardwareInformation()
-
-            MikLogger.shared.startPingOnce()
-
-            MikLogger.shared.startFPSOnce()
-            
-            MikLogger.debug("test", ["key" : "testValue", "key2" : false])
-        }
+        MikLogger.logHardwareInformation()
     }
 
     /// 登录成功后需调用此方法,记录当前的用户email,写进日志
@@ -173,15 +125,15 @@ public extension MikLogger {
         self.config = config
     }
 
-
     /// 记录错误API日志信息
     static func saveApiLog(model: MikRequestLogModel) {
         var model = model
         model.email = MikLogger.config?.email
 
-        // 过滤掉upload等信息的params
+        // 过滤掉黑名单中打印信息
         if MikLogger.blackRequestList.contains(where: { $0 == model.url }) {
             model.params = nil
+            model.response = nil
         }
 
         MikLogger.durationTime = model.requestDuration
@@ -201,7 +153,8 @@ public extension MikLogger {
                       method: String = #function,
                       line: Int = #line)
     {
-        swiftyBeaver.debug(message, file, method, line: line, context: attributes)
+        let context = attributes != nil ? JSON(attributes as Any) : nil
+        log(level: .debug, message: message, attributes: attributes, file: file, method: method, line: line)
     }
 
     static func info(_ message: String,
@@ -210,7 +163,8 @@ public extension MikLogger {
                      method: String = #function,
                      line: Int = #line)
     {
-        swiftyBeaver.info(message, file, method, line: line, context: attributes)
+        let context = attributes != nil ? JSON(attributes as Any) : nil
+        log(level: .info, message: message, attributes: attributes, file: file, method: method, line: line)
     }
 
     static func warn(_ message: String,
@@ -219,7 +173,8 @@ public extension MikLogger {
                      method: String = #function,
                      line: Int = #line)
     {
-        swiftyBeaver.warning(message, file, method, line: line, context: attributes)
+        let context = attributes != nil ? JSON(attributes as Any) : nil
+        log(level: .warn, message: message, attributes: attributes, file: file, method: method, line: line)
     }
 
     static func error(_ message: String,
@@ -228,27 +183,144 @@ public extension MikLogger {
                       method: String = #function,
                       line: Int = #line)
     {
-        swiftyBeaver.error(message, file, method, line: line, context: attributes)
+        let context = attributes != nil ? JSON(attributes as Any) : nil
+        log(level: .error, message: message, attributes: attributes, file: file, method: method, line: line)
     }
 }
 
 // MARK: - --- Private ----
 
-extension MikLogger {
-
-
-
-
-    fileprivate static func debugPrint(_ message: String,
-                                       file: String = #file,
-                                       method: String = #function,
-                                       line: Int = #line)
+private extension MikLogger {
+    static func debugPrint(_ message: String,
+                           file: String = #file,
+                           method: String = #function,
+                           line: Int = #line)
     {
-        swiftyBeaver.debug(message, file, method, line: line)
+        #if DEBUG
+        DispatchQueue.global().async {
+            print(message)
+        }
+        #endif
+    }
+
+    static func log(level: LogLevelType,
+                    message: String,
+                    attributes: [String: Any]? = nil,
+                    file: String = #file,
+                    method: String = #function,
+                    line: Int = #line)
+    {
+        var formatString = getFormatPrefixString() + logFileWriteFormatter.string(from: Date()) + level.levelString() + (file as NSString).lastPathComponent + "[\(line)] " + method + " - \(message)"
+
+        if let attributes = attributes {
+            formatString.append("\n\(JSON(attributes as Any))")
+        }
+
+        // 控制台日志
+        #if DEBUG
+        if config?.enableConsoleLog == true {
+            mikLoggerQueue.async {
+                print(formatString)
+            }
+        }
+        #endif
+
+        // 文件日志,按天异步写入单个文件
+        if config?.enableFileLog == true {
+            mikLoggerQueue.async {
+                saveToFile(str: formatString)
+            }
+        }
+    }
+
+    /// 打印设备及硬件信息
+    static func logHardwareInformation() {
+        var appVersion = ""
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String, let buildVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+            appVersion = "\(version)(\(buildVersion))"
+        }
+
+        MikLogger.info("app version:\(appVersion)")
+        MikLogger.info("device modelName:\(UIDevice.mik.modelName)")
+        MikLogger.info("systemVersion:\(UIDevice.current.systemName + UIDevice.current.systemVersion)")
+    }
+}
+
+// MARK: - --- Private Util Methods ----
+
+private extension MikLogger {
+    static func saveToFile(str: String) -> Bool {
+        guard let url = fileLogUrl else { return false }
+
+        let line = str + "\n"
+        guard let data = line.data(using: String.Encoding.utf8) else { return false }
+
+        return write(data: data, to: url)
+    }
+
+    static func write(data: Data, to url: URL) -> Bool {
+        var success = false
+        let coordinator = NSFileCoordinator(filePresenter: nil)
+        let fileManager = FileManager.default
+        var error: NSError?
+        coordinator.coordinate(writingItemAt: url, error: &error) { url in
+            do {
+                if fileManager.fileExists(atPath: url.path) == false {
+                    let directoryURL = url.deletingLastPathComponent()
+                    if fileManager.fileExists(atPath: directoryURL.path) == false {
+                        try fileManager.createDirectory(
+                            at: directoryURL,
+                            withIntermediateDirectories: true
+                        )
+                    }
+                    fileManager.createFile(atPath: url.path, contents: nil)
+
+                    #if os(iOS) || os(watchOS)
+                    if #available(iOS 10.0, watchOS 3.0, *) {
+                        var attributes = try fileManager.attributesOfItem(atPath: url.path)
+                        attributes[FileAttributeKey.protectionKey] = FileProtectionType.none
+                        try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
+                    }
+                    #endif
+                }
+
+                let fileHandle = try FileHandle(forWritingTo: url)
+                fileHandle.seekToEndOfFile()
+                fileHandle.write(data)
+
+//                fileHandle.synchronizeFile()
+
+                fileHandle.closeFile()
+                success = true
+            } catch {
+                print("MikLogger could not write to file \(url).")
+            }
+        }
+
+        if let error = error {
+            print("MikLogger failed writing file with error: \(String(describing: error))")
+            return false
+        }
+
+        return success
+    }
+
+    static func getFormatPrefixString() -> String {
+        let prefixStr = "-"
+        let prefixLen = 8
+
+        var str = prefixStr
+        if let durationTime = durationTime, durationTime > 0 {
+            str = "\(String(format: "%.0f", durationTime * 1000))ms"
+        }
+        while str.count < prefixLen {
+            str = prefixStr.appending(str)
+        }
+        return str + " "
     }
 
     /// 删除最近n天以外的日志
-    fileprivate static func cleanLogFileWeeksAgo() {
+    static func cleanLogFileWeeksAgo() {
         let files = self.getLogFileList()
 
         if files.count > MikLogger.saveLogDays {
@@ -263,51 +335,17 @@ extension MikLogger {
         }
     }
 
-    /// 获取当天日志文件大小
-    fileprivate static func getLogFileSize() -> CLongLong {
-        do {
-            let attr = try FileManager.default.attributesOfItem(atPath: self.getLogFilePath())
-            if let size = attr[FileAttributeKey.size] as? CLongLong {
-                return size
-            } else {
-                return 0
-            }
-        } catch {
-            return 0
+    /// 获取日志文件目录下的所有日志文件的文件名,日期升序排序(早的日期在前面)
+    static func getLogFileList() -> [String] {
+        if let files = FileManager.default.subpaths(atPath: self.getLogDirPath()) {
+            return files.sorted()
+        } else {
+            return []
         }
-    }
-
-    // 本地存储的日志文件时间格式/上传到服务器的文件名字
-    fileprivate static let logFileNameFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateFormat = "YYYY-MM-dd"
-        f.timeZone = TimeZone.current
-        return f
-    }()
-
-    // API调用时间格式
-    static let logAPITimeFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateFormat = "YYYY-MM-dd|HH:mm:ss.SSS"
-        f.timeZone = TimeZone.current
-        return f
-    }()
-
-    /// 获取日志文件存储路径,以当天日期为文件名创建
-    fileprivate static func getLogFilePath() -> String {
-        let fileName = logFileNameFormatter.string(from: Date()) + ".log"
-        let dirPath = self.getLogDirPath()
-        let logFilePath = dirPath + "/" + fileName
-
-        let isExist = FileManager.default.fileExists(atPath: logFilePath)
-        if isExist == false {
-            FileManager.default.createFile(atPath: logFilePath, contents: nil, attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
-        }
-        return logFilePath
     }
 
     /// 获取日志存放文件夹目录
-    fileprivate static func getLogDirPath() -> String {
+    static func getLogDirPath() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let libraryDirectory: String = paths[0]
         let dirPath = libraryDirectory + "/logs"
@@ -319,125 +357,34 @@ extension MikLogger {
         return dirPath
     }
 
-    fileprivate func runDisplayLink() {
-        displayLink = CADisplayLink(target: self, selector: #selector(tick))
-        displayLink.add(to: RunLoop.main, forMode: .common)
-    }
+    /// 获取日志文件存储路径,以当天日期为文件名创建
+    static func getLogFilePath() -> String {
+        let fileName = logFileNameFormatter.string(from: Date()) + ".log"
+        let dirPath = self.getLogDirPath()
+        let logFilePath = dirPath + "/" + fileName
 
-    @objc func tick() {
-        if lastTime == 0 {
-            lastTime = displayLink.timestamp
-            return
+        let isExist = FileManager.default.fileExists(atPath: logFilePath)
+        if isExist == false {
+            FileManager.default.createFile(atPath: logFilePath, contents: nil, attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
         }
-
-        count += 1
-        let timeDelta = displayLink.timestamp - lastTime
-        if timeDelta > 1 {
-            let fps = Double(count) / timeDelta
-            count = 0
-            lastTime = 0
-            MikLogger.info("FPS:\(String(format: "%.1f", fps))")
-            fpsCallback?(fps)
-            fpsCallback = nil
-            displayLink.remove(from: RunLoop.current, forMode: .common)
-            displayLink.invalidate()
-        }
+        return logFilePath
     }
 
-    static func getFormatString() -> String {
-        let prefixStr = "-"
-        let prefixLen = 8
-        let timeFormat = " $Dyyyy-MM-dd HH:mm:ss.SSS$d $C$L$c $N.$F:$l - $M $X"
-        if durationTime != nil {
-            var str = "\(String(format: "%.0f", durationTime! * 1000))ms"
-            while str.count < prefixLen {
-                str = prefixStr.appending(str)
-            }
-            return str + timeFormat
-        } else {
-            var str = prefixStr
+    // 本地存储的日志文件时间格式/上传到服务器的文件名字
+    static let logFileNameFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "YYYY-MM-dd"
+        f.timeZone = TimeZone.current
+        return f
+    }()
 
-            while str.count < prefixLen {
-                str = prefixStr.appending(str)
-            }
-            return str + timeFormat
-        }
-    }
-
-    /// ping一次服务器
-    /// - Parameter callback: ping结果回调
-    func startPingOnce(callback: ((PingResult?) -> ())? = nil) {
-        self.pingCallback = callback
-        let host = "www.michaels.com"
-        do {
-            var config = PingConfiguration(interval: 1.0, with: 1)
-            config.handleBackgroundTransitions = false
-            ping = try SwiftyPing(host: host, configuration: config, queue: DispatchQueue.global())
-            ping?.observer = { response in
-
-                MikLogger.shared.lastPing = response.duration
-                var message = "\(response.duration * 1000) ms"
-                if let error = response.error {
-                    if error == .responseTimeout {
-                        message = "Timeout \(message)"
-                    } else {
-                        print(error)
-                        message = error.localizedDescription
-                    }
-                }
-                MikLogger.info("Ping #\(host): \(message)")
-            }
-            ping?.finished = { [weak self] result in
-                guard let self = self else { return }
-                var message = "--- \(host) ping statistics ---"
-                message += "\(result.packetsTransmitted) transmitted, \(result.packetsReceived) received"
-                if let loss = result.packetLoss {
-                    message += String(format: " %.1f%% packet loss", loss * 100)
-                } else {
-                    message += ""
-                }
-                if let roundtrip = result.roundtrip {
-                    message += String(format: " round-trip min/avg/max/stddev = %.3f/%.3f/%.3f/%.3f ms", roundtrip.minimum * 1000, roundtrip.average * 1000, roundtrip.maximum * 1000, roundtrip.standardDeviation * 1000)
-                }
-                MikLogger.info(message)
-                self.pingCallback?(result)
-                self.pingCallback = nil
-            }
-            ping?.targetCount = 4
-            try ping?.startPinging()
-        } catch {
-            MikLogger.error("Ping #\(host): Failed")
-            pingCallback?(nil)
-            pingCallback = nil
-        }
-    }
-
-    /// 获取设备当前FPS
-    func startFPSOnce(callback: ((Double) -> ())? = nil) {
-        self.fpsCallback = callback
-        self.runDisplayLink()
-    }
-
-    /// 打印设备及硬件信息
-    static func logHardwareInformation() {
-        var appVersion = ""
-        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String, let buildVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
-            appVersion = "\(version)(\(buildVersion))"
-        }
-
-        MikLogger.info("app version:\(appVersion)")
-        MikLogger.info("device modelName:\(UIDevice.mik.modelName)")
-        MikLogger.info("systemVersion:\(UIDevice.current.systemName + UIDevice.current.systemVersion)")
-    }
-
-    /// 获取日志文件目录下的所有日志文件的文件名,日期升序排序(早的日期在前面)
-    static func getLogFileList() -> [String] {
-        if let files = FileManager.default.subpaths(atPath: self.getLogDirPath()) {
-            return files.sorted()
-        } else {
-            return []
-        }
-    }
+    // 日志记录的时间格式
+    static let logFileWriteFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+        f.timeZone = TimeZone.current
+        return f
+    }()
 
     /// 获取某日志文件名的全路径
     static func getLogFullPath(fileName: String) -> String {

@@ -113,7 +113,7 @@ extension UIView {
             let toast = try toastViewForMessage(message, title: title, image: image, style: style)
             showToast(toast, duration: duration, position: position, completion: completion)
         } catch ToastError.missingParameters {
-            MikLogger.debug("Error: message, title, and image are all nil")
+            print("Error: message, title, and image are all nil")
         } catch {}
     }
     
@@ -134,7 +134,7 @@ extension UIView {
             let toast = try toastViewForMessage(message, title: title, image: image, style: style)
             showToast(toast, duration: duration, point: point, completion: completion)
         } catch ToastError.missingParameters {
-            MikLogger.debug("Error: message, title, and image cannot all be nil")
+            print("Error: message, title, and image cannot all be nil")
         } catch {}
     }
     

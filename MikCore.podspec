@@ -58,6 +58,7 @@ TODO: Add long description of the pod here.
 
         d.dependency 'ZLPhotoBrowser'
         d.dependency 'MikCore/MikFoundation/NameSpace'
+        d.dependency 'MikCore/MikFoundation/MikLogger'
         d.frameworks = 'Photos'
     end
 
@@ -124,6 +125,8 @@ TODO: Add long description of the pod here.
         j.source_files  = 'MikCore/Classes/MikKit/MikStarView/**/*'
         j.dependency 'SnapKit'
         j.dependency 'MikCore/MikFoundation/NameSpace'
+        j.dependency 'RxSwift'
+        j.dependency 'RxCocoa'
     end
 
     mk.subspec 'MikDotProgressView' do |m|
@@ -159,6 +162,8 @@ TODO: Add long description of the pod here.
         
         w.dependency 'SnapKit'
         w.dependency 'MikCore/MikFoundation/NameSpace'
+        w.dependency 'RxSwift'
+        w.dependency 'RxCocoa'
     end
 
     mk.subspec 'MikNumberControl' do |x|
@@ -180,6 +185,7 @@ TODO: Add long description of the pod here.
         
         t.dependency 'SnapKit'
         t.dependency 'MikCore/MikFoundation/NameSpace'
+        t.dependency 'MikCore/MikKit/MikNavigationController'
     end
     
     mk.subspec 'MikPickerView' do |z|

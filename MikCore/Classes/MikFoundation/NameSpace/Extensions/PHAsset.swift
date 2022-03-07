@@ -191,7 +191,7 @@ public extension MikNameSpace where Base: PHAsset {
                     if let url = url, let data = try? Data(contentsOf: url), !data.isEmpty {
                         dataTups.append((theAsset.localIdentifier, data, MediaType.video, ExportType.mov.rawValue))
                     }else {
-                        MikPrint("未获取到视频文件")
+                        print("未获取到视频文件")
                     }
                     group.leave()
                 }
@@ -217,7 +217,7 @@ public extension MikNameSpace where Base: PHAsset {
                     if let imageData = imageData {
                         dataTups.append((theAsset.localIdentifier, imageData, .image, "jpeg"))
                     }else {
-                        MikPrint("未获取到图片文件")
+                        print("未获取到图片文件")
                     }
                     group.leave()
                 }
@@ -310,7 +310,7 @@ public extension MikNameSpace where Base: PHAsset {
         exportSession.exportAsynchronously(completionHandler: {
             let suc = exportSession.status == .completed
             if exportSession.status == .failed {
-                MikPrint("video export failed: \(exportSession.error?.localizedDescription ?? "")")
+                print("video export failed: \(exportSession.error?.localizedDescription ?? "")")
             }
             DispatchQueue.main.async {
                 complete(suc ? outputUrl : nil, exportSession.error)

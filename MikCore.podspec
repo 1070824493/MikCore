@@ -69,8 +69,8 @@ TODO: Add long description of the pod here.
         e.dependency 'HandyJSON', '~> 5.0.2'
         e.dependency 'MikCore/MikFoundation/NameSpace'
         e.dependency 'MikCore/MikFoundation/MikLogger'
-        e.dependency 'RxSwift', '~> 6.5.0'
-        e.dependency 'RxCocoa', '~> 6.5.0'
+        e.dependency 'RxSwift', '~> 6.2.0'
+        e.dependency 'RxCocoa', '~> 6.2.0'
     end
 
     mf.subspec 'MikLogger' do |f|
@@ -108,8 +108,8 @@ TODO: Add long description of the pod here.
         
         f.dependency 'SnapKit', '~> 5.6.0'
         f.dependency 'MikCore/MikFoundation/NameSpace'
-        f.dependency 'RxSwift', '~> 6.5.0'
-        f.dependency 'RxCocoa', '~> 6.5.0'
+        f.dependency 'RxSwift', '~> 6.2.0'
+        f.dependency 'RxCocoa', '~> 6.2.0'
     end
 
     mk.subspec 'MikPopoverView' do |g|
@@ -125,8 +125,8 @@ TODO: Add long description of the pod here.
         j.source_files  = 'MikCore/Classes/MikKit/MikStarView/**/*'
         j.dependency 'SnapKit', '~> 5.6.0'
         j.dependency 'MikCore/MikFoundation/NameSpace'
-        j.dependency 'RxSwift', '~> 6.5.0'
-        j.dependency 'RxCocoa', '~> 6.5.0'
+        j.dependency 'RxSwift', '~> 6.2.0'
+        j.dependency 'RxCocoa', '~> 6.2.0'
     end
 
     mk.subspec 'MikDotProgressView' do |m|
@@ -176,8 +176,8 @@ TODO: Add long description of the pod here.
         
         w.dependency 'SnapKit', '~> 5.6.0'
         w.dependency 'MikCore/MikFoundation/NameSpace'
-        w.dependency 'RxSwift', '~> 6.5.0'
-        w.dependency 'RxCocoa', '~> 6.5.0'
+        w.dependency 'RxSwift', '~> 6.2.0'
+        w.dependency 'RxCocoa', '~> 6.2.0'
     end
 
     mk.subspec 'MikNumberControl' do |x|
@@ -212,8 +212,8 @@ TODO: Add long description of the pod here.
 
     mk.subspec 'MikTextField' do |cc|
         cc.source_files  = 'MikCore/Classes/MikKit/MikTextField/**/*'
-        cc.dependency 'RxSwift', '~> 6.5.0'
-        cc.dependency 'RxCocoa', '~> 6.5.0'
+        cc.dependency 'RxSwift', '~> 6.2.0'
+        cc.dependency 'RxCocoa', '~> 6.2.0'
         cc.dependency 'MikCore/MikFoundation/NameSpace'
         cc.dependency 'SnapKit', '~> 5.6.0'
         

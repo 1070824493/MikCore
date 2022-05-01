@@ -18,6 +18,12 @@ public struct MikNameSpace<Base> {
     
 }
 
+public extension MikNameSpace {
+    static func className() -> String {
+        return String(describing: Base.self)
+    }
+}
+
 
 public protocol MikNameSpaceCompatible {
     

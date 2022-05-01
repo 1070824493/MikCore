@@ -42,8 +42,8 @@ TODO: Add long description of the pod here.
         a.source_files  = 'MikCore/Classes/MikFoundation/NameSpace/**/*'
         a.frameworks = 'UIKit', 'Foundation'
         a.frameworks = 'Photos'
-        a.dependency 'Kingfisher', '7.0.0'
-        a.dependency 'KingfisherWebP', '1.4.0'
+        a.dependency 'Kingfisher', '~> 7.0.0'
+        a.dependency 'KingfisherWebP', '~> 1.4.0'
     end
 
 
@@ -56,7 +56,7 @@ TODO: Add long description of the pod here.
     mf.subspec 'MikMedia' do |d|
       d.source_files  = 'MikCore/Classes/MikFoundation/MikMedia/**/*'
 
-        d.dependency 'ZLPhotoBrowser'
+        d.dependency 'ZLPhotoBrowser', '~> 4.3.0'
         d.dependency 'MikCore/MikFoundation/NameSpace'
         d.dependency 'MikCore/MikFoundation/MikLogger'
         d.frameworks = 'Photos'
@@ -65,18 +65,18 @@ TODO: Add long description of the pod here.
     mf.subspec 'MikNetWork' do |e|
       e.source_files  = 'MikCore/Classes/MikFoundation/MikNetWork/**/*'
 
-        e.dependency 'Alamofire'
-        e.dependency 'HandyJSON'
+        e.dependency 'Alamofire', '~> 5.6.1'
+        e.dependency 'HandyJSON', '~> 5.0.2'
         e.dependency 'MikCore/MikFoundation/NameSpace'
         e.dependency 'MikCore/MikFoundation/MikLogger'
-        e.dependency 'RxSwift'
-        e.dependency 'RxCocoa'
+        e.dependency 'RxSwift', '~> 6.5.0'
+        e.dependency 'RxCocoa', '~> 6.5.0'
     end
 
     mf.subspec 'MikLogger' do |f|
         f.source_files  = 'MikCore/Classes/MikFoundation/MikLogger/**/*'
-        f.dependency 'HandyJSON'
-        f.dependency 'SwiftyJSON'
+        f.dependency 'HandyJSON', '~> 5.0.2'
+        f.dependency 'SwiftyJSON', '~> 5.0.1'
         f.dependency 'MikCore/MikFoundation/NameSpace'
         f.dependency 'MikCore/MikKit/MikToast'
 
@@ -90,100 +90,114 @@ TODO: Add long description of the pod here.
     mk.subspec 'MikCalendarView' do |b|
         b.source_files  = 'MikCore/Classes/MikKit/MikCalendarView/**/*'
         
-        b.dependency 'SnapKit'
-        b.dependency 'JTAppleCalendar'
+        b.dependency 'SnapKit', '~> 5.6.0'
+        b.dependency 'JTAppleCalendar', '~> 8.0.3'
         b.dependency 'MikCore/MikFoundation/NameSpace'
     end
 
     mk.subspec 'MikSegmentedView' do |e|
         e.source_files  = 'MikCore/Classes/MikKit/MikSegmentedView/**/*'
         
-        e.dependency 'SnapKit'
-        e.dependency 'JXSegmentedView'
+        e.dependency 'SnapKit', '~> 5.6.0'
+        e.dependency 'JXSegmentedView', '~> 1.3.0'
         e.dependency 'MikCore/MikFoundation/NameSpace'
     end
 
     mk.subspec 'MikAlertView' do |f|
         f.source_files  = 'MikCore/Classes/MikKit/MikAlertView/**/*'
         
-        f.dependency 'SnapKit'
+        f.dependency 'SnapKit', '~> 5.6.0'
         f.dependency 'MikCore/MikFoundation/NameSpace'
-        f.dependency 'RxSwift'
-        f.dependency 'RxCocoa'
+        f.dependency 'RxSwift', '~> 6.5.0'
+        f.dependency 'RxCocoa', '~> 6.5.0'
     end
 
     mk.subspec 'MikPopoverView' do |g|
         g.source_files  = 'MikCore/Classes/MikKit/MikPopoverView/**/*'
         
-        g.dependency 'SnapKit'
-        g.dependency 'ActiveLabel'
+        g.dependency 'SnapKit', '~> 5.6.0'
+        g.dependency 'ActiveLabel', '~> 1.1.0'
         g.dependency 'MikCore/MikFoundation/NameSpace'
     end
 
 
     mk.subspec 'MikStarView' do |j|
         j.source_files  = 'MikCore/Classes/MikKit/MikStarView/**/*'
-        j.dependency 'SnapKit'
+        j.dependency 'SnapKit', '~> 5.6.0'
         j.dependency 'MikCore/MikFoundation/NameSpace'
-        j.dependency 'RxSwift'
-        j.dependency 'RxCocoa'
+        j.dependency 'RxSwift', '~> 6.5.0'
+        j.dependency 'RxCocoa', '~> 6.5.0'
     end
 
     mk.subspec 'MikDotProgressView' do |m|
         m.source_files  = 'MikCore/Classes/MikKit/MikDotProgressView/**/*'
         
-        m.dependency 'SnapKit'
+        m.dependency 'SnapKit', '~> 5.6.0'
         m.dependency 'MikCore/MikFoundation/NameSpace'
     end
 
     mk.subspec 'MikImageView' do |n|
         n.source_files  = 'MikCore/Classes/MikKit/MikImageView/**/*'
            
-        n.dependency 'SnapKit'
+        n.dependency 'SnapKit', '~> 5.6.0'
         n.dependency 'MikCore/MikFoundation/NameSpace'
     end
 
     mk.subspec 'MikGrowTextView' do |o|
         o.source_files  = 'MikCore/Classes/MikKit/MikGrowTextView/**/*'
         
-        o.dependency 'SnapKit'
+        o.dependency 'SnapKit', '~> 5.6.0'
         o.dependency 'MikCore/MikFoundation/NameSpace'
     end
 
     mk.subspec 'MikToast' do |r|
         r.source_files  = 'MikCore/Classes/MikKit/MikToast/**/*'
         
-        r.dependency 'SnapKit'
+        r.dependency 'SnapKit', '~> 5.6.0'
         r.dependency 'MikCore/MikFoundation/NameSpace'
+    end
+
+
+    mk.subspec 'MikPullToRefresh' do |aa|
+        aa.source_files  = 'MikCore/Classes/MikKit/MikPullToRefresh/**/*'
+        aa.dependency 'Kingfisher', '7.0.0'
+        aa.dependency 'MJRefresh', '3.7.5'
+        aa.dependency 'MikCore/MikFoundation/NameSpace'
+    end
+
+    mk.subspec 'MikBaseViewController' do |s|
+        s.source_files  = 'MikCore/Classes/MikKit/MikBaseViewController/**/*'
+        s.dependency 'MikCore/MikFoundation/NameSpace'
+        s.dependency 'MikCore/MikFoundation/MikLogger'
     end
 
     mk.subspec 'MikNavigationController' do |w|
         w.source_files  = 'MikCore/Classes/MikKit/MikNavigationController/**/*'
         
-        w.dependency 'SnapKit'
+        w.dependency 'SnapKit', '~> 5.6.0'
         w.dependency 'MikCore/MikFoundation/NameSpace'
-        w.dependency 'RxSwift'
-        w.dependency 'RxCocoa'
+        w.dependency 'RxSwift', '~> 6.5.0'
+        w.dependency 'RxCocoa', '~> 6.5.0'
     end
 
     mk.subspec 'MikNumberControl' do |x|
         x.source_files  = 'MikCore/Classes/MikKit/MikNumberControl/**/*'
         
-        x.dependency 'SnapKit'
+        x.dependency 'SnapKit', '~> 5.6.0'
         x.dependency 'MikCore/MikFoundation/NameSpace'
     end
 
     mk.subspec 'MikSwitch' do |y|
         y.source_files  = 'MikCore/Classes/MikKit/MikSwitch/**/*'
         
-        y.dependency 'SnapKit'
+        y.dependency 'SnapKit', '~> 5.6.0'
         y.dependency 'MikCore/MikFoundation/NameSpace'
     end
     
     mk.subspec 'MikBottomPopController' do |t|
         t.source_files  = 'MikCore/Classes/MikKit/MikBottomPopController/**/*'
         
-        t.dependency 'SnapKit'
+        t.dependency 'SnapKit', '~> 5.6.0'
         t.dependency 'MikCore/MikFoundation/NameSpace'
         t.dependency 'MikCore/MikKit/MikNavigationController'
     end
@@ -191,17 +205,17 @@ TODO: Add long description of the pod here.
     mk.subspec 'MikPickerView' do |z|
         z.source_files  = 'MikCore/Classes/MikKit/MikPickerView/**/*'
         
-        z.dependency 'SnapKit'
+        z.dependency 'SnapKit', '~> 5.6.0'
         z.dependency 'MikCore/MikFoundation/NameSpace'
         z.dependency 'MikCore/MikKit/MikBottomPopController'
     end
 
     mk.subspec 'MikTextField' do |cc|
         cc.source_files  = 'MikCore/Classes/MikKit/MikTextField/**/*'
-        cc.dependency 'RxSwift'
-        cc.dependency 'RxCocoa'
+        cc.dependency 'RxSwift', '~> 6.5.0'
+        cc.dependency 'RxCocoa', '~> 6.5.0'
         cc.dependency 'MikCore/MikFoundation/NameSpace'
-        cc.dependency 'SnapKit'
+        cc.dependency 'SnapKit', '~> 5.6.0'
         
         cc.frameworks = 'UIKit', 'Foundation'
         

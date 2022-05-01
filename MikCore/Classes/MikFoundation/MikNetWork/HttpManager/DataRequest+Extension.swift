@@ -10,11 +10,15 @@ import Foundation
 import HandyJSON
 import SwiftyJSON
 
+public let businessSuccessCode = ["200", "1"]
+public let successCode200 = "200"
+public let successMessage = "Succeed"
+
 extension DataRequest {
     static var configKey: Void?
-    var config: HTTPRequestConfig? {
+    var target: HTTPTarget? {
         get {
-            return objc_getAssociatedObject(self, &DataRequest.configKey) as? HTTPRequestConfig
+            return objc_getAssociatedObject(self, &DataRequest.configKey) as? HTTPTarget
         }
         set {
             objc_setAssociatedObject(self, &DataRequest.configKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -27,16 +31,34 @@ extension DataRequest {
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }
 
-    
     @discardableResult
-    func responseModel<T: HandyJSON>(map type: T.Type, queue: DispatchQueue = .main, completionHandler: @escaping (AFDataResponse<MikStandardModel<T>>) -> Void) -> Self {
-        let serializer = ModelResponseSerializer<T>.init()
+    func responseModel<M: HandyJSON>(map type: M.Type, queue: DispatchQueue = .main, completionHandler: @escaping (AFDataResponse<MikStandardModel<M>>) -> Void) -> Self {
+        let serializer = ModelResponseSerializer<M>.init(emptyResponseCodes: target?.emptyResponseCodes)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }
 
-    // MARK: - --- 解析器 ----
+    @discardableResult
+    func responseModelMap<M: HandyJSON>(map type: M.Type, queue: DispatchQueue = .main, completionHandler: @escaping (AFDataResponse<MikStandardModel<M>>) -> Void) -> Self {
+        let serializer = ModelMapResponseSerializer<M>.init(emptyResponseCodes: target?.emptyResponseCodes)
+        return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
+    }
 
-    /// SwiftJSON 解析器
+    @discardableResult
+    func responseModelArray<M: HandyJSON>(map type: M.Type, queue: DispatchQueue = .main, completionHandler: @escaping (AFDataResponse<MikStandardModel<M>>) -> Void) -> Self {
+        let serializer = ModelArrayResponseSerializer<M>.init(emptyResponseCodes: target?.emptyResponseCodes)
+        return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
+    }
+
+
+
+
+
+}
+
+//MARK: ---- 解析器 ----
+extension DataRequest {
+
+    /// 任意格式 -> JSON
     final class SwiftJSONResponseSerializer: ResponseSerializer {
         public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> JSON {
             guard error == nil else { throw error! }
@@ -50,66 +72,160 @@ extension DataRequest {
             }
 
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                return JSON(json)
+                if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) {
+                    return JSON(json)
+                }else if let str = String(data: data, encoding: .utf8) {
+                    return JSON.init(stringLiteral: str)
+                }else{
+                    return try JSON.init(data: data)
+                }
+
             } catch {
-                return JSON()
+                throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
             }
         }
     }
 
-    
-    /// T类型解析器
+    /// 标准格式T -> 标准T模型
     final class ModelResponseSerializer<T: HandyJSON>: ResponseSerializer {
-        init() {}
+        public let emptyResponseCodes: Set<Int>
+
+        init(emptyResponseCodes: Set<Int>? = nil) {
+            self.emptyResponseCodes = emptyResponseCodes ?? DataResponseSerializer.defaultEmptyResponseCodes
+        }
 
         public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> MikStandardModel<T> {
             guard error == nil else { throw error! }
 
-            let mikBaseModel = MikStandardModel<T>()
+            var mikBaseModel = MikStandardModel<T>()
             guard let data = data, !data.isEmpty else {
                 guard emptyResponseAllowed(forRequest: request, response: response) else {
                     throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
                 }
-                
+                // 空的response解析兼容
+                mikBaseModel.code = successCode200
+                mikBaseModel.message = successMessage
                 return mikBaseModel
             }
 
             do {
                 // T 标准格式解析
                 if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
-                    guard let root = T.deserialize(from: json, designatedPath: nil) else {
-                        return mikBaseModel
+                    // 解析标准格式code/data/message
+                    guard var standardResponse = MikStandardModel<T>.deserialize(from: json) else {
+                        throw MikError.deserializeNil
                     }
-                    mikBaseModel.data = root
-                    
-                    //解析标准格式code/data/message
-                    guard let standardResponse = MikStandardModel<T>.deserialize(from: json) else {
-                        return mikBaseModel
+
+                    // 解析标准格式data数组
+                    if let arrayData = json["data"] as? [Any] {
+                        guard let array = [T].deserialize(from: arrayData) else {
+                            throw MikError.deserializeNil
+                        }
+                        standardResponse.datas = array.compactMap { $0 }
+                        standardResponse.code = successCode200
+                        return standardResponse
                     }
-                    
-                    
+
                     return standardResponse
+                } else {
+                    print("数据格式非标准格式,请切换使用其他方式:---url: \(request?.url) \n, ---data: \(String(data: data, encoding: .utf8))")
+                    throw MikError.responseFormatError
                 }
-                // [T] : 非标准格式解析(后台如果返回格式标准, 将不会再存在这种直接解析数组的情况)
-                else if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [Any] {
+            } catch {
+                throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
+            }
+        }
+    }
+
+    /// 非标准格式[T] -> 标准T模型
+    final class ModelArrayResponseSerializer<T: HandyJSON>: ResponseSerializer {
+        public let emptyResponseCodes: Set<Int>
+
+        init(emptyResponseCodes: Set<Int>? = nil) {
+            self.emptyResponseCodes = emptyResponseCodes ?? DataResponseSerializer.defaultEmptyResponseCodes
+        }
+
+        public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> MikStandardModel<T> {
+            guard error == nil else { throw error! }
+
+            var mikBaseModel = MikStandardModel<T>()
+            guard let data = data, !data.isEmpty else {
+                guard emptyResponseAllowed(forRequest: request, response: response) else {
+                    throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
+                }
+                // 空的response解析兼容
+                mikBaseModel.code = successCode200
+                mikBaseModel.message = successMessage
+                return mikBaseModel
+            }
+
+            do {
+                //兼容字符串数组
+                if let stringArray = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String] {
+
+                    mikBaseModel.datas = stringArray as? [T]
+                    mikBaseModel.code = successCode200
+                    mikBaseModel.message = successMessage
+                    return mikBaseModel
+                }
+                if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [Any] {
+
                     guard let root = [T].deserialize(from: json)?.compactMap({ $0 }) else {
-                        return mikBaseModel
+                        throw MikError.deserializeNil
                     }
                     mikBaseModel.datas = root
-                    mikBaseModel.code = "200"
+                    mikBaseModel.code = successCode200
+                    mikBaseModel.message = successMessage
                     return mikBaseModel
+                } else {
+                    print("数据格式非[T],请切换使用其他方式:---url: \(request?.url) \n, ---data: \(String(data: data, encoding: .utf8))")
+                    throw MikError.responseFormatError
                 }
-                // 异常格式: 没有MikStandardModel中的code,data,message包装,也不是数组
-                else {
-                    
-                    print("异常格式,暂未处理:---url: \(request?.url) \n, ---data: \(String(data: data, encoding: .utf8))")
-                    return mikBaseModel
-                }
+            } catch {
+                throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
             }
-            catch {
+        }
+    }
+
+    /// 非标准格式T -> 标准T模型
+    final class ModelMapResponseSerializer<T: HandyJSON>: ResponseSerializer {
+        public let emptyResponseCodes: Set<Int>
+
+        init(emptyResponseCodes: Set<Int>? = nil) {
+            self.emptyResponseCodes = emptyResponseCodes ?? DataResponseSerializer.defaultEmptyResponseCodes
+        }
+
+        public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> MikStandardModel<T> {
+            guard error == nil else { throw error! }
+
+            var mikBaseModel = MikStandardModel<T>()
+            guard let data = data, !data.isEmpty else {
+                guard emptyResponseAllowed(forRequest: request, response: response) else {
+                    throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
+                }
+                // 空的response解析兼容
+                mikBaseModel.code = successCode200
+                mikBaseModel.message = successMessage
                 return mikBaseModel
+            }
+
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]{
+                    guard let root = T.deserialize(from: json) else {
+                        throw MikError.deserializeNil
+                    }
+                    mikBaseModel.data = root
+                    mikBaseModel.code = successCode200
+                    mikBaseModel.message = successMessage
+                    return mikBaseModel
+                } else {
+                    print("数据格式非T,请切换使用其他方式:---url: \(request?.url) \n, ---data: \(String(data: data, encoding: .utf8))")
+                    throw MikError.responseFormatError
+                }
+            } catch {
+                throw AFError.responseSerializationFailed(reason: .jsonSerializationFailed(error: error))
             }
         }
     }
 }
+

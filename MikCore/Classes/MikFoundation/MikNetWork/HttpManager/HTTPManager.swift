@@ -8,192 +8,255 @@
 import Alamofire
 import HandyJSON
 import RxSwift
-import UIKit
 import SwiftyJSON
+import UIKit
 
-public protocol MikNetworkerProtocol: AnyObject {
-    var token: String? { get }
-}
+public protocol HTTPPlugin {}
 
-public class HTTPManager: SessionDelegate {
-    public weak static var config: MikNetworkerProtocol?
+public typealias MikRequestModelResult<T: HandyJSON> = Result<MikStandardModel<T>, MikError>
+public typealias MikRequestModelHandler<T: HandyJSON> = (MikRequestModelResult<T>) -> Void
 
-    fileprivate static let shared = HTTPManager()
-    fileprivate static let sessionManager: Alamofire.Session = shared.initSessionManager()
-    private static let queue = DispatchQueue(label: "com.mik.httpRequest-queue", qos: .utility, attributes: .concurrent)
-    private func initSessionManager() -> Alamofire.Session {
+public typealias MikRequestJSONResult = Result<JSON, MikError>
+public typealias MikRequestJSONHandler = (MikRequestJSONResult) -> Void
+
+public class HTTPManager<Target: HTTPTarget> {
+    fileprivate let session: Session
+    private let queue = DispatchQueue(label: "com.mik.httpRequest-queue", qos: .utility, attributes: .concurrent)
+    private let retryInterceptor = RetryInterceptor()   //整个session生效,用于重试
+
+    /// unused TODO: HTTP Logger
+    private let plugins: [HTTPPlugin]?
+
+    private class func initSession(interceptor: RequestInterceptor?) -> Alamofire.Session {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForResource = 15
         configuration.timeoutIntervalForRequest = 30
-        let manager = Alamofire.Session(configuration: configuration, delegate: self)
-        return manager
+        let session = Session(configuration: configuration, interceptor: interceptor)
+        return session
+    }
+
+    public init(callbackQueue: DispatchQueue? = nil, plugins: [HTTPPlugin]? = nil) {
+        self.plugins = plugins
+        self.session = HTTPManager.initSession(interceptor: retryInterceptor)
     }
 }
 
-// MARK: - --- Public ----
-
-public extension HTTPManager {
-    /// Callback 调用方式
-    /// 返回需要解析模型
-    static func requestModel<T: HandyJSON>(type: T.Type, config: HTTPRequestConfig, callback: @escaping (MikStandardModel<T>?, Error?) -> Void) {
-        showHudIfNeeded(config.uiConfig)
-        HTTPManager.queue.async {
-            let request = HTTPManager.getRequest(with: config)
-            request.responseModel(map: type) { response in
-
-                hideHudIfNeeded(config.uiConfig)
-                callback(response.value, response.error)
-            }
-        }
+public extension HTTPHeader {
+    static func contentTypeForm() -> HTTPHeader {
+        return HTTPHeader.contentType("application/x-www-form-urlencoded; charset=utf-8")
     }
-    
 
-    /// RxSwift 调用方式
-    /// 返回需要解析模型
-    static func requestModelRx<T: HandyJSON>(config: HTTPRequestConfig) -> Observable<MikStandardModel<T>> {
-        let subject = PublishSubject<MikStandardModel<T>>()
-        let callback = RequestModelCallbackResponse(subject: subject)
-
-        HTTPManager.request(type: T.self, config: config, callback: callback)
-        return subject.asObservable()
-    }
-    
-    /// ⚠️⚠️⚠️返回JSON: 当不需要解析模型或者不需要处理返回结果时使用,尽量避免使用!!!
-    /// Callback 调用方式
-    /// 无需解析模型的,用此方法,JSON类型可避免map错误取值/后台字段变更等引发的闪退
-    static func requestSwiftyJSON(config: HTTPRequestConfig, callback: @escaping (JSON?, Error?) -> Void) {
-        showHudIfNeeded(config.uiConfig)
-        HTTPManager.queue.async {
-            let request = HTTPManager.getRequest(with: config)
-            request.responseSwiftyJSON { response in
-
-                hideHudIfNeeded(config.uiConfig)
-                callback(response.value, response.error)
-            }
-        }
-    }
-    
-    /// ⚠️⚠️⚠️返回JSON: 当不需要解析模型或者不需要处理返回结果时使用,尽量避免使用!!!
-    /// RxSwift 调用方式
-    /// 无需解析模型的,用此方法,JSON类型可避免map错误取值/后台字段变更等引发的闪退
-    static func requestSwiftyJSONRx(config: HTTPRequestConfig) -> Observable<JSON> {
-        let subject = PublishSubject<JSON>()
-        let callback = RequestJSONCallbackResponse(subject: subject)
-
-        HTTPManager.request(config: config, callback: callback)
-        return subject.asObservable()
+    static func contentTypeJSON() -> HTTPHeader {
+        return HTTPHeader.contentType("application/json")
     }
 }
 
-//MARK: -------------------- Upload ------------------------
-public extension HTTPManager {
-    
-    static func upload(config: HTTPRequestConfig, callback: @escaping (JSON?, Error?) -> Void) {
-        showHudIfNeeded(config.uiConfig)
-        HTTPManager.queue.async {
-            let request = HTTPManager.getUploadRequest(with: config)
-            
-            request.uploadProgress { (p) in
-                MikLogger.debug("upload.... \(p.completedUnitCount) / \(p.totalUnitCount)")
-                config.progress?(p)
+// MARK: - - Public ----
+//MARK: ---- Model With Callback ----
+extension HTTPManager: HTTPProvider {
+
+    @discardableResult
+    public func requestModelArray<M>(target: Target, model: M.Type, parameters: [String : Any]? = nil, body: Any? = nil, callback: @escaping MikRequestModelHandler<M>) -> DataRequest? where M : HandyJSON {
+        var request: DataRequest?
+
+        do {
+            let request = try self.getRequest(parameters: parameters, body: body, target: target).validate(statusCode: target.validateCode)
+            queue.async {
+                request.responseModelArray(map: model, queue: target.callbackQueue ?? .main) { [weak self] response in
+                    guard let `self` = self else { return }
+                    switch response.result {
+                    case .success(let value):
+                        callback(.success(value))
+                    case .failure(let error):
+                        callback(.failure(self.handerRequestError(error: error, data: response.data)))
+                    }
+                }
             }
-            
-            request.responseSwiftyJSON { response in
-                hideHudIfNeeded(config.uiConfig)
-                callback(response.value, response.error)
+            return request
+        } catch {
+            callback(.failure(MikError.invalidURL))
+            return nil
+        }
+    }
+
+    @discardableResult
+    public func requestModelMap<M>(target: Target, model: M.Type, parameters: [String : Any]? = nil, body: Any? = nil, callback: @escaping MikRequestModelHandler<M>) -> DataRequest? where M : HandyJSON {
+        var request: DataRequest?
+
+        do {
+            let request = try self.getRequest(parameters: parameters, body: body, target: target).validate(statusCode: target.validateCode)
+            queue.async {
+                request.responseModelMap(map: model, queue: target.callbackQueue ?? .main) { [weak self] response in
+                    guard let `self` = self else { return }
+                    switch response.result {
+                    case .success(let value):
+                        callback(.success(value))
+                    case .failure(let error):
+                        callback(.failure(self.handerRequestError(error: error, data: response.data)))
+                    }
+                }
             }
+            return request
+        } catch {
+            callback(.failure(MikError.invalidURL))
+            return nil
+        }
+    }
+
+    @discardableResult
+    public func requestSwiftyJSON(target: Target, parameters: [String : Any]? = nil, body: Any? = nil, callback: @escaping MikRequestJSONHandler) -> DataRequest? {
+        var request: DataRequest?
+
+        do {
+            let request = try self.getRequest(parameters: parameters, body: body, target: target).validate(statusCode: target.validateCode)
+            queue.async {
+                request.responseSwiftyJSON(queue: target.callbackQueue ?? .main) { [weak self] response in
+                    guard let `self` = self else { return }
+                    switch response.result {
+                    case .success(let value):
+                        callback(.success(value))
+                    case .failure(let error):
+                        let afErr = error as? AFError
+                        callback(.failure(self.handerRequestError(error: error, data: response.data)))
+                    }
+                }
+            }
+            return request
+        } catch {
+            callback(.failure(MikError.invalidURL))
+            return nil
+        }
+    }
+
+
+    @discardableResult
+    public func requestModel<M: HandyJSON>(target: Target, model: M.Type, parameters: [String: Any]? = nil, body: Any? = nil, callback: @escaping MikRequestModelHandler<M>) -> DataRequest? {
+        var request: DataRequest?
+
+        do {
+            let request = try self.getRequest(parameters: parameters, body: body, target: target).validate(statusCode: target.validateCode)
+            queue.async {
+                request.responseModel(map: model, queue: target.callbackQueue ?? .main) { [weak self] response in
+                    guard let `self` = self else { return }
+                    switch response.result {
+                    case .success(let value):
+                        callback(.success(value))
+                    case .failure(let error):
+                        callback(.failure(self.handerRequestError(error: error, data: response.data)))
+                    }
+                }
+            }
+            return request
+        } catch {
+            callback(.failure(MikError.invalidURL))
+            return nil
         }
     }
 }
 
-// MARK: - --- Private ----
+//MARK: ---- Extension Request With RxSwift ----
+extension HTTPManager {
+    public func requestModelRx<M>(target: Target, model: M.Type, parameters: [String : Any]? = nil, body: Any? = nil) -> Observable<MikRequestModelResult<M>> where M : HandyJSON {
+        return Observable<MikRequestModelResult<M>>.create { obs in
+
+            let request = self.requestModel(target: target, model: model, parameters: parameters, body: body) { result in
+                defer { obs.onCompleted() }
+                obs.onNext(result)
+            }
+            return Disposables.create { request?.cancel() }
+        }
+    }
+
+    public func requestSwiftyJSONRx(target: Target, parameters: [String : Any]? = nil, body: Any? = nil) -> Observable<MikRequestJSONResult> {
+        return Observable<MikRequestJSONResult>.create { obs in
+            let request = self.requestSwiftyJSON(target: target, parameters: parameters, body: body) { result in
+                defer { obs.onCompleted() }
+                obs.onNext(result)
+            }
+            return Disposables.create { request?.cancel() }
+        }
+    }
+}
+
+// MARK: - - Private ----
 
 extension HTTPManager {
     /// 构造请求
-    private static func getRequest(with config: HTTPRequestConfig) -> DataRequest {
-        let url = config.url
+    private func getRequest(parameters: [String: Any]?, body: Any?, target: HTTPTarget) throws -> DataRequest {
+//        if let mockData = target.mockData {
+//            session.sessionConfiguration.protocolClasses?.insert(MockProtocalClass.self, at: 0)
+//        }
+        if target.path.contains("?") { throw MikError.pathFormatError }
+        guard let path = target.path.mik.afUrlEncoding() else { throw MikError.invalidURL }
 
-        // 可在此拦截请求,配置header等
-        // token
-        if let token = HTTPManager.config?.token, !token.isEmpty {
-            let tokenHeader = HTTPHeader.authorization(bearerToken: token)
-            config.header(tokenHeader)
-        }
-        // json
-        if config.headers["Content-Type"] == nil {
-            let contentTypeHeader = HTTPHeader.contentType("application/json")
-            config.header(contentTypeHeader)
-        }
-
-        let request = sessionManager.request(url, method: config.method,
-                                             parameters: config.parameters,
-                                             encoding: config.parameterEncoding,
-                                             headers: config.headers) { urlRequest in
-            if let bodys = config.bodys{
-                let data = try? JSONSerialization.data(withJSONObject: bodys, options: .fragmentsAllowed)
+        let url = [target.baseURL, target.rootPath, path].compactMap { $0 }.joined(separator: "")
+        let request = session.request(url, method: target.method,
+                                      parameters: parameters,
+                                      encoding: target.parameterEncoding,
+                                      headers: target.headers) { urlRequest in
+            if let bodys = body, let data = try? JSONSerialization.data(withJSONObject: bodys, options: .fragmentsAllowed) {
                 urlRequest.httpBody = data
             }
-            if let timeoutIntervalForRequest = config.timeoutIntervalForRequest {
+            else if let body = body as? String, let httpBody = body.data(using: .utf8) {
+                urlRequest.httpBody = httpBody
+            }
+            if let timeoutIntervalForRequest = target.timeoutIntervalForRequest {
                 urlRequest.timeoutInterval = timeoutIntervalForRequest
             }
         }
-        
-        request.config = config
+    
+        request.target = target
+        retryInterceptor.target = target //默认拦截器
         return request
     }
-    
-    /// 构造upload请求
-    private static func getUploadRequest(with config: HTTPRequestConfig) -> DataRequest {
 
-        let requestData = MultipartFormData()
-        
-        for (index, file) in config.files.enumerated() {
-            if let data = file.data {
-                let fileName: String = file.fileName ?? UploadFileModel.randomFileName(fileType: file.fileType, index: index)
-                requestData.append(data, withName: file.fileType.withName, fileName: fileName, mimeType: file.fileType.mimeType)
+    /// 错误处理
+    private func handerRequestError(error: AFError, data: Data?) -> MikError {
+        switch error {
+        case .explicitlyCancelled:
+            return .cancel
+        case .invalidURL:
+            return .invalidURL
+        default:
+
+            guard let data = data else { return .deserializeNil }
+            var standardModel = MikStandardModel<MikEmptyModel>()
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any], let model = MikStandardModel<MikEmptyModel>.deserialize(from: json) {
+                    //返回的错误是标准格式
+                    standardModel = model
+                }else if let str = String(data: data, encoding: .utf8) {
+                    //返回的错误是字符串
+                    standardModel.message = str
+                }else{
+                    //其他异常格式
+                    let json = try JSON.init(data: data)
+                    print("错误信息返回了map与string以外的其他异常格式, 需要确认是否需要处理")
+                    return .errorFormatError
+                }
+
+            } catch {
+                return .errorFormatError
             }
-        }
-        
-        if let params = config.parameters, let paramsData = try? JSONSerialization.data(withJSONObject: params) {
-            requestData.append(paramsData, withName: "contentRequest", fileName: "blob", mimeType: "application/json")
-        }
-        
-        let uploadRequest = sessionManager.upload(multipartFormData: requestData, to: config.url, method: config.method, headers: config.headers)
 
-        return uploadRequest
-    }
-}
+            //兼容之前的错误处理逻辑,将标准模型解析的数据更新到现有模型
+            let errorInfo: MikResponseErrorInfoModel? = {
+                guard let errorJson = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+                    return nil
+                }
+                var info = MikResponseErrorInfoModel.deserialize(from: errorJson)
+                info?.httpCode = error.responseCode
 
-// MARK: - --- HUD管理 ----
+                //更新标准返回内容
+                if info?.message?.isEmpty ?? true {
+                    info?.message = standardModel.message
+                }
+                info?.code = standardModel.code
+                info?.data = standardModel.data
+                
+                return info
+            }()
 
-extension HTTPManager {
-    private static func showHudIfNeeded(_ config: HTTPUIConfig?) {
-        guard let hudConfig = config?.showHUDConifgure else {
-            return
-        }
-        exchangeMainQueue {
-            MikToast.showHUD(configure: hudConfig)
-        }
-    }
-
-    private static func hideHudIfNeeded(_ config: HTTPUIConfig?) {
-        guard let hudConfig = config?.showHUDConifgure else {
-            return
-        }
-        exchangeMainQueue {
-            MikToast.hideHUD(in: hudConfig.view)
-        }
-    }
-}
-
-/// 切换到主线程
-public func exchangeMainQueue(_ handle: @escaping () -> Void) {
-    if Thread.isMainThread {
-        handle()
-
-    } else {
-        DispatchQueue.main.async {
-            handle()
+            return .requestError(info: errorInfo)
         }
     }
 }

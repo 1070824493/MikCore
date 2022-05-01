@@ -71,6 +71,11 @@ public extension MikNameSpace where Base == String {
             return charSet
         }())
     }
+
+    /// URL编码
+    func afUrlEncoding() -> String? {
+        return self.base.addingPercentEncoding(withAllowedCharacters: .afURLQueryAllowed)
+    }
     
 }
 

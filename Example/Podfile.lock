@@ -34,14 +34,14 @@ PODS:
   - MikCore/MikFoundation/MikMedia (0.1.0):
     - MikCore/MikFoundation/MikLogger
     - MikCore/MikFoundation/NameSpace
-    - ZLPhotoBrowser (~> 4.3.0)
+    - ZLPhotoBrowser (~> 4.1.7)
   - MikCore/MikFoundation/MikNetWork (0.1.0):
     - Alamofire (~> 5.6.1)
     - HandyJSON (~> 5.0.2)
     - MikCore/MikFoundation/MikLogger
     - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.5.0)
-    - RxSwift (~> 6.5.0)
+    - RxCocoa (~> 6.2.0)
+    - RxSwift (~> 6.2.0)
   - MikCore/MikFoundation/MikValidateRegex (0.1.0)
   - MikCore/MikFoundation/NameSpace (0.1.0):
     - Kingfisher (~> 7.0.0)
@@ -66,8 +66,8 @@ PODS:
     - MikCore/MikKit/MikToast (= 0.1.0)
   - MikCore/MikKit/MikAlertView (0.1.0):
     - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.5.0)
-    - RxSwift (~> 6.5.0)
+    - RxCocoa (~> 6.2.0)
+    - RxSwift (~> 6.2.0)
     - SnapKit (~> 5.6.0)
   - MikCore/MikKit/MikBaseViewController (0.1.0):
     - MikCore/MikFoundation/MikLogger
@@ -91,8 +91,8 @@ PODS:
     - SnapKit (~> 5.6.0)
   - MikCore/MikKit/MikNavigationController (0.1.0):
     - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.5.0)
-    - RxSwift (~> 6.5.0)
+    - RxCocoa (~> 6.2.0)
+    - RxSwift (~> 6.2.0)
     - SnapKit (~> 5.6.0)
   - MikCore/MikKit/MikNumberControl (0.1.0):
     - MikCore/MikFoundation/NameSpace
@@ -115,32 +115,32 @@ PODS:
     - SnapKit (~> 5.6.0)
   - MikCore/MikKit/MikStarView (0.1.0):
     - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.5.0)
-    - RxSwift (~> 6.5.0)
+    - RxCocoa (~> 6.2.0)
+    - RxSwift (~> 6.2.0)
     - SnapKit (~> 5.6.0)
   - MikCore/MikKit/MikSwitch (0.1.0):
     - MikCore/MikFoundation/NameSpace
     - SnapKit (~> 5.6.0)
   - MikCore/MikKit/MikTextField (0.1.0):
     - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.5.0)
-    - RxSwift (~> 6.5.0)
+    - RxCocoa (~> 6.2.0)
+    - RxSwift (~> 6.2.0)
     - SnapKit (~> 5.6.0)
   - MikCore/MikKit/MikToast (0.1.0):
     - MikCore/MikFoundation/NameSpace
     - SnapKit (~> 5.6.0)
   - MJRefresh (3.7.5)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
+  - RxCocoa (6.2.0):
+    - RxRelay (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - RxRelay (6.2.0):
+    - RxSwift (= 6.2.0)
+  - RxSwift (6.2.0)
   - SnapKit (5.6.0)
   - SwiftyJSON (5.0.1)
-  - ZLPhotoBrowser (4.3.0):
-    - ZLPhotoBrowser/Core (= 4.3.0)
-  - ZLPhotoBrowser/Core (4.3.0)
+  - ZLPhotoBrowser (4.1.9):
+    - ZLPhotoBrowser/Core (= 4.1.9)
+  - ZLPhotoBrowser/Core (4.1.9)
 
 DEPENDENCIES:
   - MikCore (from `../`)
@@ -176,14 +176,14 @@ SPEC CHECKSUMS:
   Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
   KingfisherWebP: f4b76064c50a36c4cadd37548496ecebfdcb39e8
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
-  MikCore: d50daaaf603e72b97903b7cde665d08a1a0e1fc7
+  MikCore: 96ec570c19bde169c081ff563bea42fb06db8a79
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
-  ZLPhotoBrowser: 7c5c3ea5e42428d26dc74a52fe821aa2a9274fa3
+  ZLPhotoBrowser: 320aec37f64b0f58d40abd852956c64530011ea4
 
 PODFILE CHECKSUM: e00e17594cb771bf3cce56533c5d214865ba28e4
 

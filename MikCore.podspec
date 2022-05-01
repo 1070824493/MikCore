@@ -55,8 +55,7 @@ TODO: Add long description of the pod here.
   
     mf.subspec 'MikMedia' do |d|
       d.source_files  = 'MikCore/Classes/MikFoundation/MikMedia/**/*'
-
-        d.dependency 'ZLPhotoBrowser', '~> 4.3.0'
+        d.dependency 'ZLPhotoBrowser', '~> 4.1.7'
         d.dependency 'MikCore/MikFoundation/NameSpace'
         d.dependency 'MikCore/MikFoundation/MikLogger'
         d.frameworks = 'Photos'

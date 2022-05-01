@@ -53,7 +53,7 @@
           "source_files": "MikCore/Classes/MikFoundation/MikMedia/**/*",
           "dependencies": {
             "ZLPhotoBrowser": [
-              "~> 4.3.0"
+              "~> 4.1.7"
             ],
             "MikCore/MikFoundation/NameSpace": [
 
@@ -81,10 +81,10 @@
 
             ],
             "RxSwift": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ],
             "RxCocoa": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ]
           }
         },
@@ -152,10 +152,10 @@
 
             ],
             "RxSwift": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ],
             "RxCocoa": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ]
           }
         },
@@ -185,10 +185,10 @@
 
             ],
             "RxSwift": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ],
             "RxCocoa": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ]
           }
         },
@@ -278,10 +278,10 @@
 
             ],
             "RxSwift": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ],
             "RxCocoa": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ]
           }
         },
@@ -344,10 +344,10 @@
           "source_files": "MikCore/Classes/MikKit/MikTextField/**/*",
           "dependencies": {
             "RxSwift": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ],
             "RxCocoa": [
-              "~> 6.5.0"
+              "~> 6.2.0"
             ],
             "MikCore/MikFoundation/NameSpace": [
 

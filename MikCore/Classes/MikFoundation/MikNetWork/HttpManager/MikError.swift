@@ -14,6 +14,9 @@ public enum MikError: Error {
     /// 无效的'URL'
     case invalidURL
 
+    /// 拦截代理抛出的异常
+    case proxyDisabled
+
     /// 解析标准模型错误
     case deserializeNil
 
@@ -25,6 +28,9 @@ public enum MikError: Error {
 
     /// path路径中包含了请求参数
     case pathFormatError
+
+    /// json解析失败
+    case responseSerializationFailed(Error?)
 
     /// 其它错误
     case requestError(info: MikResponseErrorInfoModel?)
@@ -64,7 +70,7 @@ public extension MikError {
         }
     }
 
-    var data: Any? {
+    var data: Data? {
         switch self {
         case .requestError(let info):
             return info?.data
@@ -93,7 +99,7 @@ public struct MikResponseErrorInfoModel: HandyJSON {
     /// 标准返回字段
     public var code: String?
     public var message: String?
-    public var data: Any?
+    public var data: Data?  //请求返回的原始数据
 
     public var httpCode: Int?
 }

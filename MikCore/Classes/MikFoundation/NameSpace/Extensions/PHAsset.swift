@@ -175,7 +175,10 @@ public extension MikNameSpace where Base: PHAsset {
     ///   - isFull: 是否为原图
     ///   - complete: 处理结果回调
     static func convertAssetToData(_ assets: [PHAsset]?, isFull: Bool = true, complete: (([AssetDataValueTuple]?) -> Void)?) {
-        guard let assets = assets, assets.count > 0 else { return }
+        guard let assets = assets, !assets.isEmpty else {
+            complete?(nil)
+            return
+        }
         
         let group = DispatchGroup()
         

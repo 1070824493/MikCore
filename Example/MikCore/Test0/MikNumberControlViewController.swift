@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MikNumberControlViewController: MikBaseViewController {
+class MikNumberControlViewController: UIViewController {
 
     private lazy var numberControl: MikNumberControl = {
         let aNumberControl = MikNumberControl(config: {
@@ -18,6 +18,7 @@ class MikNumberControlViewController: MikBaseViewController {
             return aConfig
         }())
         aNumberControl.value = 5
+        aNumberControl.isEnabled = false
         aNumberControl.valueChangedHandler = { (value) in
             print("MikNumberControl value changed: \(value)")
         }
@@ -26,9 +27,10 @@ class MikNumberControlViewController: MikBaseViewController {
     
     private lazy var numberControl1: MikNumberControl = {
         let aNumberControl = MikNumberControl(config: nil)
-        aNumberControl.value = 5
-        aNumberControl.valueChangedHandler = { (value) in
+        aNumberControl.value = 4
+        aNumberControl.valueChangedHandler = { [weak self] (value) in
             print("MikNumberControl value changed: \(value)")
+            self?.numberControl.isEnabled = value > 5
         }
         return aNumberControl
     }()

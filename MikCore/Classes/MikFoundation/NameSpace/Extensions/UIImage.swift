@@ -7,6 +7,14 @@
 
 import UIKit
 
+public extension UIImage {
+    
+    static func image(_ name: String) -> UIImage? {
+        return UIImage(named: name, in: Bundle.mik.default, compatibleWith: nil)
+    }
+    
+}
+
 // MARK: - Utils
 public extension MikNameSpace where Base: UIImage {
     

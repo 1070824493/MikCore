@@ -1,8 +1,9 @@
 # MikCore
 
-[![Swift](https://img.shields.io/badge/Swift-5.0-orange?style=flat-square)](https://img.shields.io/badge/Swift-5.0-Orange?style=flat-square)
-[![Platforms](https://img.shields.io/badge/Platforms-iOS-yellowgreen?style=flat-square)](https://img.shields.io/badge/Platforms-iOS-Green?style=flat-square)
-
+[![CI Status](https://img.shields.io/travis/1070824493/MikCore.svg?style=flat)](https://travis-ci.org/1070824493/MikCore)
+[![Version](https://img.shields.io/cocoapods/v/MikCore.svg?style=flat)](https://cocoapods.org/pods/MikCore)
+[![License](https://img.shields.io/cocoapods/l/MikCore.svg?style=flat)](https://cocoapods.org/pods/MikCore)
+[![Platform](https://img.shields.io/cocoapods/p/MikCore.svg?style=flat)](https://cocoapods.org/pods/MikCore)
 
 ## Example
 
@@ -21,7 +22,7 @@ pod 'MikCore'
 
 ## Author
 
-1070824493@qq.com, tangyi.get@gmail.com
+1070824493, tangyi.get@gmail.com
 
 ## License
 

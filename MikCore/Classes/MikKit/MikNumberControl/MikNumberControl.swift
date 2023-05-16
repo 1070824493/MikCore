@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-public class MikNumberControl: UIView {
+public class MikNumberControl: UIControl {
     
     /// configure
     public struct Config {
@@ -26,11 +26,14 @@ public class MikNumberControl: UIView {
     /// current value
     public var value: Int = 0 {
         didSet {
-            self.valueBtn.setTitle("\(value)", for: .normal)
-            self.minusBtn.isEnabled = value > self.config.minValue
-            self.minusBtn.tintColor = value > self.config.minValue ? UIColor.mik.general(.hex1B1B1B) : UIColor.mik.general(.hex00856D)
-            self.plusBtn.isEnabled = value < self.config.maxValue
-            self.plusBtn.tintColor = value < self.config.maxValue ? UIColor.mik.general(.hex1B1B1B) : UIColor.mik.general(.hex00856D)
+            self.update()
+        }
+    }
+    
+    public override var isEnabled: Bool {
+        didSet {
+            guard isEnabled != oldValue else { return }
+            self.update()
         }
     }
     
@@ -38,7 +41,9 @@ public class MikNumberControl: UIView {
 
     private lazy var minusBtn: UIButton = {
         let aBtn = UIButton()
-        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF3F3F3)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF6F6F6)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF6F6F6)), for: .disabled)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF3F3F3, alpha: 0.5)), for: .highlighted)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
         aBtn.setImage(UIImage.image("mik_number_minus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         aBtn.addTarget(self, action: #selector(didClickOnMinusButton(_:)), for: .touchUpInside)
@@ -47,7 +52,9 @@ public class MikNumberControl: UIView {
     
     private lazy var plusBtn: UIButton = {
         let aBtn = UIButton()
-        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF3F3F3)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF6F6F6)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF6F6F6)), for: .disabled)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF6F6F6, alpha: 0.5)), for: .highlighted)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
         aBtn.setImage(UIImage.image("mik_number_plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         aBtn.addTarget(self, action: #selector(didClickOnPlusButton(_:)), for: .touchUpInside)
@@ -56,12 +63,14 @@ public class MikNumberControl: UIView {
     
     private lazy var valueBtn: UIButton = {
         let aBtn = UIButton()
-        aBtn.backgroundColor = UIColor.mik.general(.hexF3F3F3)
         aBtn.isUserInteractionEnabled = false
-        aBtn.titleLabel?.font = UIFont.mik.font(.nunitoSans, size: 14)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF6F6F6)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.mik.image(UIColor.mik.general(.hexF6F6F6)), for: .disabled)
+        aBtn.titleLabel?.font = UIFont.mik.font(.nunitoSansBold, size: 16)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         aBtn.setTitleColor(UIColor.mik.text(.hex1B1B1B), for: .normal)
-        aBtn.setTitle("0", for: .normal)
+        aBtn.setTitleColor(UIColor.mik.text(.hexCDCDCD), for: .disabled)
+        aBtn.setTitle("\(value)", for: .normal)
         return aBtn
     }()
     
@@ -115,9 +124,25 @@ extension MikNumberControl {
 // MARK: - Private
 extension MikNumberControl {
     
+    private func update() {
+        let isValueEnable = self.isEnabled
+        self.valueBtn.isEnabled = isValueEnable
+        self.valueBtn.tintColor = isValueEnable ? UIColor.mik.general(.hex1B1B1B) : UIColor.mik.general(.hexCDCDCD)
+        self.valueBtn.setTitle("\(value)", for: .normal)
+        
+        let isMinusEnable = self.isEnabled && self.value > self.config.minValue
+        self.minusBtn.isEnabled = isMinusEnable
+        self.minusBtn.tintColor = isMinusEnable ? UIColor.mik.general(.hex1B1B1B) : UIColor.mik.general(.hexCDCDCD)
+        
+        let isPlusEnable = self.isEnabled && self.value < self.config.maxValue
+        self.plusBtn.isEnabled = isPlusEnable
+        self.plusBtn.tintColor = isPlusEnable ? UIColor.mik.general(.hex1B1B1B) : UIColor.mik.general(.hexCDCDCD)
+    }
+    
     @objc
     private func didClickOnMinusButton(_ sender: UIButton) {
         guard self.value > self.config.minValue else { return }
+        defer { sendActions(for: .valueChanged) }
         self.value -= 1
         self.valueChangedHandler?(self.value)
     }
@@ -125,6 +150,7 @@ extension MikNumberControl {
     @objc
     private func didClickOnPlusButton(_ sender: UIButton) {
         guard self.value < self.config.maxValue else { return }
+        defer { sendActions(for: .valueChanged) }
         self.value += 1
         self.valueChangedHandler?(self.value)
     }

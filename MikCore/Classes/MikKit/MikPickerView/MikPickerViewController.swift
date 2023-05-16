@@ -32,6 +32,8 @@ public class MikPickerViewController: MikBottomPopViewController {
     
     public override var popupHeight: CGFloat { contentView.systemLayoutSizeFitting(UIScreen.main.bounds.size).height }
     
+    public override var popupTopCornerRadius: CGFloat { 0 }
+    
     public var confirmHandler: SelectedCallbacll?
         
     private let customConfirm: CustomButtonCallback?
@@ -46,6 +48,9 @@ public class MikPickerViewController: MikBottomPopViewController {
     
     private lazy var pickerView: MikPickerView = {
         let aPickerView = MikPickerView(title: titleText, items: items, customConfirm: customConfirm)
+        aPickerView.closeHandler = { [weak self] in
+            self?.dismiss(animated: true)
+        }
         aPickerView.confirmHandler = { [weak self] (indexPaths) in
             self?.dismiss(animated: true, completion: {
                 self?.confirmHandler?(indexPaths)

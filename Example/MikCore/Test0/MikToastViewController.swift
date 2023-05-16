@@ -7,17 +7,47 @@
 
 import UIKit
 
+
+fileprivate extension MikToast.MikHUDStyle {
+
+    var next: MikToast.MikHUDStyle? {
+        switch self {
+        case .activity: return .logo
+        case .logo: return .message("加载中....")
+        case .message(_): return nil
+        }
+    }
+    
+}
+
+fileprivate extension MikToast.MikToastStyle {
+    
+    var next: MikToast.MikToastStyle {
+        switch self {
+        case .information(let title, let message): return .success(title: title, message: message)
+        case .success(let title, let message): return .warn(title: title, message: message)
+        case .warn(let title, let message): return .error(title: title, message: message)
+        case .error(let title, let message): return .information(title: title, message: message)
+        }
+    }
+    
+}
+
 class MikToastViewController: UITableViewController {
 
     enum ToastStyle: String, CaseIterable {
-        case activityHUD = "Activity HUD", logoHUD = "Logo HUD", messageHUD = "Message HUD", hideHUD = "Hide HUD", infomation = "Infomation title & message toast", infomationTitle = "Infomation only titlle toast", success = "Success toast", warn = "Warn toast", error = "error toast"
+        case HUD = "HUD（点击显示其它样式）", toast = "Toast（点击显示其它样式）"
     }
+    
+    private var hudStyle: MikToast.MikHUDStyle? = .activity
     
     private var toastTypes: [ToastStyle] = ToastStyle.allCases
     
+    private var toastStyle: MikToast.MikToastStyle = .information(title: "This is tost title, this is tost title This is tost title, this is tost title This is tost title, this is tost title",
+                                                                  message: "This is tost message, this is tost message this is tost message this is tost message this is tost message this is tost message this is tost message this is tost message")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "\(type(of: self))"
         self.tableView.contentInsetAdjustmentBehavior = .never
         self.tableView.tableHeaderView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.mik.width, height: UIViewController.mik.safeAreaMax.top)))
 
@@ -34,17 +64,6 @@ class MikToastViewController: UITableViewController {
         
         // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -65,24 +84,21 @@ extension MikToastViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.toastTypes[indexPath.row] {
-        case .activityHUD: MikToast.showHUD(in: self.view)
-        case .logoHUD: MikToast.showHUD(style: .logo, in: self.view)
-        case .messageHUD: MikToast.showHUD(style: .message(ToastStyle.allCases.randomElement()?.rawValue), in: self.view)
-        case .hideHUD: MikToast.hideHUD(in: self.view)
-        case .infomation: MikToast.showToast(style: .information(title: "Type notification here Type n o t i fi ca ti on he re Typ e no tifi cation here", message: "Something can go here more Something can go here more Something can go here more"), action: MikToast.MikToastAction(title: "Undo", actionHandler: {
-            print("undo...")
-        }))
-        case .infomationTitle: MikToast.showToast(style: .information(title: "Type notification here Type Type notification here Type Type notification here Type", message: nil), action: MikToast.MikToastAction(title: "Undo", actionHandler: {
-            print("undo...")
-        }))
-        case .success: MikToast.showToast(in: self.view, style: .success(title: "Type notification", message: nil), action: MikToast.MikToastAction(title: "Undo", actionHandler: {
-            print("undo...")
-        }))
-        case .warn: MikToast.showToast(style: .warn(title: "Type notification here Type Type notification here Type Type notification here Type", message: nil), action: MikToast.MikToastAction(title: "Undo", actionHandler: {
-            print("undo...")
-        }))
-        case .error:
-            MikToast.showToast(style: .error(title: "Type notification here Type Type notification here Type Type notification here Type", message: nil), action: nil)
+            
+        case .HUD:
+            if let style = self.hudStyle {
+                self.hudStyle = self.hudStyle?.next
+                MikToast.showHUD(style: style, in: self.view, isInteraction: false)
+            }else {
+                self.hudStyle = .activity
+                MikToast.hideHUD(in: self.view)
+            }
+            
+        case .toast:
+            defer { self.toastStyle = self.toastStyle.next }
+            MikToast.showToast(style: self.toastStyle, action: MikToast.MikToastAction(title: "Action", actionHandler: {
+                print("Action...")
+            }))
         }
     }
     

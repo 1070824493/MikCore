@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TestListContraintsViewController: MikBaseViewController {
+class TestListContraintsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

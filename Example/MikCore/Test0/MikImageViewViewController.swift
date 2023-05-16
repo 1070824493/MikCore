@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MikImageViewViewController: MikBaseViewController {    
+class MikImageViewViewController: UIViewController {    
     
     private let imageViewSizes: [CGSize] = (0 ..< 7).map({ _ in CGSize(width: CGFloat.random(in: 50 ..< 200), height: CGFloat.random(in: 10 ..< 200)) })
     
@@ -27,11 +27,16 @@ class MikImageViewViewController: MikBaseViewController {
         return aStackView
     }()
 
+    override func loadView() {
+        view = MikScrollView(axis: .vertical)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(mStackView)
-
+        // Do any additional setup after loading the view.
+        (view as? MikScrollView)?.setupSubViews([mStackView])
+        
         mStackView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(UIViewController.mik.safeAreaMax.top)
             make.bottom.lessThanOrEqualToSuperview().inset(40)

@@ -9,6 +9,16 @@ import UIKit
 
 private var kAnimationCompleteKey: Void?
 
+// 'iOS 14.0'、'iOS 14.1' Pop回根视图后不显示‘TabBar’
+private let isErrorVision: Bool = {
+    guard let _ = ["14.0", "14.1"].first(where: {
+        UIDevice.current.systemVersion.hasPrefix($0)
+    }) else {
+        return false
+    }
+    return true
+}()
+
 public extension MikNavigationController {
     typealias AnimationComplete = (UIViewController.Type) -> Void
 
@@ -71,13 +81,26 @@ open class MikNavigationController: UINavigationController {
             super.pushViewController(viewController, animated: animated)
             interactivePopGestureRecognizer?.isEnabled = true
         }
-//        viewController.hidesBottomBarWhenPushed = viewControllers.count == 1
-        // 根据配置是否隐藏底部tabbar
-        viewController.hidesBottomBarWhenPushed = MikNavigationController.hidesBottomBarWhenPushedList.contains(where: {
-            type(of: viewController) == $0
-        })
+
+        viewController.hidesBottomBarWhenPushed = {
+            let configHide = Self.hidesBottomBarWhenPushedList.contains(where: { type(of: viewController) == $0 })
+            
+            switch viewControllers.count {
+            case 0:
+                // 根视图
+                return false
+                
+            case 1:
+                return configHide
+
+            default:
+                return viewControllers.last?.hidesBottomBarWhenPushed == true ? !isErrorVision : configHide
+            }
+        }()
+
         viewController.navigationItem.leftBarButtonItem = self.createBackButtonItem()
     }
+    
 }
 
 // MARK: - Assistant
@@ -92,7 +115,7 @@ extension MikNavigationController {
         config.shadowImage = UIImage()
         config.shadowColor = .clear
         config.titleTextAttributes = [.foregroundColor: UIColor.mik.general(.hex1B1B1B),
-                                      .font: UIFont.mik.font(.nunitoSansBold, size: 16)]
+                                      .font: UIFont.mik.font(.IBMPlexSerifBold, size: 16)]
 
         navigationBar.barStyle = UIBarStyle.default
         navigationBar.barTintColor = UIColor.mik.general(.hexFFFFFF)
@@ -109,7 +132,7 @@ extension MikNavigationController {
 
         let backButton = UIButton(type: .custom)
         backButton.contentHorizontalAlignment = .left
-        backButton.titleLabel?.font = UIFont.mik.font(.nunitoSansBold, size: 16.rate)
+        backButton.titleLabel?.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16.rate)
         backButton.setTitleColor(UIColor.mik.general(.hex1B1B1B), for: .normal)
         backButton.setImage(UIImage.image("nav_back"), for: .normal)
         backButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 4, bottom: 10, right: 14)

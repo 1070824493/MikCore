@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+/// 阴影偏移
+fileprivate let kShadowOffset: CGFloat = 2
+/// 横向内间距
+fileprivate let kHorizontalMargin: CGFloat = 24
+
 open class MikPopoverController: UIViewController {
     
     public struct Config {
@@ -16,7 +21,7 @@ open class MikPopoverController: UIViewController {
         public var backgroundColor: UIColor = .clear
         public var isDisplayArrow: Bool = true
         public var arrowSize: CGSize = CGSize(width: 10, height: 8)
-        public var arrowColor: UIColor = UIColor.mik.general(.hexFFF2DF)
+        public var arrowColor: UIColor = UIColor.mik.general(.hexF3F3F3)
         public var space: CGFloat = 4
     }
 
@@ -88,35 +93,37 @@ open class MikPopoverController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
+        defer {
+            configure()
+            setupSubviews()
+            setSubviewsConstraints()
+        }
+        
         // 确定具体的显示方向
-        switch self.direction {
+        switch direction {
             case .autoHorizontal:
-                if self.convertFrame.midX > self.view.bounds.midX {
-                    self.direction = .left
+                if convertFrame.midX > view.bounds.midX {
+                    direction = .left
                 }else {
-                    self.direction = .right
+                    direction = .right
                 }
             case .autoVertical:
-                if self.convertFrame.midY > self.view.bounds.midY {
-                    self.direction = .up
+                if convertFrame.midY > view.bounds.midY {
+                    direction = .up
                 }else {
-                    self.direction = .down
+                    direction = .down
                 }
             default:
                 break
         }
-        
-        configure()
-        setupSubviews()
-        setSubviewsConstraints()
     }
     
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        if let _ = touches.first(where: { self.mContentView.frame.contains($0.location(in: self.view)) }) {
+        if let _ = touches.first(where: { mContentView.frame.contains($0.location(in: self.view)) }) {
             return
         }
-        self.hidden(completion: nil)
+        hidden(completion: nil)
     }
 
 }
@@ -125,53 +132,73 @@ open class MikPopoverController: UIViewController {
 private extension MikPopoverController {
     
     private func configure() {
-        (self.view as? PCView)?.direction = self.direction
-        (self.view as? PCView)?.convertFrame = self.convertFrame
+        (view as? PCView)?.direction = direction
+        (view as? PCView)?.convertFrame = convertFrame
+        
+        customView.mik.setShadow(color: UIColor.mik.general(.hex000000), opacity: 0.1, offset: {
+            switch direction {
+            case .up: return CGSize(width: 0, height: -kShadowOffset)
+            case .down: return CGSize(width: 0, height: kShadowOffset)
+            case .left: return CGSize(width: -kShadowOffset, height: kShadowOffset)
+            case .right: return CGSize(width: kShadowOffset, height: kShadowOffset)
+            default: return CGSize.zero
+            }
+        }())
     }
     
     private func setupSubviews() {
-        self.view.addSubview(self.mContentView)
+        mContentView.addSubview(customView)
+        view.addSubview(mContentView)
     }
     
     private func setSubviewsConstraints() {
         let bArrowSize: CGSize = config.isDisplayArrow ? config.arrowSize : .zero
         
-        self.customView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+        customView.snp.makeConstraints { (make) in
+            let inset: UIEdgeInsets = {
+                switch direction {
+                case .up: return UIEdgeInsets(top: kShadowOffset, left: kHorizontalMargin, bottom: 0, right: kHorizontalMargin)
+                case .down: return UIEdgeInsets(top: 0, left: kHorizontalMargin, bottom: kShadowOffset, right: kHorizontalMargin)
+                case .left: return UIEdgeInsets(top: 0, left: kHorizontalMargin, bottom: kShadowOffset, right: 0)
+                case .right: return UIEdgeInsets(top: 0, left: 0, bottom: kShadowOffset, right: kHorizontalMargin)
+                default: return UIEdgeInsets.zero
+                }
+            }()
+            make.edges.equalToSuperview().inset(inset)
             make.size.lessThanOrEqualTo(self.view).priority(.required)
         }
         
-        switch self.direction {
+        switch direction {
             case .up:
-                self.mContentView.snp.makeConstraints { (make) in
+                mContentView.snp.makeConstraints { (make) in
                     make.left.greaterThanOrEqualToSuperview().priority(.high)
                     make.right.lessThanOrEqualToSuperview().priority(.high)
-                    make.centerX.equalTo(self.convertFrame.midX).priority(.low)
+                    make.centerX.equalTo(convertFrame.midX).priority(.low)
                     make.top.greaterThanOrEqualToSuperview()
-                    make.bottom.equalTo(self.view.snp.top).offset(self.convertFrame.minY - self.config.space - bArrowSize.height)
+                    make.bottom.equalTo(view.snp.top).offset(convertFrame.minY - config.space - bArrowSize.height)
                 }
             case .down:
-                self.mContentView.snp.makeConstraints { (make) in
+                mContentView.snp.makeConstraints { (make) in
                     make.left.greaterThanOrEqualToSuperview().priority(.high)
                     make.right.lessThanOrEqualToSuperview().priority(.high)
                     make.centerX.equalTo(self.convertFrame.midX).priority(.low)
-                    make.top.equalToSuperview().offset(self.convertFrame.maxY + self.config.space + bArrowSize.height)
+                    make.top.equalToSuperview().offset(convertFrame.maxY + config.space + bArrowSize.height)
                     make.bottom.lessThanOrEqualToSuperview()
                 }
             case .left:
-                self.mContentView.snp.makeConstraints { (make) in
+                mContentView.snp.makeConstraints { (make) in
                     make.top.greaterThanOrEqualToSuperview().priority(.high)
                     make.bottom.lessThanOrEqualToSuperview().priority(.high)
-                    make.centerY.equalTo(self.convertFrame.midY).priority(.low)
+                    make.centerY.equalTo(convertFrame.midY).priority(.low)
                     make.left.greaterThanOrEqualToSuperview()
-                    make.right.equalTo(self.view.snp.left).offset(self.convertFrame.minX - self.config.space - bArrowSize.height)
+                    make.right.equalTo(view.snp.left).offset(convertFrame.minX - config.space - bArrowSize.height)
                 }
             case .right:
-                self.mContentView.snp.makeConstraints { (make) in
+                mContentView.snp.makeConstraints { (make) in
                     make.top.greaterThanOrEqualToSuperview().priority(.high)
                     make.bottom.lessThanOrEqualToSuperview().priority(.high)
-                    make.centerY.equalTo(self.convertFrame.midY).priority(.low)
-                    make.left.equalToSuperview().offset(self.convertFrame.maxX + self.config.space + bArrowSize.height)
+                    make.centerY.equalTo(convertFrame.midY).priority(.low)
+                    make.left.equalToSuperview().offset(convertFrame.maxX + config.space + bArrowSize.height)
                     make.right.lessThanOrEqualToSuperview()
                 }
             default:

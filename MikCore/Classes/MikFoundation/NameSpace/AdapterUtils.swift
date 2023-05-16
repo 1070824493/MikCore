@@ -54,11 +54,25 @@ public extension MikNameSpace where Base: UIViewController {
         return UIEdgeInsets(top: UIWindow.mik.statusBarHeight, left: 0, bottom: UIWindow.mik.homeBarHeight, right: 0)
     }
     
-    /// 导航栏高度和标签栏高度
-    /// eg: 导航栏高度: UIViewController.mik.safeAreaMin.top
-    /// eg: 标签栏高度: UIViewController.mik.safeAreaMin.bottom
+    /// 包含导航栏高度和标签栏高度(静态方法,始终包含导航栏/标签栏高度)
+    /// eg: 导航栏高度: UIViewController.mik.safeAreaMax.top
+    /// eg: 标签栏高度: UIViewController.mik.safeAreaMax.bottom
     static var safeAreaMax: UIEdgeInsets {
         return UIEdgeInsets(top: UIWindow.mik.statusBarHeight + 44, left: 0, bottom: UIWindow.mik.homeBarHeight + 49, right: 0)
+    }
+
+    /// 返回当前实例导航栏高度和标签栏高度(隐藏时不包含)
+    /// eg: 导航栏高度: self.mik.safeAreaMax.top
+    /// eg: 标签栏高度: self.mik.safeAreaMax.bottom
+    var safeAreaMax: UIEdgeInsets {
+        return UIEdgeInsets(
+            top: UIWindow.mik.statusBarHeight + self.base.view.mik.safeAreas().top,
+            left: self.base.view.mik.safeAreas().left,
+            bottom: self.base.tabBarController?.tabBar.isHidden == true
+            ? self.base.view.mik.safeAreas().bottom
+            : self.base.view.mik.safeAreas().bottom + (self.base.tabBarController?.tabBar.bounds.height ?? 0),
+            right: self.base.view.mik.safeAreas().right
+        )
     }
     
     /// 安全区

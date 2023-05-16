@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class MikStarsViewViewController: MikBaseViewController {
+class MikStarsViewViewController: UIViewController {
 
     // 默认样式
     private lazy var starView: MikStarsView = MikStarsView()
@@ -18,13 +18,13 @@ class MikStarsViewViewController: MikBaseViewController {
     // 自定义样式
     private lazy var star1View: MikStarsView = MikStarsView(config: {
         var config = MikStarsView.Config()
-        config.maximumImage = UIImage(named: "mik_scorestar")
-        config.minimumImage = UIImage(named: "mik_scorestarfill")
-        config.maximumTincolor = UIColor.mik.general(.hexCDCDCD)
+        config.maximumImage = UIImage.image("mik_littlestar_n")
+        config.minimumImage = UIImage.image("mik_littlestar_s")
+        config.maximumTincolor = UIColor.mik.general(.hex1B1B1B)
         config.minimumTincolor = UIColor.mik.general(.hexCF1F2E)
         config.starHeight = 20
         config.space = 30
-        config.repeatCount = 3
+        config.repeatCount = 7
         config.isEditEnable = true
         return config
     }())
@@ -53,7 +53,7 @@ class MikStarsViewViewController: MikBaseViewController {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         starView.star = Float.random(in: 0 ..< 5)        
-        star1View.star = Float.random(in: 0 ..< 3)
+        star1View.star = Float.random(in: 0 ..< 7)
         print("random star: \(starView.star), \(star1View.star)....")
     }
     

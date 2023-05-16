@@ -22,14 +22,19 @@ public enum DateTransformType {
 
 public extension MikNameSpace where Base == DateFormatter {
     
-    private static let dateFormatter: DateFormatter = {
-        let aDateFormatter = DateFormatter()
-        aDateFormatter.amSymbol = "AM"
-        aDateFormatter.pmSymbol = "PM"
-        return aDateFormatter
-    }()
+    private static let dateFormatter: DateFormatter = DateFormatter()
     
-    static func formatter(_ dateFormat: String) -> DateFormatter {        
+    static func formatter(_ dateFormat: String) -> DateFormatter {
+        func reset() {
+            /// 重置，防止外部修改
+            Self.dateFormatter.calendar = .current
+            Self.dateFormatter.locale = Calendar.current.locale
+            Self.dateFormatter.timeZone = Calendar.current.timeZone
+            Self.dateFormatter.amSymbol = "AM"
+            Self.dateFormatter.pmSymbol = "PM"
+        }
+        
+        reset()
         Self.dateFormatter.dateFormat = dateFormat
         return Self.dateFormatter
     }

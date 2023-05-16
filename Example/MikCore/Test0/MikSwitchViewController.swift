@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MikSwitchViewController: MikBaseViewController {
+class MikSwitchViewController: UIViewController {
 
     private lazy var switch_: MikSwitch = {
         let aSwitch = MikSwitch()

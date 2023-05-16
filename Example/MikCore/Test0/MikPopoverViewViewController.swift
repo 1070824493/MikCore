@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MikPopoverViewViewController: MikBaseViewController {
+class MikPopoverViewViewController: UIViewController {
 
     private let buttons: [UIButton] = stride(from: UIViewController.mik.safeAreaMax.top, through: UIScreen.main.bounds.height, by: 100).map({
         let button = UIButton(frame: CGRect(x: CGFloat.random(in: 20 ..< UIScreen.main.bounds.width - 100), y: $0, width: 80, height: 44))
@@ -28,9 +28,10 @@ class MikPopoverViewViewController: MikBaseViewController {
     @objc
     private func didClickOnTestButton(_ sender: UIButton) {
         if Int.random(in: 0 ..< 2) == 0 {
-            MikDescPopoverView.descPopopverView(showIn: self, displayArrow: Int.random(in: 0 ..< 2) == 0, attributedMessage: NSAttributedString(string: "Your order on 1/23 will be cancelled. Your next order will arrive 1/30.", attributes: [.foregroundColor : UIColor.red, .font : UIFont.boldSystemFont(ofSize: 14)]), activeKeys: ["1/23", "1/30."], fromView: sender) { (text) in
+            MikDescPopoverView.descPopopverView(showIn: self, displayArrow: Int.random(in: 0 ..< 2) == 0, attributedMessage: NSAttributedString(string: "Your order \n on 1/23 will be cancelled. Your next order will arrive 1/30.", attributes: [.foregroundColor : UIColor.red, .font : UIFont.boldSystemFont(ofSize: 16)]), fromView: sender) { (text) in
                 print("tap: \(text)")
             }
+            
         }else {
             MikDescPopoverView.descPopopverView(showIn: self, displayArrow: Int.random(in: 0 ..< 2) == 0, message: "Your order on 1/23 will be cancelled. Your next order will arrive 1/30.", activeKeys: ["1/23", "1/30."], fromView: sender) { (text) in
                 print("tap: \(text)")

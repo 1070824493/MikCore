@@ -20,7 +20,7 @@ open class MikPopHeaderView: UIView {
     
     public private(set) lazy var titleLabel: UILabel = {
         let aLabel = UILabel()
-        aLabel.font = UIFont.mik.font(.nunitoSansBold, size: 16.rate)
+        aLabel.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16.rate)
         aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
         aLabel.text = title
         return aLabel
@@ -31,6 +31,8 @@ open class MikPopHeaderView: UIView {
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         aBtn.setImage(UIImage.image("nav_del"), for: .normal)
         aBtn.addTarget(self, action: #selector(didClickOnCloseButton(_:)), for: .touchUpInside)
+        aBtn.setContentHuggingPriority(UILayoutPriority(251), for: .horizontal)
+        aBtn.setContentCompressionResistancePriority(UILayoutPriority(751), for: .horizontal)
         return aBtn
     }()
     
@@ -73,13 +75,15 @@ extension MikPopHeaderView {
     }
     
     private func setupSubviewsConstraints() {
-        titleLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().inset(24)
-            make.centerY.equalToSuperview()
-        }
         
         closeBtn.snp.makeConstraints { (make) in
             make.right.equalToSuperview().inset(14)
+            make.centerY.equalToSuperview()
+        }
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().inset(24)
+            make.right.equalTo(closeBtn.snp.left).offset(-10)
             make.centerY.equalToSuperview()
         }
         

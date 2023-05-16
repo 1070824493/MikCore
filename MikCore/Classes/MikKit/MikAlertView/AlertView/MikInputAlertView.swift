@@ -68,7 +68,7 @@ public class MikInputAlertView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let aLabel = UILabel()
-        aLabel.font = UIFont.mik.font(.nunitoSansBold, size: 16)
+        aLabel.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16)
         aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
         aLabel.numberOfLines = 0
         aLabel.textAlignment = .center
@@ -91,7 +91,7 @@ public class MikInputAlertView: UIView {
         textField.textColor = UIColor.mik.text(.hex1B1B1B)
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.mik.general(.hex1B1B1B).cgColor
+        textField.layer.borderColor = UIColor.mik.general(.hexAEAEAE).cgColor
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 50))
         textField.leftViewMode = .always
         return textField

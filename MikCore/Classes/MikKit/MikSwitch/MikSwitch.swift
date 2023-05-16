@@ -55,7 +55,7 @@ public class MikSwitch: UISwitch {
         super.init(frame: frame)
         
         thumbTintColor = UIColor.mik.general(.hexFFFFFF)
-        
+        backgroundColor = UIColor.mik.general(.hexBDBDBD)
         onTintColor = UIColor.mik.general(.hexCF1F2E)
         addTarget(self, action: #selector(changeDotStyle), for: .valueChanged)
     }
@@ -63,7 +63,12 @@ public class MikSwitch: UISwitch {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.masksToBounds = true
+        layer.cornerRadius = frame.height / 2.0
+    }
 }
 extension MikSwitch {
     private func setupDotView(){

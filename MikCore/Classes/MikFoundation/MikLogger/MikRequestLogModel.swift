@@ -14,6 +14,7 @@ public struct MikRequestLogModel: HandyJSON {
     public var url: String?
     public var method: String?
     public var params: [String: Any]?
+    public var body: Any?
     public var requestHeader: [String: Any]?
     public var responseHeader: [String: Any]?
     public var requestTime: TimeInterval? {
@@ -46,17 +47,19 @@ public struct MikRequestLogModel: HandyJSON {
 
 
 public struct MikLogConfig {
-
-
     public var email : String?
-
-    public var enableConsoleLog : Bool = true
+    public var enableConsoleLog : Bool = false
     public var enableFileLog : Bool = true
+    public var enableDataDogLog : Bool = true
 
-    public init(enableConsoleLog : Bool = true,
-                enableFileLog : Bool = true) {
+    public init(email: String? = nil,
+                enableConsoleLog : Bool = false,
+                enableFileLog : Bool = true,
+                enableDataDogLog : Bool = true) {
+        self.email = email
         self.enableFileLog = enableFileLog
         self.enableConsoleLog = enableConsoleLog
+        self.enableDataDogLog = enableDataDogLog
     }
 }
 

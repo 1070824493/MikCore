@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 
-fileprivate let kMaxWidth: CGFloat = 288.rate
 fileprivate let kContentMaxWidth: CGFloat = 240.rate
 fileprivate let kScrollViewMaxHeight: CGFloat = 400.hRate
 
@@ -89,7 +88,7 @@ public class MikAlertView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let aLabel = UILabel()
-        aLabel.font = UIFont.mik.font(.nunitoSansBold, size: 16)
+        aLabel.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16)
         aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
         aLabel.preferredMaxLayoutWidth = kContentMaxWidth
         aLabel.textAlignment = .center
@@ -154,7 +153,7 @@ public class MikAlertView: UIView {
         })
         
         
-        defer { messageScrollView.bounces = self.messageScrollViewHeight > kScrollViewMaxHeight }
+        defer { messageScrollView.bounces = messageScrollViewHeight > kScrollViewMaxHeight }
         
         configure()
         setupSubviews()

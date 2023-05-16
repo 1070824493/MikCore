@@ -74,8 +74,6 @@ class ClassSingleCalendarDayCell: BaseCalendarDayCell {
 extension ClassSingleCalendarDayCell {
     
     private func setupSubviews() {
-        dayLabel.font = UIFont.mik.font(.nunitoSansBold, size: 14)
-        
         contentView.addSubview(selectedView)
         contentView.addSubview(dotsView)
     }

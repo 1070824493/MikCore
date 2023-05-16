@@ -60,32 +60,54 @@ fileprivate extension Resource {
     /// - Parameter size: 缩略图大小
     /// - Returns: 缩略图地址
     func asThumbURL(size: CGSize?) -> Resource? {
-        guard let size = size else { return self }
+        guard let size = size, let host = self.downloadURL.host else { return self }
         
-        guard self.downloadURL.host?.hasPrefix("imgproxy.") ?? false else {
-            // 该地址不支持取缩略图
-            return self
+        func imgproxyURL() -> Resource? {
+            // 只保留路径第一个和最后一个元素
+            let path: String? = {
+                let eles = self.downloadURL.path.split(separator: "/")
+                guard let first = eles.first, let last = eles.last else { return nil }
+                return [first, "fit/\(Int(size.width * UIScreen.main.scale))/\(Int(size.height * UIScreen.main.scale))/ce/1", last].joined(separator: "/")
+            }()
+            
+            guard let bPath = path else { return self }
+            
+            // 重组URL
+            let absoluteString: String? = {
+                guard var baseUrl = URL(string: "/", relativeTo: self.downloadURL)?.absoluteString else { return nil }
+                baseUrl.removeLast()
+                
+                return [baseUrl, bPath].joined(separator: "/")
+            }()
+            
+            guard let bAbsoluteString = absoluteString, let bURL = URL(string: bAbsoluteString) else { return self }
+            
+            return bURL
         }
         
-        // 只保留路径第一个和最后一个元素
-        let path: String? = {
-            let eles = self.downloadURL.path.split(separator: "/")
-            guard let first = eles.first, let last = eles.last else { return nil }
-            return [first, "fill/\(Int(size.width))/\(Int(size.height))/ce/1", last].joined(separator: "/")
-        }()
+        func michaelsURL() -> Resource? {
+            let hosts = ["static.platform.michaels.com", "imgs.michaels.com"]
+            
+            guard hosts.contains(host) else { return self }
+                 
+            // 重组URL
+            let absoluteString: String? = {
+                guard var baseUrl = URL(string: "/", relativeTo: self.downloadURL)?.absoluteString else { return nil }
+                baseUrl.removeLast()
+                
+                let path = self.downloadURL.path
+                let querys = "?fit=inside%7C\(Int(size.width * UIScreen.main.scale)):\(Int(size.height * UIScreen.main.scale))"
+                return baseUrl + path + querys
+            }()
+            
+            guard let bAbsoluteString = absoluteString, let bURL = URL(string: bAbsoluteString) else { return self }
+            
+            return bURL
+        }
         
-        guard let bPath = path else { return self }
+        if host.hasPrefix("imgproxy.") { return imgproxyURL() }
         
-        // 重组URL
-        let absoluteString: String? = {
-            guard var baseUrl = URL(string: "/", relativeTo: self.downloadURL)?.absoluteString else { return nil }
-            baseUrl.remove(at: baseUrl.index(before: baseUrl.endIndex))
-            return [baseUrl, bPath].joined(separator: "/")
-        }()
-        
-        guard let bAbsoluteString = absoluteString, let bURL = URL(string: bAbsoluteString) else { return self }
-        
-        return bURL
+        return michaelsURL()
     }
     
 }
@@ -181,8 +203,9 @@ public struct MikKingfisher {
                         if let image = UIImage(data: data) {
                             ImageCache.default.store(image, original: data, forKey: cacheKey)
                             completeHandle?(image)
+                        }else {
+                            completeHandle?(nil)
                         }
-                        completeHandle?(nil)
                     case .failure(_):
                         completeHandle?(nil)
                     }
@@ -232,10 +255,10 @@ public extension MikNameSpace where Base: UIImageView {
         }
         
         return self.base.kf.setImage(with: url.asThumbURL(type: type),
-                             placeholder: placeholder,
-                             options: type.options,
-                             progressBlock: progressBlock,
-                             completionHandler: completionHandler)
+                                     placeholder: placeholder,
+                                     options: type.options,
+                                     progressBlock: progressBlock,
+                                     completionHandler: completionHandler)
     }
     
     @discardableResult

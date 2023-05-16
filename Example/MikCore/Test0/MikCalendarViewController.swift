@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MikCalendarViewController: MikBaseViewController {
+class MikCalendarViewController: UIViewController {
 
     private let style: MikCalendarStyle
     
@@ -16,8 +16,9 @@ class MikCalendarViewController: MikBaseViewController {
         let aMouthView = MikCalendarView.calendarMouthView(style: style)
         aMouthView.scrollToDate(Date(), animateScroll: false)
         aMouthView.visibleDateChangedHandler = { visibleDates in
-            if let date = visibleDates.monthDates.last?.date ?? visibleDates.outdates.last?.date {
-                print("visibleDates.last: \(date)")
+            if let date = visibleDates.monthDates.first?.date ?? visibleDates.outdates.first?.date {
+                let dateDesc = DateFormatter.mik.formatter("yyyy-MM-dd HH:mm").string(from: date)
+                print("visibleDates.first: \(date)")
             }
         }
         aMouthView.selectedDateChangedHandler = { style in
@@ -141,7 +142,7 @@ class MikCalendarViewController: MikBaseViewController {
     
     @objc
     private func exchangedDisplayStyle(_ sender: UIButton) {
-        monthView.setupFolding(true)
+        _ = monthView.setupFolding(true)
     }
     
 }

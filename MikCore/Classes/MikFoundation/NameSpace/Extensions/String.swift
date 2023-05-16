@@ -143,3 +143,29 @@ public extension MikNameSpace where Base == String {
     }
     
 }
+
+
+public extension MikNameSpace where Base == String {
+    
+    func capitalized() -> String {
+        let uppercases = [ "ok" ]
+        
+        // 首字母不大写的虚词 (非首尾位置)
+        let filters = [ "a", "an", "at", "the", "this", "my", "our", "his", "her", "its", "all", "and", "but", "for", "or", "so", "as", "in", "up", "of", "off", "on", "by", "to" ]
+        if uppercases.contains(self.base.lowercased()) {
+            return self.base.uppercased()
+        } else {
+            let array = self.base.components(separatedBy: " ")
+            var items = [String]()
+            for (index, item) in array.enumerated() {
+                if filters.contains(item.lowercased()) && index != 0 && index != (array.count - 1) {
+                    items.append(item.lowercased())
+                } else {
+                    items.append(item.capitalized)
+                }
+            }
+            return items.joined(separator: " ")
+        }
+    }
+    
+}

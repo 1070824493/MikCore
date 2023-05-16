@@ -9,7 +9,7 @@ import UIKit
 
 public extension MikToast {
     
-    struct HUDConifgure {
+    public struct HUDConifgure {
         let view: UIView?
         var style: MikHUDStyle = .activity
         var isInteraction: Bool = false
@@ -21,11 +21,12 @@ public extension MikToast {
         }
     }
     
-    static func showHUD(configure: HUDConifgure) {
+    public static func showHUD(configure: HUDConifgure) {
         Self.showHUD(style: configure.style, in: configure.view, isInteraction: configure.isInteraction)
     }
     
 }
+
 
 public class MikToast {
     
@@ -112,7 +113,7 @@ public class MikToast {
         DispatchQueue.main.async {
             // Hide current HUD
             view.hideToastActivity(animation: false)
-            // Show HUD delay
+            // Show HUD
             view.makeToastActivity(hudView, .center, false)
         }
     }
@@ -135,7 +136,7 @@ public class MikToast {
     
     /// Hides all HUD in view.
     public static func hideHUD(in view: UIView?) {
-        DispatchQueue.main.async { view?.hideToastActivity() }
+        DispatchQueue.main.async { view?.hideToastActivity(animation: false) }
     }
 
 }

@@ -37,8 +37,6 @@ public protocol HTTPTarget {
 
     var emptyResponseCodes: Set<Int> { get }
 
-//    var mockData: Data? { get }
-
 }
 
 public extension HTTPTarget {
@@ -67,15 +65,17 @@ public extension HTTPTarget {
         return nil
     }
 
-    /// 用于单元测试/接口不通时自定义测试
-//    var mockData: Data? {
-//        return nil
-//    }
-
-
     /// 默认成功200,但是response为空的,也算成功
     var emptyResponseCodes: Set<Int> {
         return [200,204,205]
+    }
+
+}
+
+public extension HTTPTarget {
+
+    var fullUrl: String {
+        return [baseURL, rootPath, path].compactMap { $0 }.joined(separator: "")
     }
 
 }

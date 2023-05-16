@@ -6,14 +6,17 @@
 //
 
 import Foundation
- 
+
 public enum MikValidateRegex {
-        
+    
     case nickname(String)
     case firstName(String)
     case lastName(String)
     case bankName(String)
     case businessName(String)
+    case address(String)
+    case city(String)
+    case zipCode(String)
     
     case email(String)
     case URL(String)
@@ -39,24 +42,28 @@ public extension MikValidateRegex {
         
         switch self {
         case .email(let str):
-            valuesTuple = (str, "^\\S+@\\S+\\.\\S{2,}$")
-            
+            valuesTuple = (str, "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")
+
         case .nickname(let str):
             valuesTuple = (str, "(^[a-zA-Z][a-zA-Z\\s]{0,20}[a-zA-Z]$)")
             
         case .firstName(let str),
-             .lastName(let str),
-             .businessName(let str):
+                .lastName(let str),
+                .businessName(let str):
             valuesTuple = (str, "^([a-zA-Z]+\\s?)*[a-zA-Z]+$")
-        
-        case .bankName(let str):
-            valuesTuple = (str, "^(\\S+\\s?)*\\S+$")
+                    
+        case .bankName(let str),
+                .address(let str),
+                .city(let str):
+            valuesTuple = (str, "^(\\S\\s?)*\\S$")
+        case .zipCode(let str):
+            valuesTuple = (str, "^\\d{5}(-?\\d{4})?$")
             
         case .URL(let str):
-//            let regular = "^(((ht|f)tps?):\\/\\/)?[\\w-]+(\\.[\\w-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?$"
+            //            let regular = "^(((ht|f)tps?):\\/\\/)?[\\w-]+(\\.[\\w-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?$"
             let regular = "^((http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.))?|www\\.){1}([0-9A-Za-z-\\.@:%_\\+~#=]+)+((\\.[a-zA-Z]{2,7})+)(\\/(.)*)?(\\?(.)*)?"
             valuesTuple = (str, regular)
-
+            
         case .usaPhoneNum(let str):
             valuesTuple = (str, "^([2-9]{1}\\d{9})$")
             
@@ -76,7 +83,7 @@ public extension MikValidateRegex {
         case .custom(let text, let regular):
             valuesTuple = (text, regular)
         }
-                                
+        
         return NSPredicate(format: "SELF MATCHES %@", valuesTuple.regular).evaluate(with: valuesTuple.text)
     }
     

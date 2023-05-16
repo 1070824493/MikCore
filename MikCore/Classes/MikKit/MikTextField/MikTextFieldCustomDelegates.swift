@@ -23,8 +23,8 @@ open class CustomTextFieldVaildateProxy: TextFieldDelegate {
     }
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // 忽略高亮
-        if let range = textField.markedTextRange, let _ = textField.position(from: range.start, offset: 0) {
+        // 忽略文本替换
+        if range.length != 0 {
             return true
         }
         
@@ -42,11 +42,6 @@ open class CustomTextFieldVaildateProxy: TextFieldDelegate {
 @objc extension CustomTextFieldVaildateProxy {
         
     private func textFieldEditChanged(_ textField: UITextField) {
-        // 高亮忽略
-        if let selectedRange = textField.markedTextRange, let _ = textField.position(from: selectedRange.start, offset: 0) {
-            return
-        }
-                
         let finalText: String? = {
             if let formatteTuple = self.style.formatteTuple {
                 return textField.text?.mik.formatter(splitLenths: formatteTuple.splitLenths, separator: formatteTuple.separator)
@@ -58,7 +53,7 @@ open class CustomTextFieldVaildateProxy: TextFieldDelegate {
             // 正常输入范围
             return
         }
-                
+        
         var subText: String?
         var indexCount = self.style.inputMaxCount
         repeat {

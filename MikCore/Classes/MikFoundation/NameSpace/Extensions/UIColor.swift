@@ -78,7 +78,8 @@ public extension MikNameSpace where Base: UIColor {
         case hexBDE4DF = "#BDE4DF", hexFEF1EF = "#FEF1EF", hexF9E4BD = "#F9E4BD"
         case hexEBF5FC = "#EBF5FC", hexE9F5F3 = "#E9F5F3", hexFF69B4 = "#FF69B4"
         case hexFFC0CB = "#FFC0CB", hexFFB6C1 = "#FFB6C1", hex4C9DCF = "#4C9DCF"
-        case hexBCAA95 = "#BCAA95", hexFBFBFB = "#FBFBFB"
+        case hexBCAA95 = "#BCAA95", hexFBFBFB = "#FBFBFB", hexBDBDBD = "#BDBDBD"
+        case hexB01A27 = "#B01A27"
     }
     
     /// 根据色值名称取颜色

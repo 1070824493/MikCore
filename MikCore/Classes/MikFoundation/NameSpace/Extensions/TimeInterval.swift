@@ -14,17 +14,19 @@ public extension MikNameSpace where Base == TimeInterval {
     
     /// 时间格式化类型
     enum TimeFormatterSceneType {
-        case chatConversation, chatMessage, notification
-    }   
+        /// 与当前时间比， 同年同日："h:mm a"，同年非同日："M/d"，其它："M/d/yyyy"
+        case scene_a
+        /// 与当前时间比， 同年同日："h:mm a"，同年非同日："M/d h:mm a"，其它："M/d/yyyy h:mm a"
+        case scene_b
+    }
     
     /// 根据类型格式化时间
     /// - Parameter type: 格式化类型
     /// - Returns: 格式化结果
     func formatterValue(type: TimeFormatterSceneType) -> String {
         switch type {
-        case .chatConversation: return self.chatConversationTimeFormat()
-        case .chatMessage: return self.chatMesssageTimeFormat()
-        case .notification: return self.chatMesssageTimeFormat()
+        case .scene_a: return self.stringFormatForScene_a()
+        case .scene_b: return self.stringFormatForScene_b()
         }
     }
     
@@ -33,8 +35,10 @@ public extension MikNameSpace where Base == TimeInterval {
 
 fileprivate extension MikNameSpace where Base == TimeInterval {
     
-    /// 聊天专用时间格式
-    func chatMesssageTimeFormat() -> String {
+    /// 时间格式化
+    /// - Returns: 格式化时间
+    /// - Note: 与当前时间比， 同年同日："h:mm a"，同年非同日："M/d"，其它："M/d/yyyy"
+    func stringFormatForScene_a() -> String {
         let date = Date(timeIntervalSince1970: self.base)
         
         guard Date().timeIntervalSince(date) > 0 else {
@@ -49,37 +53,38 @@ fileprivate extension MikNameSpace where Base == TimeInterval {
             if currentCmps.month == compareCmps.month, currentCmps.day == compareCmps.day { // 今日
                 return DateFormatter.mik.formatter("h:mm a").string(from: date)
             }else { // 非今日
-                return DateFormatter.mik.formatter("MMM d, h:mm a").string(from: date)
+                return DateFormatter.mik.formatter("M/d").string(from: date)
+            }
+        }else { // 非同年
+            return DateFormatter.mik.formatter("M/d/yyyy").string(from: date)
+        }
+    }
+    
+    /// 时间格式化
+    /// - Returns: 格式化时间
+    /// - Note: 与当前时间比， 同年同日："h:mm a"，同年非同日："M/d h:mm a"，其它："M/d/yyyy h:mm a"
+    func stringFormatForScene_b() -> String {
+        let date = Date(timeIntervalSince1970: self.base)
+        
+        guard Date().timeIntervalSince(date) > 0 else {
+            // 异常情况，大于设备时间
+            return DateFormatter.mik.formatter("h:mm a").string(from: date)
+        }
+        
+        let currentCmps = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        let compareCmps = Calendar.current.dateComponents([.year, .month, .day], from: date)
+                
+        if currentCmps.year == compareCmps.year { // 同年
+            if currentCmps.month == compareCmps.month, currentCmps.day == compareCmps.day { // 今日
+                return DateFormatter.mik.formatter("h:mm a").string(from: date)
+            }else { // 非今日
+                return DateFormatter.mik.formatter("M/d h:mm a").string(from: date)
             }
         }else {
             // 非同年
-            return DateFormatter.mik.formatter("MMM, d, yyyy").string(from: date)
+            return DateFormatter.mik.formatter("M/d/yyyy h:mm a").string(from: date)
         }
     }
-    
-    /// 聊天专用时间格式
-    func chatConversationTimeFormat() -> String {
-        let date = Date(timeIntervalSince1970: self.base)
-        
-        guard Date().timeIntervalSince(date) > 0 else {
-            // 异常情况，大于设备时间
-            return DateFormatter.mik.formatter("h:mm a").string(from: date)
-        }
-        
-        let currentCmps = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-        let compareCmps = Calendar.current.dateComponents([.year, .month, .day], from: date)
-                
-        if currentCmps.year == compareCmps.year { // 同年
-            if currentCmps.month == compareCmps.month, currentCmps.day == compareCmps.day { // 今日
-                return DateFormatter.mik.formatter("h:mm a").string(from: date)
-            }else { // 非今日
-                return DateFormatter.mik.formatter("MMM d").string(from: date)
-            }
-        }else { // 非同年
-            return DateFormatter.mik.formatter("MMM, d, yyyy").string(from: date)
-        }
-    }
-    
     
     /**
     /// 聊天专用时间格式

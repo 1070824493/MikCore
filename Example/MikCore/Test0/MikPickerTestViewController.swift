@@ -23,7 +23,7 @@ class MikPickerTestViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "\(type(of: self))"
+        title = "PickerView"
         clearsSelectionOnViewWillAppear = true
     }
 

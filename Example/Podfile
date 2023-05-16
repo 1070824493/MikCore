@@ -8,7 +8,5 @@ target 'MikCore_Example' do
 
   target 'MikCore_Tests' do
     inherit! :search_paths
-
-    
   end
 end

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MikCore
 
 fileprivate extension MikCalendarStyle {
     
@@ -31,7 +30,6 @@ class TestCalendarStyleViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "\(type(of: self))"
         // Do any additional setup after loading the view.
     }
     

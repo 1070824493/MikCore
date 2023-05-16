@@ -131,7 +131,7 @@ extension MikBottomPopNavigationController {
     
     private func createTitleLab() -> UILabel {
         let label = UILabel()
-        label.font = UIFont.mik.font(.nunitoSansBold, size: 16.rate)
+        label.font = UIFont.mik.font(.IBMPlexSerifBold, size: 16.rate)
         label.textColor = UIColor.mik.text(.hex1B1B1B)
         label.textAlignment = .left
         return label

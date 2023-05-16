@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MikGrowTextViewViewController: MikBaseViewController {
+class MikGrowTextViewViewController: UIViewController {
     
     private(set) lazy var textViewContainerView: MikGrowTextViewContainerView = {
         let aTextViewContainerView = MikGrowTextViewContainerView(config: {

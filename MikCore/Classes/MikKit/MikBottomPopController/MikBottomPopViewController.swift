@@ -7,25 +7,32 @@
 
 import UIKit
 
-open class MikBottomPopViewController: UIViewController, BottomPopupAttributesDelegate {
-    
+open class MikBottomPopViewController: MikBaseViewController, BottomPopupAttributesDelegate {
+
+    // MARK: - 弹窗时属性设置
+    public var height: CGFloat?
+    public var topCornerRadius: CGFloat?
+    public var presentDuration: Double?
+    public var dismissDuration: Double?
+    public var shouldDismissInteractivelty: Bool?
+    public var dimmingViewAlpha: CGFloat?
+
     // MARK: - BottomPopAttributesDelegate Variables
-    open var popupHeight: CGFloat { BottomPopConstants.kDefaultHeight }
-    
-    open var popupTopCornerRadius: CGFloat { BottomPopConstants.kDefaultTopCornerRadius }
-    
-    open var popupPresentDuration: Double { BottomPopConstants.kDefaultPresentDuration }
-    
-    open var popupDismissDuration: Double { BottomPopConstants.kDefaultDismissDuration }
-    
-    open var popupShouldDismissInteractivelty: Bool { BottomPopConstants.dismissInteractively }
-    
-    open var popupDimmingViewAlpha: CGFloat { BottomPopConstants.kDimmingViewDefaultAlphaValue }
-    
+    open var popupHeight: CGFloat { return height ??  BottomPopConstants.kDefaultHeight }
+
+    open var popupTopCornerRadius: CGFloat { return topCornerRadius ?? BottomPopConstants.kDefaultTopCornerRadius }
+
+    open var popupPresentDuration: Double { return presentDuration ?? BottomPopConstants.kDefaultPresentDuration }
+
+    open var popupDismissDuration: Double { return dismissDuration ?? BottomPopConstants.kDefaultDismissDuration }
+
+    open var popupShouldDismissInteractivelty: Bool { return shouldDismissInteractivelty ?? BottomPopConstants.dismissInteractively }
+
+    open var popupDimmingViewAlpha: CGFloat { return dimmingViewAlpha ?? BottomPopConstants.kDimmingViewDefaultAlphaValue }
+
     open var popupShouldBeganDismiss: Bool { BottomPopConstants.shouldBeganDismiss }
-    
+
     open var popupViewAccessibilityIdentifier: String { BottomPopConstants.defaultPopupViewAccessibilityIdentifier }
-    //
     
     
     open weak var popupDelegate: BottomPopupDelegate?

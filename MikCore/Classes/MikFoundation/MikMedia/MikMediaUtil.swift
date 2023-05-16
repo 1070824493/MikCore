@@ -33,7 +33,6 @@ public enum MikDocumentSourceType: String, CaseIterable {
     case image = "public.image", video = "public.movie", pdf = "com.adobe.pdf"
 }
 
-
 /// 文件类型
 public enum MikMediaPreviewType : Int {
     /// 图片
@@ -42,11 +41,61 @@ public enum MikMediaPreviewType : Int {
     case video
 }
 
+/// 地图类型
+public enum MikMapsType {
+    
+    /**
+     URL Link Docs
+     https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html
+     https://developers.google.com/maps/documentation/urls/ios-urlscheme#search
+     https://developers.google.com/waze/deeplinks#search
+     */
+    
+    case apple(address: String?, latitude: Double, longitude: Double)
+    case google(address: String?, latitude: Double, longitude: Double)
+    case waze(address: String?, latitude: Double, longitude: Double)
+    
+    var title: String? {
+        switch self {
+        case .apple(_, _, _): return "Maps"
+        case .google(_, _, _): return "Google Maps"
+        case .waze(_, _, _): return "Waze"
+        }
+    }
+    
+    var url: URL? {
+        switch self {
+        case .apple(let address, let latitude, let longitude):
+            let q = ["Michaels", address].compactMap({ $0 }).joined(separator: "+")
+            let sll = ["\(latitude)", "\(longitude)"].joined(separator: ",")
+            guard let urlText = "http://maps.apple.com/?q=\(q)&sll=\(sll))&z=10&t=s".mik.urlEncoding() else {
+                return nil
+            }
+            return URL(string: urlText)
+            
+        case .google(let address, let latitude, let longitude):
+            let q = ["Michaels", address].compactMap({ $0 }).joined(separator: "+")
+            let center = ["\(latitude)", "\(longitude)"].joined(separator: ",")
+            guard let urlText = "https://www.google.com/maps/?q=\(q)&center=\(center)".mik.urlEncoding() else {
+                return nil
+            }
+            return URL(string: urlText)
+            
+        case .waze(let address, let latitude, let longitude):
+            let q = ["Michaels", address].compactMap({ $0 }).joined(separator: "+")
+            let ll = ["\(latitude)", "\(longitude)"].joined(separator: ",")
+            guard let urlText = "https://waze.com/ul?q=\(q)&ll=\(ll)&navigate=yes".mik.urlEncoding() else {
+                return nil
+            }
+            return URL(string: urlText)
+        }
+    }
+}
+
 /// 展示资源数据
 public typealias MikMediaPreviewData = (mediaValue : Any?,mediaType : MikMediaPreviewType)
 
 fileprivate extension ZLPhotoConfiguration {
-    
     
     /// 扩展 ZLPhotoConfiguration 配置, 是否允许拍照时自动保存至相册
     static var allowSaveToAlbumWhenTakePhotoKey: Void?
@@ -87,10 +136,12 @@ fileprivate extension ZLPhotoConfiguration {
             case .video(let max):
                 config.allowSelectImage = false
                 config.maxVideoSelectCount = max
+                config.maxSelectVideoDuration = 999999
             case .mix(let max, let videoMax, let isAllowSelectOriginal):
                 config.maxSelectCount = max
                 config.maxVideoSelectCount = videoMax
                 config.allowSelectOriginal = isAllowSelectOriginal
+                config.maxSelectVideoDuration = 999999
             case .quickClip:
                 config.allowSelectVideo = false
                 config.allowSelectOriginal = true
@@ -158,6 +209,44 @@ public class MikMediaUtil {
         let document = UIDocumentPickerViewController.init(documentTypes: types.map({ $0.rawValue }), in: .open)
         document.delegate = proxy
         viewController.present(document, animated: true, completion: nil)
+    }
+    
+    /// 打开外部地图
+    /// - Parameters:
+    ///   - viewController: 父控制器
+    ///   - title: 弹窗标题
+    ///   - messages: 弹窗信息
+    ///   - mapTypes: 地图类型
+    ///   - failure: 失败回调
+    public static func openMaps(at viewController: UIViewController?, title: String? = nil, messages: String? = nil, mapTypes: [MikMapsType]?, failure: (() -> Void)? = nil) {
+        guard let viewController = viewController, let mapTypes = mapTypes, !mapTypes.isEmpty else {
+            failure?()
+            return
+        }
+        
+        let actionInfos = mapTypes.compactMap({ type -> (String?, URL)? in
+            guard let url = type.url else { return nil }
+            return (type.title, url)
+        })
+        
+        guard !actionInfos.isEmpty else {
+            failure?()
+            return
+        }
+        
+        let alertController = UIAlertController(title: title, message: messages, preferredStyle: .actionSheet)
+        
+        defer {
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            viewController.present(alertController, animated: true, completion: nil)
+        }
+        
+        for (title, url) in actionInfos {
+            let action = UIAlertAction(title: title, style: .default, handler: { _ in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            })
+            alertController.addAction(action)
+        }
     }
     
 }

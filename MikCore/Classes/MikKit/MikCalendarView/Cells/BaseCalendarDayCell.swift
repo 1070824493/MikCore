@@ -33,7 +33,7 @@ class BaseCalendarDayCell: JTACDayCell {
     
     private(set) lazy var dayLabel: UILabel = {
         let aLabel = UILabel()
-        aLabel.font = UIFont.mik.font(.nunitoSans, size: 14)
+        aLabel.font = UIFont.mik.font(.nunitoSansBold, size: 14)
         aLabel.textAlignment = .center
         return aLabel
     }()

@@ -141,7 +141,7 @@ public extension MikAlertAction {
             aBtn.setBackgroundImage(style.config.disabledBackgroundImage, for: .disabled)
             aBtn.contentEdgeInsets = style.config.contentEdgeInsets
             aBtn.titleLabel?.font = style.config.titleFont
-            aBtn.setTitle(title.uppercased(), for: .normal)
+            aBtn.setTitle(title, for: .normal)
             aBtn.setTitleColor(style.config.titleColor, for: .normal)
             aBtn.setTitleColor(style.config.highlightTitleColor, for: .highlighted)
             aBtn.setTitleColor(style.config.disabledTitleColor, for: .disabled)
@@ -160,16 +160,16 @@ public extension MikAlertAction {
     /// - Parameters:
     ///   - title: 标题
     ///   - handle: 事件回调
-    static func cancelAction(title: String = "CANCEL", handle: HandleCallback? = nil) -> MikAlertAction {
-        return Self.action(title: title, style: .borderRed, handle: handle)
+    static func cancelAction(title: String = "Cancel", handle: HandleCallback? = nil) -> MikAlertAction {
+        return Self.action(title: title.mik.capitalized(), style: .borderRed, handle: handle)
     }
     
     /// 常用‘Confirm’样式工厂方法
     /// - Parameters:
     ///   - title: 标题
     ///   - handle: 事件回调
-    static func confirmAction(title: String = "CONFIRM", handle: HandleCallback? = nil) -> MikAlertAction {
-        return Self.action(title: title, style: .fillRed, handle: handle)
+    static func confirmAction(title: String = "Confirm", handle: HandleCallback? = nil) -> MikAlertAction {
+        return Self.action(title: title.mik.capitalized(), style: .fillRed, handle: handle)
     }
     
 }

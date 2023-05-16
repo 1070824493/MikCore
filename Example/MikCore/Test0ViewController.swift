@@ -6,45 +6,38 @@
 //
 
 import UIKit
-@_exported import MikCore
+import MikCore
 
 class Test0ViewController: UITableViewController {
-    
+
     enum TestType: String, CaseIterable {
-        
-        case MikImageView = "MikImageView"
-        case MikSwitch = "MikSwitch"
-        case MikNumberControl = "MikNumberControl"
-        case MikToast = "MikToast"
-        case MikGrowTextView = "MikGrowTextView"
-        case MikDotProgressView = "MikDotProgressView"
-        case MinStarsView = "MikStarsView"
-        case MikPopoverView = "MikPopoverView"
-        case MikAlertView = "MikAlertView"
-        case MikListContainerView = "MikListContainerView"
-        case MikCalendarView = "MikCalendarView"
-        case MikPickerView = "MikPickerView"
-        case MikTextFieldFormatterView = "MikTextField & MikTextFieldFormatterView"
+        case MikButton, MikImageView, MikSwitch, MikNumberControl,
+             MikToast, MikEmptyView, MikGrowTextView, MikDotProgressView,
+             MikStarsView, MikPopoverView, MikAlertView, MikListContainerView,
+             MikPaymentCardsOCR, MikCalendarView, MikPickerView, MikLockSlider,
+             MikTextFieldFormatterView = "MikTextFieldFormatterView & MikFormatterTextField",
+             MikPopupHoverViewController, APIsTest
     }
     
     private let testTypes: [TestType] = TestType.allCases
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         
+        configure()
         setupSubviews()
+        setupSubviewsConstraints()
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //        var colors: [UIColor] = MikNameSpace.HexColorsEnum.allCases.map({ UIColor.mik.general($0) })
         
         MikNameSpace.HexColorsEnum.allCases.forEach({
             self.view.backgroundColor = UIColor.mik.general($0)
         })
     }
-    
     
     required init() {
         super.init(style: .plain)
@@ -65,15 +58,21 @@ class Test0ViewController: UITableViewController {
     
 }
 
+
 // MARK: - Assistant
 extension Test0ViewController {
     
-    private func setupSubviews() {
-        tableView.dequeueReusableCell(withIdentifier: String(describing: type(of: UITableViewCell.self)))
+    private func configure() {
+        title = "Test 0"
     }
+    
+    private func setupSubviews() {}
+    
+    private func setupSubviewsConstraints() {}
     
 }
 
+// MARK: - UITableViewDataSource, UITableViewDelegate
 extension Test0ViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,7 +90,8 @@ extension Test0ViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.testTypes[indexPath.row] {
-            
+        case .MikButton:
+            self.navigationController?.pushViewController(MikButtonViewController(), animated: true)
         case .MikImageView:
             self.navigationController?.pushViewController(MikImageViewViewController(), animated: true)
         case .MikSwitch:
@@ -100,11 +100,13 @@ extension Test0ViewController {
             self.navigationController?.pushViewController(MikNumberControlViewController(), animated: true)
         case .MikToast:
             self.navigationController?.pushViewController(MikToastViewController(), animated: true)
+        case .MikEmptyView:
+            self.navigationController?.pushViewController(MikEmptyViewController(), animated: true)
         case .MikGrowTextView:
             self.navigationController?.pushViewController(MikGrowTextViewViewController(), animated: true)
         case .MikDotProgressView:
             self.navigationController?.pushViewController(MikDotProgressViewViewController(), animated: true)
-        case .MinStarsView:
+        case .MikStarsView:
             self.navigationController?.pushViewController(MikStarsViewViewController(), animated: true)
         case .MikPopoverView:
             self.navigationController?.pushViewController(MikPopoverViewViewController(), animated: true)
@@ -112,13 +114,24 @@ extension Test0ViewController {
             self.navigationController?.pushViewController(MikAlertViewViewController(), animated: true)
         case .MikListContainerView:
             self.navigationController?.pushViewController(MikListContainerViewController(), animated: true)
-            
+        case .MikPaymentCardsOCR:
+            let vc = MikPaymentCardsOCRViewController()
+            vc.confirmHandler = { (card) in
+                print(card?.description ?? "")
+            }
+            vc.showInViewController(self)
         case .MikCalendarView:
             self.navigationController?.pushViewController(TestCalendarStyleViewController(), animated: true)
         case .MikPickerView:
             self.navigationController?.pushViewController(MikPickerTestViewController(), animated: true)
+        case .MikLockSlider:
+            self.navigationController?.pushViewController(MikLockSliderViewController(), animated: true)
         case .MikTextFieldFormatterView:
             self.navigationController?.pushViewController(MikTextFieldFormatterViewViewController(), animated: true)
+        case .MikPopupHoverViewController:
+            self.navigationController?.pushViewController(TestPopupHoverViewController(), animated: true)
+        case .APIsTest:
+            self.navigationController?.pushViewController(TestAPIsViewController(), animated: true)
         }
     }
     

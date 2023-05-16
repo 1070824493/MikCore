@@ -127,34 +127,50 @@ public class MikDescPopoverView: UIView {
     
     private lazy var contentView: UIView = {
         let aView = UIView()
-        aView.backgroundColor = UIColor.mik.general(.hexFFF2DF)
+        aView.backgroundColor = UIColor.mik.general(.hexF3F3F3)
         aView.layer.cornerRadius = 4
         aView.layer.masksToBounds = true
         return aView
     }()
     
-    private lazy var descLabel: ActiveLabel = {
-        let aLabel = ActiveLabel()
-        aLabel.font = UIFont.mik.font(.nunitoSans, size: 14)
-        aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
-        aLabel.numberOfLines = 0
-        aLabel.attributedText = attributedMessage
-                
-        aLabel.enabledTypes = self.activeKeys?.map({
-            let activeType = ActiveType.custom(pattern: $0)
-            aLabel.handleCustomTap(for: activeType) { [weak self] (text) in
-                self?.handler?(text)
-            }
-            return activeType
-        }) ?? []
-        
-        aLabel.customize { (label) in
-            label.configureLinkAttribute = { (activeType, _, isSelected) in
-                return [.font: UIFont.mik.font(.nunitoSansBold, size: 14), .foregroundColor: UIColor.mik.text(.hex1B1B1B, alpha: isSelected ? 0.5 : 1), .underlineStyle: true]
-            }
+    private lazy var descLabel: UILabel = {
+        func normalLabel() -> UILabel {
+            let aLabel = UILabel()
+            aLabel.numberOfLines = 0
+            aLabel.font = UIFont.mik.font(.nunitoSans, size: 14)
+            aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
+            aLabel.attributedText = attributedMessage
+            return aLabel
         }
         
-        return aLabel
+        func activeLabel() -> ActiveLabel {
+            let aLabel = ActiveLabel()
+            aLabel.numberOfLines = 0
+            aLabel.font = UIFont.mik.font(.nunitoSans, size: 14)
+            aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
+            aLabel.attributedText = attributedMessage
+                    
+            aLabel.enabledTypes = self.activeKeys?.map({
+                let activeType = ActiveType.custom(pattern: $0)
+                aLabel.handleCustomTap(for: activeType) { [weak self] (text) in
+                    self?.handler?(text)
+                }
+                return activeType
+            }) ?? []
+            
+            aLabel.customize { (label) in
+                label.configureLinkAttribute = { (activeType, _, isSelected) in
+                    return [.font: UIFont.mik.font(.nunitoSansBold, size: 14), .foregroundColor: UIColor.mik.text(.hex1B1B1B, alpha: isSelected ? 0.5 : 1), .underlineStyle: true]
+                }
+            }
+            
+            return aLabel
+        }
+        
+        if activeKeys?.isEmpty ?? true {
+            return normalLabel()
+        }
+        return activeLabel()
     }()
     
     
@@ -174,7 +190,7 @@ public class MikDescPopoverView: UIView {
         }
         
         contentView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24))
+            make.edges.equalToSuperview()
         }
     }
     

@@ -2,12 +2,12 @@
 //  AppDelegate.swift
 //  MikCore
 //
-//  Created by 1070824493@qq.com on 12/23/2021.
-//  Copyright (c) 2021 1070824493@qq.com. All rights reserved.
+//  Created by 1070824493 on 01/27/2022.
+//  Copyright (c) 2022 1070824493. All rights reserved.
 //
 
 import UIKit
-import MikCore
+@_exported import MikCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,12 +17,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        window = UIWindow()
-        window?.rootViewController = MikNavigationController(rootViewController: Test0ViewController())
-        window?.makeKeyAndVisible()
-        
+
+        UIFont.mik.registerCustomFonts()
+        MikToast.configToastStyle()
         MikLogger.logInit()
+        MikLogger.config(enableConsoleLog: true)
+
+        self.window = {
+            let aWindow = UIWindow()
+
+            let tabBarController = MikTabBarController()
+            tabBarController.addChildViewController(Test0ViewController(), title: "Test0", normalImage: UIImage(named: "tabbar_dash_n"), selectedImage: UIImage(named: "tabbar_dash_s")!)
+            tabBarController.addChildViewController(Test1ViewController(), title: "Test0", normalImage: UIImage(named: "tabbar_message_n"), selectedImage: UIImage(named: "tabbar_message_s"))
+
+            aWindow.rootViewController = tabBarController
+
+            aWindow.makeKeyAndVisible()
+            return aWindow
+        }()
+
+        MikNavigationController.appendWhiteList([Test0ViewController.self, Test1ViewController.self])
+        MikNavigationController.appendAutoHiddenTabbarWhiteList([Test0ViewController.self, Test1ViewController.self])
         
         return true
     }

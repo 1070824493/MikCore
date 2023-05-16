@@ -14,7 +14,7 @@ fileprivate extension MikToast.MikToastStyle {
     
     var title: String? {
         switch self {
-        case .information(let title, _): return title
+        case .information(let title, _): return title        
         case .success(let title, _): return title
         case .warn(let title, _): return title
         case .error(let title, _): return title
@@ -32,23 +32,19 @@ fileprivate extension MikToast.MikToastStyle {
     
     var attributeText: NSAttributedString? {
         typealias ColorsTuple = (titleColor: UIColor, messageColor: UIColor)
-        let titleFont = UIFont.mik.font(.nunitoSans, size: 14)
-        let messageFont = UIFont.mik.font(.nunitoSans, size: 12)
+        
+        let titleFont = UIFont.mik.font(.nunitoSansSemibold, size: 14)
+        let messageFont = UIFont.mik.font(.nunitoSans, size: 14)
         
         let colorsTuple: ColorsTuple = {
             var titleColor: UIColor
             switch self {
-            case .information(let title, let message):
-                if !(title?.isEmpty ?? true), !(message?.isEmpty ?? true) {
-                    titleColor = UIColor.mik.text(.hexD1E8F8)
-                }else {
-                    titleColor = UIColor.mik.text(.hexFFFFFF)
-                }
-            case .success(_, _): titleColor = UIColor.mik.text(.hexC5E4C8)
-            case .warn(_, _): titleColor = UIColor.mik.text(.hexFFF2DF)
-            case .error(_, _): titleColor = UIColor.mik.text(.hexF8D2CB)
+            case .information(_, _): titleColor = UIColor.mik.text(.hex1B1B1B)
+            case .success(_, _): titleColor = UIColor.mik.text(.hex009783)
+            case .warn(_, _): titleColor = UIColor.mik.text(.hexA85D00)
+            case .error(_, _): titleColor = UIColor.mik.text(.hexEB003B)
             }
-            return (titleColor, UIColor.mik.text(.hexFFFFFF))
+            return (titleColor, UIColor.mik.text(.hex1B1B1B))
         }()
         
         let titleAttributedText: NSAttributedString? = {
@@ -70,16 +66,30 @@ fileprivate extension MikToast.MikToastStyle {
         return mAttributedText
     }
     
+    var backgroundColor: UIColor? {
+        switch self {
+        case .information(_, _): return UIColor.mik.general(.hexFBFBFB)
+        case .success(_, _): return UIColor.mik.general(.hexECF6F4)
+        case .warn(_, _): return UIColor.mik.general(.hexF8F3EC)
+        case .error(_, _): return UIColor.mik.general(.hexFEF5F8)
+        }
+    }
+    
+    var borderColor: UIColor? {
+        switch self {
+        case .information(_, _): return UIColor.mik.general(.hex1B1B1B, alpha: 0.5)
+        case .success(_, _): return UIColor.mik.text(.hex009783, alpha: 0.5)
+        case .warn(_, _): return UIColor.mik.text(.hexA85D00, alpha: 0.5)
+        case .error(_, _): return UIColor.mik.text(.hexEB003B, alpha: 0.5)
+        }
+    }
+    
     var actionTextColor: UIColor {
         switch self {
-        case .information(let title, let message):
-            if !(title?.isEmpty ?? true), !(message?.isEmpty ?? true) {
-                return UIColor.mik.text(.hexD1E8F8)
-            }
-            return UIColor.mik.text(.hexFFFFFF)
-        case .success(_, _): return UIColor.mik.text(.hexC5E4C8)
-        case .warn(_, _): return UIColor.mik.text(.hexFFF2DF)
-        case .error(_, _): return UIColor.mik.text(.hexF8D2CB)
+        case .information(_, _): return UIColor.mik.text(.hex1B1B1B)
+        case .success(_, _): return UIColor.mik.text(.hex009783)
+        case .warn(_, _): return UIColor.mik.text(.hexA85D00)
+        case .error(_, _): return UIColor.mik.text(.hexEB003B)
         }
     }
     
@@ -101,7 +111,7 @@ class MikDefaultToastView: UIView {
     
     private lazy var actionBtn: UIButton = {
         let aBtn = UIButton()
-        aBtn.titleLabel?.font = UIFont.mik.font(.nunitoSansBold, size: 12)
+        aBtn.titleLabel?.font = UIFont.mik.font(.nunitoSansBold, size: 14)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         aBtn.setTitleColor(style.actionTextColor, for: .normal)
         aBtn.setTitleColor(style.actionTextColor.withAlphaComponent(0.5), for: .highlighted)
@@ -114,9 +124,8 @@ class MikDefaultToastView: UIView {
     
     private lazy var mStackView: UIStackView = {
         let aStackView = UIStackView(arrangedSubviews: {
-            var bSubviews: [UIView] = [messageView]
-            if let _ = self.action { bSubviews.append(actionBtn) }
-            return bSubviews
+            if let _ = self.action { return [messageView, actionBtn] }
+            return [messageView]
         }())
         aStackView.axis = .horizontal
         aStackView.alignment = .leading
@@ -134,10 +143,8 @@ class MikDefaultToastView: UIView {
         self.action = action
         
         super.init(frame: .zero)
-        backgroundColor = UIColor.mik.general(.hex303030)
-        layer.cornerRadius = 4
-        layer.masksToBounds = true
         
+        configure()
         setupSubviews()
         setupSubviewsConstraints()
     }
@@ -148,8 +155,17 @@ class MikDefaultToastView: UIView {
     
 }
 
+
 // MARK: - Assistant
 extension MikDefaultToastView {
+    
+    private func configure() {
+        backgroundColor = style.backgroundColor
+        layer.cornerRadius = 4
+        layer.borderWidth = 1
+        layer.borderColor = style.borderColor?.cgColor
+        layer.masksToBounds = true
+    }
     
     private func setupSubviews() {
         addSubview(mStackView)

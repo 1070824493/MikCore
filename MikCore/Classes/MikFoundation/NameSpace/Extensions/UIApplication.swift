@@ -46,4 +46,18 @@ public extension MikNameSpace where Base: UIApplication {
         return nil
     }
     
+    /// 拨打电话
+    /// - Parameter telphone: 电话号码
+    static func openPhoneCall(_ telphone: String?, result: ((Bool) -> Void)?) {
+        let bPhone = telphone?.replacingOccurrences(of: "\\D", with: "", options: .regularExpression, range: nil)
+        guard let bPhone = bPhone, !bPhone.isEmpty,
+              let phoneURL = URL(string: "telprompt://" + bPhone),
+                UIApplication.shared.canOpenURL(phoneURL) else {
+                    result?(false)
+                    return
+                }
+        UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+        result?(true)
+    }
+    
 }

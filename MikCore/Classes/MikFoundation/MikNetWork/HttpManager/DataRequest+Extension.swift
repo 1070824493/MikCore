@@ -10,13 +10,12 @@ import Foundation
 import HandyJSON
 import SwiftyJSON
 
-public let businessSuccessCode = ["200", "1"]
 public let successCode200 = "200"
 public let successMessage = "Succeed"
 
 extension DataRequest {
     static var configKey: Void?
-    var target: HTTPTarget? {
+    public var target: HTTPTarget? {
         get {
             return objc_getAssociatedObject(self, &DataRequest.configKey) as? HTTPTarget
         }
@@ -25,9 +24,29 @@ extension DataRequest {
         }
     }
 
+    static var configParamKey: Void?
+    public var parameter: [String : Any]? {
+        get {
+            return objc_getAssociatedObject(self, &DataRequest.configParamKey) as? [String : Any]
+        }
+        set {
+            objc_setAssociatedObject(self, &DataRequest.configParamKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    static var configBodyKey: Void?
+    public var body: Any? {
+        get {
+            return objc_getAssociatedObject(self, &DataRequest.configBodyKey) as? Any
+        }
+        set {
+            objc_setAssociatedObject(self, &DataRequest.configBodyKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
     @discardableResult
     func responseSwiftyJSON(queue: DispatchQueue = .main, completionHandler: @escaping (AFDataResponse<JSON>) -> Void) -> Self {
-        let serializer = SwiftJSONResponseSerializer()
+        let serializer = SwiftJSONResponseSerializer.init(emptyResponseCodes: target?.emptyResponseCodes)
         return response(queue: queue, responseSerializer: serializer, completionHandler: completionHandler)
     }
 
@@ -60,6 +79,11 @@ extension DataRequest {
 
     /// 任意格式 -> JSON
     final class SwiftJSONResponseSerializer: ResponseSerializer {
+        public let emptyResponseCodes: Set<Int>
+
+        init(emptyResponseCodes: Set<Int>? = nil) {
+            self.emptyResponseCodes = emptyResponseCodes ?? DataResponseSerializer.defaultEmptyResponseCodes
+        }
         public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> JSON {
             guard error == nil else { throw error! }
 

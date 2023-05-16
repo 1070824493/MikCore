@@ -34,7 +34,7 @@ public extension MikTextFieldFormatterView {
         case phone(lenth: Int)
         case digits(maxLenth: Int?, splitLenths: [Int]?, separator: Character?)
         
-        var formatteTuple: MikTextField.FormatterTuple? {
+        var formatteTuple: MikFormatterTextField.FormatterTuple? {
             switch self {
             case .phone(10): return ([3, 3, 4], "-")
             case .phone(11): return ([3, 4, 4], "-")
@@ -49,7 +49,7 @@ public extension MikTextFieldFormatterView {
     }
     
         
-    var textField: MikTextField { self.textFieldView.textField }
+    var textField: MikFormatterTextField { self.textFieldView.textField }
     
 }
 
@@ -130,33 +130,38 @@ public class MikTextFieldFormatterView: UIView {
     /// 校验结果集
     public var validateResults: [ValidateResult]? {
         didSet {
-            self.validateView.validateResults = validateResults
-            self.textFieldView.style = {
-                guard let validateResults = validateResults, !validateResults.isEmpty else {
-                    return .normal
-                }
-                
-                if let _ = validateResults.first(where: { !($0.isSuccess ?? true) }) {
-                    return .error
-                }
-                
-                if let _ = validateResults.first(where: { $0.isSuccess ?? false }) {
-                    return .ok
-                }
-                
-                return .normal
-            }()
+            self.updateValidateResults(validateResults)
         }
     }
     
-    private let formatteTuple: MikTextField.FormatterTuple?
+    /// 是否可编辑
+    public var isEditable: Bool = true {
+        didSet {
+            self.textField.isEnabled = isEditable
+            self.textField.textColor = isEditable ? UIColor.mik.text(.hex1B1B1B) : UIColor.mik.text(.hex757575)
+            self.textField.backgroundColor = isEditable ? UIColor.mik.general(.hexFFFFFF) : UIColor.mik.general(.hexF6F6F6)
+        }
+    }
+    
+    private let formatteTuple: MikFormatterTextField.FormatterTuple?
     
     private let spacesTuple: SpacesTuple
+    
+    private var isEditing: Bool = false {
+        didSet {
+            self.updateValidateResults(self.validateResults)
+        }
+    }
        
     
     private lazy var titleView: TitleView = TitleView()
     
-    private lazy var textFieldView: TextFieldView = TextFieldView(formatteTuple: formatteTuple)
+    private lazy var textFieldView: TextFieldView = {
+        let aView = TextFieldView(formatteTuple: formatteTuple)
+        aView.textField.addTarget(self, action: #selector(didBeginEditing(_:)), for: .editingDidBegin)
+        aView.textField.addTarget(self, action: #selector(didEndEditing(_:)), for: .editingDidEnd)
+        return aView
+    }()
     
     private lazy var validateView: ValidateView = ValidateView()
     
@@ -174,7 +179,7 @@ public class MikTextFieldFormatterView: UIView {
     /// - Parameters:
     ///   - formatteTuple: 输入格式化配置
     ///   - spacesTuple: 底部间距配置, 默认为 (28, 4)
-    required public init(formatteTuple: MikTextField.FormatterTuple?, spacesTuple: SpacesTuple = (28, 4)) {
+    required public init(formatteTuple: MikFormatterTextField.FormatterTuple?, spacesTuple: SpacesTuple = (28, 4)) {
         self.formatteTuple = formatteTuple
         self.spacesTuple = spacesTuple
         super.init(frame: .zero)
@@ -188,8 +193,8 @@ public class MikTextFieldFormatterView: UIView {
     /// - Parameters:
     ///   - style: 样式
     ///   - spacesTuple: 底部间距配置, 默认为 (28, 4)
-    convenience public init(style: CustomFormatterStyle, spacesTuple: SpacesTuple = (28, 4)) {
-        self.init(formatteTuple: style.formatteTuple, spacesTuple: spacesTuple)
+    convenience public init(style: CustomFormatterStyle?, spacesTuple: SpacesTuple = (28, 4)) {
+        self.init(formatteTuple: style?.formatteTuple, spacesTuple: spacesTuple)
     }
     
     private override init(frame: CGRect) {
@@ -238,6 +243,53 @@ extension MikTextFieldFormatterView {
     
 }
 
+// MARK: - Private
+extension MikTextFieldFormatterView {
+        
+    private func updateValidateResults(_ validateResults: [ValidateResult]?) {
+        let bValidateResults: [ValidateResult]? = {
+            if self.isEditing {
+                // 编辑状态下只允许显示‘Tip’
+                return validateResults?.compactMap({
+                    switch $0 {
+                    case .tips(_): return $0
+                    default: return nil
+                    }
+                })
+            }
+            return validateResults
+        }()
+        
+        self.validateView.validateResults = bValidateResults
+        self.textFieldView.style = {
+            guard let bValidateResults = bValidateResults, !bValidateResults.isEmpty else {
+                return .normal
+            }
+            
+            if let _ = bValidateResults.first(where: { !($0.isSuccess ?? true) }) {
+                return .error
+            }
+            
+            if let _ = bValidateResults.first(where: { $0.isSuccess ?? false }) {
+                return .ok
+            }
+            
+            return .normal
+        }()
+    }
+    
+    @objc
+    private func didBeginEditing(_ sender: UITextField) {
+        self.isEditing = true
+    }
+    
+    @objc
+    private func didEndEditing(_ sender: UITextField) {
+        self.isEditing = false
+    }
+    
+}
+
 // MARK: - TitleView
 fileprivate class TitleView: UIView {
     
@@ -268,9 +320,9 @@ fileprivate extension TextFieldView.Style {
     
     var borderColor: UIColor {
         switch self {
-        case .normal: return UIColor.mik.general(.hex454545)
+        case .normal: return UIColor.mik.general(.hexAEAEAE)
         case .ok: return UIColor.mik.general(.hex00856D)
-        case .error: return UIColor.mik.general(.hexCF1F2E)
+        case .error: return UIColor.mik.general(.hexEB003B)
         }
     }
     
@@ -286,30 +338,33 @@ fileprivate class TextFieldView: UIView {
     var style: Style = .normal {
         didSet {
             self.layer.borderColor = style.borderColor.cgColor
+            textField.layer.borderColor = style.borderColor.cgColor
         }
     }
     
-    private let formatteTuple: MikTextField.FormatterTuple?
+    private let formatteTuple: MikFormatterTextField.FormatterTuple?
     
-    private(set) lazy var textField: MikTextField = {
-        let aTextField = MikTextField(formatteTuple: formatteTuple)
+    private(set) lazy var textField: MikFormatterTextField = {
+        let aTextField = MikFormatterTextField(formatteTuple: formatteTuple)
         aTextField.font = UIFont.mik.font(size: 16)
         aTextField.textColor = UIColor.mik.text(.hex1B1B1B)
         aTextField.leftViewMode = .always
         aTextField.rightViewMode = .always
+        aTextField.autocorrectionType = .no
         aTextField.setupLeftEmptyView()
         aTextField.setupRightEmptyView()
         return aTextField
     }()
     
     
-    required init(formatteTuple: MikTextField.FormatterTuple?) {
+    required init(formatteTuple: MikFormatterTextField.FormatterTuple?) {
         self.formatteTuple = formatteTuple
         super.init(frame: .zero)
         
         layer.cornerRadius = 4
         layer.borderWidth = 1
-        layer.borderColor = UIColor.mik.general(.hex454545).cgColor
+        layer.borderColor = style.borderColor.cgColor
+        textField.layer.borderColor = style.borderColor.cgColor
         layer.masksToBounds = true
         
         addSubview(textField)

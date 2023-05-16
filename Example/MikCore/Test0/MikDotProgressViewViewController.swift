@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MikDotProgressViewViewController: MikBaseViewController {
+class MikDotProgressViewViewController: UIViewController {
 
     private let titles = ["Processed\nNov 8 ProcessedProcessedProcessed", "Processed\nNov 8", "Processed\nNov 8", "Processed\nNov 8ProcessedProcessedProcessed"]
     

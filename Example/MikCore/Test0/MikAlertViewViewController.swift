@@ -8,16 +8,15 @@
 import UIKit
 import SnapKit
 import ZLPhotoBrowser
-import MikCore
 
-class MikAlertViewViewController: MikBaseViewController {
+class MikAlertViewViewController: UIViewController {
     
     enum AlertStyle: CaseIterable {
-        case default0, default1, default2, default3, default4, default5
+        case default0, default1, default2, default3, default4, default5, default6
         
         var title: String? {
             switch self {
-            case .default0, .default2, .default3, .default4: return "Skip next subscription"
+            case .default0, .default2, .default3, .default4, .default6: return "Skip next subscription"
             default: return nil
             }
         }
@@ -37,6 +36,8 @@ class MikAlertViewViewController: MikBaseViewController {
     }
     
     private var inputViewsTuple: MikInputAlertView.InputViewsTuple?
+    
+    private weak var twoStepAlertViewController: MikTwoStepAlertViewController?
 
     private let buttons: [UIButton] = AlertStyle.allCases.map({
         let button = UIButton()
@@ -73,17 +74,17 @@ class MikAlertViewViewController: MikBaseViewController {
         
         // 常用的‘Cancel’样式
         let cancelAction = MikAlertAction.cancelAction(title: "No!") {
-            MikLogger.debug("click on cancel button......")
+            MikPrint("click on cancel button......")
         }
         
         // 常用的‘Confirm’样式
         let confirmAction = MikAlertAction.confirmAction(title: "Confirm") {
-            MikLogger.debug("click on ok button......")
+            MikPrint("click on ok button......")
         }
         
         // 其它样式
         let otherStyleAction = MikAlertAction.action(title: "other", style: .normal) {
-            MikLogger.debug("click on other button......")
+            MikPrint("click on other button......")
         }
         
         // 自定义样式
@@ -99,7 +100,7 @@ class MikAlertViewViewController: MikBaseViewController {
                 aBtn.setImage(UIImage.image("nav_del"), for: .normal)
                 aBtn.mik.setImageDirection(.left, space: 4)
             } handle: {
-                MikLogger.debug("click on ok custom...but it's not hidden")
+                MikPrint("click on ok custom...but it's not hidden")
             }
             
             aAction.isHiddenEnable = false
@@ -107,7 +108,7 @@ class MikAlertViewViewController: MikBaseViewController {
         }()
         
         let inputHiddenAction = MikAlertAction.confirmAction(title: "hidden") { [weak self] in
-            MikLogger.debug("input value is: \(String(describing: self?.inputViewsTuple?.inputView.text))")
+            MikPrint("input value is: \(String(describing: self?.inputViewsTuple?.inputView.text))")
             self?.inputViewsTuple?.controller.hidden(nil)
         }
         
@@ -117,8 +118,9 @@ class MikAlertViewViewController: MikBaseViewController {
             case .default1: return [cancelAction]
             case .default2: return [confirmAction]
             case .default3: return [cancelAction, confirmAction, confirmAction]
+            case .default4: return [cancelAction, customAction]
             case .default5: return [inputHiddenAction, confirmAction]
-            default: return [cancelAction, customAction]
+            case .default6: return []
             }
         }()
         
@@ -126,6 +128,20 @@ class MikAlertViewViewController: MikBaseViewController {
             self.inputViewsTuple = MikInputAlertView.inputAlertView(title: style.title, message: style.message, placeholder: "Input any message", showInView: self, actions: actions)
         }else if style == .default4 {
             MikAlertView.alertView(title: style.title, attributedMessage: style.attributedMessage, showInView: self, actions: actions)
+        }else if style == .default6 {
+            self.twoStepAlertViewController = MikTwoStepAlertView.alertTwoStepView(title: style.title, twoStepType: .phone("1231231234"), showInView: self, getCode: { [weak self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    // 模拟网络请求返回
+                    self?.twoStepAlertViewController?.isCountDown = true
+                    self?.twoStepAlertViewController?.updateCodeValidateResult(validateResult: .error(msg: "test"))
+                }
+            }, submit: { code in
+                print("input code: \(code ?? "")")
+            })
+            self.twoStepAlertViewController?.cancelCallback { [weak self] in
+                self?.twoStepAlertViewController?.hidden(nil)
+                print("cancel action")
+            }
         }else {
             MikAlertView.alertView(title: style.title, message: style.message, showInView: self, actions: actions)
         }

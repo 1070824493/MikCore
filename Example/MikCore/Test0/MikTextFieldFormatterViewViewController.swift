@@ -9,15 +9,15 @@ import UIKit
 
 private let phoneStyle: MikTextFieldFormatterView.CustomFormatterStyle = .phone(lenth: 11)
 
-class MikTextFieldFormatterViewViewController: MikBaseViewController {
+class MikTextFieldFormatterViewViewController: UIViewController {
     
     private let textFieldProxy = CustomTextFieldVaildateProxy(style: phoneStyle)
     
     private var tapCount = -1
     
-    // MikTextField
-    private lazy var normalTextField: MikTextField = {
-        let aTextField = MikTextField(formatteTuple: ([4], "-"))
+    // MikFormatterTextField
+    private lazy var normalTextField: MikFormatterTextField = {
+        let aTextField = MikFormatterTextField(formatteTuple: ([4], "-"))
         aTextField.backgroundColor = .white
         aTextField.attributedPlaceholder = NSAttributedString(string: "xxxx-xxxx...", attributes: [.foregroundColor : UIColor.mik.text(.hexAEAEAE)])
         return aTextField

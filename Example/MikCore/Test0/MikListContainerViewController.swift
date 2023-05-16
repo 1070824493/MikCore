@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MikListContainerViewController: MikBaseViewController {
+class MikListContainerViewController: UIViewController {
 
     private let titles: [String] = (0 ..< 5).map({ "item \($0)" })
     

@@ -10,7 +10,7 @@ import SnapKit
 
 open class MikAlertViewController: UIViewController {
     
-    private let customView: UIView
+    let customView: UIView
     
     private lazy var backgroundView: UIView = {
         let aView = UIView()

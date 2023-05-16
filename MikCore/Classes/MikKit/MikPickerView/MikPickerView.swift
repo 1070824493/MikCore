@@ -10,10 +10,12 @@ import SnapKit
 
 
 public typealias CustomButtonCallback = (_ button: UIButton) -> Void
+public typealias CloseCallbacll = () -> Void
 public typealias SelectedCallbacll = ([IndexPath]) -> Void
 
 open class MikPickerView: UIView {
         
+    public var closeHandler: CloseCallbacll?
     public var confirmHandler: SelectedCallbacll?
     
     private let title: String?
@@ -22,6 +24,7 @@ open class MikPickerView: UIView {
     
     private lazy var titleView: PVTitleView = {
         let aTitleView = PVTitleView()
+        aTitleView.closeButton.addTarget(self, action: #selector(didClickOnCloseButton(_:)), for: .touchUpInside)
         aTitleView.confirmButton.addTarget(self, action: #selector(didClickOnConfirmButton(_:)), for: .touchUpInside)
         aTitleView.titleLabel.text = title
         return aTitleView
@@ -29,7 +32,7 @@ open class MikPickerView: UIView {
     
     private lazy var pickerView: UIPickerView = {
         let aPickerView = UIPickerView()
-        aPickerView.backgroundColor = .white
+        aPickerView.backgroundColor = UIColor.mik.general(.hexF6F6F6)
         aPickerView.dataSource = self
         aPickerView.delegate = self
         seledtedIndexPaths.forEach({ aPickerView.selectRow($0.row, inComponent: $0.section, animated: false) })
@@ -72,7 +75,7 @@ open class MikPickerView: UIView {
 extension MikPickerView {
     
     private func configure() {
-        self.backgroundColor = UIColor.mik.general(.hexFFFFFF)
+        backgroundColor = UIColor.mik.general(.hexF6F6F6)
     }
     
     private func setupSubviews() {
@@ -99,7 +102,13 @@ extension MikPickerView {
 // MARK: - Private SEL
 extension MikPickerView {
     
-    @objc private func didClickOnConfirmButton(_ sender: UIButton) {
+    @objc
+    private func didClickOnCloseButton(_ sender: UIButton) {
+        self.closeHandler?()
+    }
+    
+    @objc
+    private func didClickOnConfirmButton(_ sender: UIButton) {
         self.confirmHandler?(self.seledtedIndexPaths)
     }
     
@@ -150,12 +159,26 @@ class PVTitleView: UIView {
         let aLabel = UILabel()
         aLabel.font = UIFont.mik.font(.nunitoSansBold, size: 16)
         aLabel.textColor = UIColor.mik.text(.hex1B1B1B)
+        aLabel.textAlignment = .center
         aLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return aLabel
     }()
     
+    private(set) lazy var closeButton: UIButton = {
+        let aBtn = UIButton()
+        aBtn.titleLabel?.font = UIFont.mik.font(.nunitoSansBold, size: 16)
+        aBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        aBtn.setImage(UIImage.image("nav_del"), for: .normal)
+        aBtn.setContentCompressionResistancePriority(.required, for: .horizontal)
+        aBtn.setContentCompressionResistancePriority(.required, for: .vertical)
+        aBtn.setContentHuggingPriority(.required, for: .horizontal)
+        aBtn.setContentHuggingPriority(.required, for: .vertical)
+        return aBtn
+    }()
+    
     private(set) lazy var confirmButton: UIButton = {
         let aBtn = UIButton()
+        aBtn.titleLabel?.font = UIFont.mik.font(.nunitoSansBold, size: 16)
         aBtn.setTitle("Done", for: .normal)
         aBtn.setTitleColor(UIColor.mik.text(.hex0475BC), for: .normal)
         aBtn.setTitleColor(UIColor.mik.text(.hex0475BC).withAlphaComponent(0.5), for: .highlighted)
@@ -170,21 +193,28 @@ class PVTitleView: UIView {
     private lazy var separateView: UIView = {
         let aView = UIView()
         aView.isUserInteractionEnabled = false
-        aView.backgroundColor = UIColor.mik.general(.hexEAEAEA)
+        aView.backgroundColor = UIColor.mik.general(.hexF6F6F6)
         return aView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = UIColor.mik.general(.hexFFFFFF)
         
         addSubview(titleLabel)
+        addSubview(closeButton)
         addSubview(confirmButton)
         addSubview(separateView)
         
         titleLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().inset(24)
             make.centerY.equalToSuperview()
             make.height.lessThanOrEqualToSuperview()
+        }
+        
+        closeButton.snp.makeConstraints { make in
+            make.right.lessThanOrEqualTo(titleLabel.snp.left).offset(-4)
+            make.left.height.centerY.equalToSuperview()
+            make.width.greaterThanOrEqualTo(44)
         }
         
         confirmButton.snp.makeConstraints { (make) in

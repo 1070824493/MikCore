@@ -1,6 +1,0 @@
-framework module MikCore {
-  umbrella header "MikCore-umbrella.h"
-
-  export *
-  module * { export * }
-}

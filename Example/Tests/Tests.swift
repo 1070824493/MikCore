@@ -1,5 +1,5 @@
 import XCTest
-import MikCore
+import LKCore
 
 class Tests: XCTestCase {
     

@@ -1,134 +1,170 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - Alamofire (5.6.1)
+  - Alamofire (5.4.4)
   - HandyJSON (5.0.2)
-  - JTAppleCalendar (8.0.3)
-  - JXSegmentedView (1.3.0)
-  - Kingfisher (7.0.0)
+  - JXSegmentedView (1.2.7)
+  - Kingfisher (7.6.2)
   - KingfisherWebP (1.4.0):
     - Kingfisher (~> 7.0)
     - libwebp (>= 1.1.0)
-  - libwebp (1.2.1):
-    - libwebp/demux (= 1.2.1)
-    - libwebp/mux (= 1.2.1)
-    - libwebp/webp (= 1.2.1)
-  - libwebp/demux (1.2.1):
+  - libwebp (1.2.4):
+    - libwebp/demux (= 1.2.4)
+    - libwebp/mux (= 1.2.4)
+    - libwebp/webp (= 1.2.4)
+  - libwebp/demux (1.2.4):
     - libwebp/webp
-  - libwebp/mux (1.2.1):
+  - libwebp/mux (1.2.4):
     - libwebp/demux
-  - libwebp/webp (1.2.1)
-  - MikCore (0.1.0):
-    - MikCore/MikFoundation (= 0.1.0)
-    - MikCore/MikKit (= 0.1.0)
-  - MikCore/MikFoundation (0.1.0):
-    - MikCore/MikFoundation/MikLogger (= 0.1.0)
-    - MikCore/MikFoundation/MikMedia (= 0.1.0)
-    - MikCore/MikFoundation/MikNetWork (= 0.1.0)
-    - MikCore/MikFoundation/MikValidateRegex (= 0.1.0)
-    - MikCore/MikFoundation/NameSpace (= 0.1.0)
-  - MikCore/MikFoundation/MikLogger (0.1.0):
-    - HandyJSON (~> 5.0.2)
-    - MikCore/MikFoundation/NameSpace
-    - MikCore/MikKit/MikToast
-    - SwiftyJSON (~> 5.0.1)
-  - MikCore/MikFoundation/MikMedia (0.1.0):
-    - MikCore/MikFoundation/MikLogger
-    - MikCore/MikFoundation/NameSpace
-    - ZLPhotoBrowser (~> 4.1.7)
-  - MikCore/MikFoundation/MikNetWork (0.1.0):
-    - Alamofire (~> 5.6.1)
-    - HandyJSON (~> 5.0.2)
-    - MikCore/MikFoundation/MikLogger
-    - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.2.0)
-    - RxSwift (~> 6.2.0)
-  - MikCore/MikFoundation/MikValidateRegex (0.1.0)
-  - MikCore/MikFoundation/NameSpace (0.1.0):
-    - Kingfisher (~> 7.0.0)
-    - KingfisherWebP (~> 1.4.0)
-  - MikCore/MikKit (0.1.0):
-    - MikCore/MikKit/MikAlertView (= 0.1.0)
-    - MikCore/MikKit/MikBaseViewController (= 0.1.0)
-    - MikCore/MikKit/MikBottomPopController (= 0.1.0)
-    - MikCore/MikKit/MikCalendarView (= 0.1.0)
-    - MikCore/MikKit/MikDotProgressView (= 0.1.0)
-    - MikCore/MikKit/MikGrowTextView (= 0.1.0)
-    - MikCore/MikKit/MikImageView (= 0.1.0)
-    - MikCore/MikKit/MikNavigationController (= 0.1.0)
-    - MikCore/MikKit/MikNumberControl (= 0.1.0)
-    - MikCore/MikKit/MikPickerView (= 0.1.0)
-    - MikCore/MikKit/MikPopoverView (= 0.1.0)
-    - MikCore/MikKit/MikPullToRefresh (= 0.1.0)
-    - MikCore/MikKit/MikSegmentedView (= 0.1.0)
-    - MikCore/MikKit/MikStarView (= 0.1.0)
-    - MikCore/MikKit/MikSwitch (= 0.1.0)
-    - MikCore/MikKit/MikTextField (= 0.1.0)
-    - MikCore/MikKit/MikToast (= 0.1.0)
-  - MikCore/MikKit/MikAlertView (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.2.0)
-    - RxSwift (~> 6.2.0)
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikBaseViewController (0.1.0):
-    - MikCore/MikFoundation/MikLogger
-    - MikCore/MikFoundation/NameSpace
-  - MikCore/MikKit/MikBottomPopController (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - MikCore/MikKit/MikNavigationController
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikCalendarView (0.1.0):
-    - JTAppleCalendar (~> 8.0.3)
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikDotProgressView (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikGrowTextView (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikImageView (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikNavigationController (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.2.0)
-    - RxSwift (~> 6.2.0)
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikNumberControl (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikPickerView (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - MikCore/MikKit/MikBottomPopController
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikPopoverView (0.1.0):
-    - ActiveLabel (~> 1.1.0)
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikPullToRefresh (0.1.0):
-    - Kingfisher (= 7.0.0)
-    - MikCore/MikFoundation/NameSpace
+  - libwebp/webp (1.2.4)
+  - LKCore (0.1.0):
+    - LKCore/LKFoundation (= 0.1.0)
+    - LKCore/LKKit (= 0.1.0)
+  - LKCore/LKFoundation (0.1.0):
+    - LKCore/LKFoundation/LKMedia (= 0.1.0)
+    - LKCore/LKFoundation/LKNetWork (= 0.1.0)
+    - LKCore/LKFoundation/LKValidateRegex (= 0.1.0)
+    - LKCore/LKFoundation/NameSpace (= 0.1.0)
+  - LKCore/LKFoundation/LKMedia (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - ZLPhotoBrowser (= 4.1.7)
+  - LKCore/LKFoundation/LKNetWork (0.1.0):
+    - Alamofire (= 5.4.4)
+    - HandyJSON (= 5.0.2)
+    - LKCore/LKFoundation/NameSpace
+    - RxCocoa (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - LKCore/LKFoundation/LKValidateRegex (0.1.0)
+  - LKCore/LKFoundation/NameSpace (0.1.0):
+    - Kingfisher (= 7.6.2)
+    - KingfisherWebP (= 1.4.0)
+  - LKCore/LKKit (0.1.0):
+    - LKCore/LKKit/LKAlertView (= 0.1.0)
+    - LKCore/LKKit/LKBaseViewController (= 0.1.0)
+    - LKCore/LKKit/LKBottomButtonView (= 0.1.0)
+    - LKCore/LKKit/LKBottomPopController (= 0.1.0)
+    - LKCore/LKKit/LKButton (= 0.1.0)
+    - LKCore/LKKit/LKCommon (= 0.1.0)
+    - LKCore/LKKit/LKDotProgressView (= 0.1.0)
+    - LKCore/LKKit/LKDropBoxView (= 0.1.0)
+    - LKCore/LKKit/LKEmptyView (= 0.1.0)
+    - LKCore/LKKit/LKFilterViewCell (= 0.1.0)
+    - LKCore/LKKit/LKGrowTextView (= 0.1.0)
+    - LKCore/LKKit/LKGuideView (= 0.1.0)
+    - LKCore/LKKit/LKImageView (= 0.1.0)
+    - LKCore/LKKit/LKLockSlider (= 0.1.0)
+    - LKCore/LKKit/LKNavigationController (= 0.1.0)
+    - LKCore/LKKit/LKNumberControl (= 0.1.0)
+    - LKCore/LKKit/LKOmitTextView (= 0.1.0)
+    - LKCore/LKKit/LKPickerView (= 0.1.0)
+    - LKCore/LKKit/LKPopoverView (= 0.1.0)
+    - LKCore/LKKit/LKPullToRefresh (= 0.1.0)
+    - LKCore/LKKit/LKScrollView (= 0.1.0)
+    - LKCore/LKKit/LKSegmentedView (= 0.1.0)
+    - LKCore/LKKit/LKStarRateView (= 0.1.0)
+    - LKCore/LKKit/LKStepView (= 0.1.0)
+    - LKCore/LKKit/LKSwitch (= 0.1.0)
+    - LKCore/LKKit/LKTextField (= 0.1.0)
+    - LKCore/LKKit/LKTextViewCell (= 0.1.0)
+    - LKCore/LKKit/LKToast (= 0.1.0)
+  - LKCore/LKKit/LKAlertView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - LKCore/LKKit/LKButton
+    - LKCore/LKKit/LKTextField
+    - LKCore/LKKit/LKTextViewCell
+    - RxCocoa (= 6.2.0)
+    - RxSwift (= 6.2.0)
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKBaseViewController (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+  - LKCore/LKKit/LKBottomButtonView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKBottomPopController (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - LKCore/LKKit/LKBaseViewController
+    - LKCore/LKKit/LKNavigationController
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKButton (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKCommon (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+  - LKCore/LKKit/LKDotProgressView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKDropBoxView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKEmptyView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKFilterViewCell (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKGrowTextView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKGuideView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKImageView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKLockSlider (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+  - LKCore/LKKit/LKNavigationController (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - RxCocoa
+    - RxSwift
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKNumberControl (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKOmitTextView (0.1.0):
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKPickerView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - LKCore/LKKit/LKBottomPopController
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKPopoverView (0.1.0):
+    - ActiveLabel (= 1.1.0)
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKPullToRefresh (0.1.0):
+    - Kingfisher (= 7.6.2)
+    - LKCore/LKFoundation/NameSpace
     - MJRefresh (= 3.7.5)
-  - MikCore/MikKit/MikSegmentedView (0.1.0):
-    - JXSegmentedView (~> 1.3.0)
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikStarView (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.2.0)
-    - RxSwift (~> 6.2.0)
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikSwitch (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikTextField (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - RxCocoa (~> 6.2.0)
-    - RxSwift (~> 6.2.0)
-    - SnapKit (~> 5.6.0)
-  - MikCore/MikKit/MikToast (0.1.0):
-    - MikCore/MikFoundation/NameSpace
-    - SnapKit (~> 5.6.0)
+  - LKCore/LKKit/LKScrollView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKSegmentedView (0.1.0):
+    - JXSegmentedView (= 1.2.7)
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKStarRateView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - RxCocoa (= 6.2.0)
+    - RxSwift (= 6.2.0)
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKStepView (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKSwitch (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKTextField (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - RxCocoa (= 6.2.0)
+    - RxSwift (= 6.2.0)
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKTextViewCell (0.1.0):
+    - LKCore/LKFoundation/LKValidateRegex
+    - LKCore/LKFoundation/NameSpace
+    - RxSwift (= 6.2.0)
+    - SnapKit (= 5.0.1)
+  - LKCore/LKKit/LKToast (0.1.0):
+    - LKCore/LKFoundation/NameSpace
+    - SnapKit (= 5.0.1)
   - MJRefresh (3.7.5)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
@@ -136,21 +172,19 @@ PODS:
   - RxRelay (6.2.0):
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
-  - SnapKit (5.6.0)
-  - SwiftyJSON (5.0.1)
-  - ZLPhotoBrowser (4.1.9):
-    - ZLPhotoBrowser/Core (= 4.1.9)
-  - ZLPhotoBrowser/Core (4.1.9)
+  - SnapKit (5.0.1)
+  - ZLPhotoBrowser (4.1.7):
+    - ZLPhotoBrowser/Core (= 4.1.7)
+  - ZLPhotoBrowser/Core (4.1.7)
 
 DEPENDENCIES:
-  - MikCore (from `../`)
+  - LKCore (from `../`)
 
 SPEC REPOS:
   trunk:
     - ActiveLabel
     - Alamofire
     - HandyJSON
-    - JTAppleCalendar
     - JXSegmentedView
     - Kingfisher
     - KingfisherWebP
@@ -160,31 +194,28 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SnapKit
-    - SwiftyJSON
     - ZLPhotoBrowser
 
 EXTERNAL SOURCES:
-  MikCore:
+  LKCore:
     :path: "../"
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
-  JTAppleCalendar: 932cadea40b1051beab10f67843451d48ba16c99
-  JXSegmentedView: fec0d335355b6e019c494fe2e030bde8a36d2df6
-  Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
+  JXSegmentedView: eb1cad21f57c2543c00c3e08b8fd3c7ca54f5acd
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   KingfisherWebP: f4b76064c50a36c4cadd37548496ecebfdcb39e8
-  libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
-  MikCore: 96ec570c19bde169c081ff563bea42fb06db8a79
+  libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
+  LKCore: 6fe5ebb61fd9740f99c9410a3fc1b6fe1ccfeb34
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
-  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
-  ZLPhotoBrowser: 320aec37f64b0f58d40abd852956c64530011ea4
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  ZLPhotoBrowser: 8ea81aa5cbaaf8b97bf8830fed1b1f756a5e8894
 
-PODFILE CHECKSUM: e00e17594cb771bf3cce56533c5d214865ba28e4
+PODFILE CHECKSUM: 3d023dd940f615174ac4fc3a411b3c2fa69777d4
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

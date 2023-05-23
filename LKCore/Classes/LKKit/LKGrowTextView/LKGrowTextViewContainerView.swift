@@ -24,7 +24,7 @@ public class LKGrowTextViewContainerView: UIView {
 
     public lazy var textView: LKGrowTextView = {
         let aTextView = LKGrowTextView()
-        aTextView.backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        aTextView.backgroundColor = UIColor.lk.color(.hexFFFFFF)
         aTextView.textContainerInset = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 10)
         aTextView.returnKeyType = .default
         aTextView.textAlignment = .left

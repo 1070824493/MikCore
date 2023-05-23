@@ -41,21 +41,21 @@ fileprivate extension LKAlertAction.Style {
     struct StyleConfig {
         
         /// background image for normal
-        var backgroundImage: UIImage? = UIImage.lk.image(UIColor.lk.general(.hexFFFFFF))
+        var backgroundImage: UIImage? = UIImage.lk.image(UIColor.lk.color(.hexFFFFFF))
         /// background image for highlight
-        var highlightBackgroundImage: UIImage? = UIImage.lk.image(UIColor.lk.general(.hex1B1B1B, alpha: 0.07))
+        var highlightBackgroundImage: UIImage? = UIImage.lk.image(UIColor.lk.color(.hex1B1B1B, alpha: 0.07))
         /// background image for disabled
-        var disabledBackgroundImage: UIImage? = UIImage.lk.image(UIColor.lk.general(.hex1B1B1B, alpha: 0.07))
+        var disabledBackgroundImage: UIImage? = UIImage.lk.image(UIColor.lk.color(.hex1B1B1B, alpha: 0.07))
         /// contentEdgeInsets
         var contentEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         /// font for title
         var titleFont: UIFont = UIFont.lk.font(.nunitoSansBold, size: 14)
         /// title color for normal
-        var titleColor: UIColor = UIColor.lk.general(.hex1B1B1B)
+        var titleColor: UIColor = UIColor.lk.color(.hex1B1B1B)
         /// title color for highlight
-        var highlightTitleColor: UIColor = UIColor.lk.general(.hex1B1B1B)
+        var highlightTitleColor: UIColor = UIColor.lk.color(.hex1B1B1B)
         /// title color for disabled
-        var disabledTitleColor: UIColor = UIColor.lk.general(.hex1B1B1B)
+        var disabledTitleColor: UIColor = UIColor.lk.color(.hex1B1B1B)
         /// border color
         var borderColor: UIColor?
         /// border width
@@ -69,20 +69,20 @@ fileprivate extension LKAlertAction.Style {
         switch self {
         case .normal:
             var config = StyleConfig()
-            config.backgroundImage = UIImage.lk.image(UIColor.lk.general(.hexFFFFFF))
-            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hexFFFFFF))
-            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hexFFFFFF))
-            config.titleColor = UIColor.lk.general(.hex1B1B1B)
-            config.highlightTitleColor = UIColor.lk.general(.hex1B1B1B, alpha: 0.5)
-            config.disabledTitleColor = UIColor.lk.general(.hex1B1B1B, alpha: 0.5)
+            config.backgroundImage = UIImage.lk.image(UIColor.lk.color(.hexFFFFFF))
+            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hexFFFFFF))
+            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hexFFFFFF))
+            config.titleColor = UIColor.lk.color(.hex1B1B1B)
+            config.highlightTitleColor = UIColor.lk.color(.hex1B1B1B, alpha: 0.5)
+            config.disabledTitleColor = UIColor.lk.color(.hex1B1B1B, alpha: 0.5)
             config.borderColor = nil
             config.cornerRadius = 0
             return config
         case .fillRed:
             var config = StyleConfig()
-            config.backgroundImage = UIImage.lk.image(UIColor.lk.general(.hexCF1F2E))
-            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hexEB003B))
-            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hexCDCDCD))
+            config.backgroundImage = UIImage.lk.image(UIColor.lk.color(.hexCF1F2E))
+            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hexEB003B))
+            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hexCDCDCD))
             config.titleColor = UIColor.lk.text(.hexFFFFFF)
             config.highlightTitleColor = UIColor.lk.text(.hexFFFFFF)
             config.disabledTitleColor = UIColor.lk.text(.hexFFFFFF)
@@ -91,9 +91,9 @@ fileprivate extension LKAlertAction.Style {
             return config
         case .fillBlack:
             var config = StyleConfig()
-            config.backgroundImage = UIImage.lk.image(UIColor.lk.general(.hex1B1B1B))
-            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hex5F5F5F))
-            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hexCDCDCD))
+            config.backgroundImage = UIImage.lk.image(UIColor.lk.color(.hex1B1B1B))
+            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hex5F5F5F))
+            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hexCDCDCD))
             config.titleColor = UIColor.lk.text(.hexFFFFFF)
             config.highlightTitleColor = UIColor.lk.text(.hexFFFFFF)
             config.disabledTitleColor = UIColor.lk.text(.hexFFFFFF)
@@ -102,24 +102,24 @@ fileprivate extension LKAlertAction.Style {
             return config
         case .borderRed:
             var config = StyleConfig()
-            config.backgroundImage = UIImage.lk.image(UIColor.lk.general(.hexFFFFFF))
-            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hex1B1B1B, alpha: 0.07))
-            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hex1B1B1B, alpha: 0.07))
-            config.titleColor = UIColor.lk.general(.hexCF1F2E)
-            config.highlightTitleColor = UIColor.lk.general(.hexEB003B)
-            config.disabledTitleColor = UIColor.lk.general(.hexEB003B)
-            config.borderColor = UIColor.lk.general(.hexCF1F2E)
+            config.backgroundImage = UIImage.lk.image(UIColor.lk.color(.hexFFFFFF))
+            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hex1B1B1B, alpha: 0.07))
+            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hex1B1B1B, alpha: 0.07))
+            config.titleColor = UIColor.lk.color(.hexCF1F2E)
+            config.highlightTitleColor = UIColor.lk.color(.hexEB003B)
+            config.disabledTitleColor = UIColor.lk.color(.hexEB003B)
+            config.borderColor = UIColor.lk.color(.hexCF1F2E)
             config.cornerRadius = 25
             return config
         case .borderBlack:
             var config = StyleConfig()
-            config.backgroundImage = UIImage.lk.image(UIColor.lk.general(.hexFFFFFF))
-            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hex1B1B1B, alpha: 0.07))
-            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.general(.hex1B1B1B, alpha: 0.07))
-            config.titleColor = UIColor.lk.general(.hex1B1B1B)
-            config.highlightTitleColor = UIColor.lk.general(.hex1B1B1B)
-            config.disabledTitleColor = UIColor.lk.general(.hex1B1B1B)
-            config.borderColor = UIColor.lk.general(.hex1B1B1B)
+            config.backgroundImage = UIImage.lk.image(UIColor.lk.color(.hexFFFFFF))
+            config.highlightBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hex1B1B1B, alpha: 0.07))
+            config.disabledBackgroundImage = UIImage.lk.image(UIColor.lk.color(.hex1B1B1B, alpha: 0.07))
+            config.titleColor = UIColor.lk.color(.hex1B1B1B)
+            config.highlightTitleColor = UIColor.lk.color(.hex1B1B1B)
+            config.disabledTitleColor = UIColor.lk.color(.hex1B1B1B)
+            config.borderColor = UIColor.lk.color(.hex1B1B1B)
             config.cornerRadius = 25
             return config
         }

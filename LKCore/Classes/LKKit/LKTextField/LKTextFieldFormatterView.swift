@@ -74,15 +74,15 @@ fileprivate extension LKTextFieldFormatterView.ValidateResult {
         case .tips(let msg):
             message = msg
             iconImage = nil
-            tinColor = UIColor.lk.general(.hex1B1B1B)
+            tinColor = UIColor.lk.color(.hex1B1B1B)
         case .error(let msg):
             message = "  \(msg ?? "")"
             iconImage = UIImage.image("lk_text_error")
-            tinColor = UIColor.lk.general(.hexEB003B)
+            tinColor = UIColor.lk.color(.hexEB003B)
         case .ok(let msg):
             message = "  \(msg ?? "")"
             iconImage = UIImage.image("lk_text_success")
-            tinColor = UIColor.lk.general(.hex00856D)
+            tinColor = UIColor.lk.color(.hex00856D)
         }
         
         let mAttribute = NSMutableAttributedString()
@@ -139,7 +139,7 @@ public class LKTextFieldFormatterView: UIView {
         didSet {
             self.textField.isEnabled = isEditable
             self.textField.textColor = isEditable ? UIColor.lk.text(.hex1B1B1B) : UIColor.lk.text(.hex757575)
-            self.textField.backgroundColor = isEditable ? UIColor.lk.general(.hexFFFFFF) : UIColor.lk.general(.hexF6F6F6)
+            self.textField.backgroundColor = isEditable ? UIColor.lk.color(.hexFFFFFF) : UIColor.lk.color(.hexF6F6F6)
         }
     }
     
@@ -211,7 +211,7 @@ public class LKTextFieldFormatterView: UIView {
 extension LKTextFieldFormatterView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
     
     private func setupSubviews() {
@@ -320,9 +320,9 @@ fileprivate extension TextFieldView.Style {
     
     var borderColor: UIColor {
         switch self {
-        case .normal: return UIColor.lk.general(.hexAEAEAE)
-        case .ok: return UIColor.lk.general(.hex00856D)
-        case .error: return UIColor.lk.general(.hexEB003B)
+        case .normal: return UIColor.lk.color(.hexAEAEAE)
+        case .ok: return UIColor.lk.color(.hex00856D)
+        case .error: return UIColor.lk.color(.hexEB003B)
         }
     }
     

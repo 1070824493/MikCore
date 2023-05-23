@@ -21,7 +21,7 @@ open class LKPopoverController: UIViewController {
         public var backgroundColor: UIColor = .clear
         public var isDisplayArrow: Bool = true
         public var arrowSize: CGSize = CGSize(width: 10, height: 8)
-        public var arrowColor: UIColor = UIColor.lk.general(.hexF3F3F3)
+        public var arrowColor: UIColor = UIColor.lk.color(.hexF3F3F3)
         public var space: CGFloat = 4
     }
 
@@ -135,7 +135,7 @@ private extension LKPopoverController {
         (view as? PCView)?.direction = direction
         (view as? PCView)?.convertFrame = convertFrame
         
-        customView.lk.setShadow(color: UIColor.lk.general(.hex000000), opacity: 0.1, offset: {
+        customView.lk.setShadow(color: UIColor.lk.color(.hex000000), opacity: 0.1, offset: {
             switch direction {
             case .up: return CGSize(width: 0, height: -kShadowOffset)
             case .down: return CGSize(width: 0, height: kShadowOffset)

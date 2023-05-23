@@ -12,7 +12,7 @@ open class LKBaseViewController: UIViewController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        view.backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
 
 

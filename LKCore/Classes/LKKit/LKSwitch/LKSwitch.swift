@@ -54,9 +54,9 @@ public class LKSwitch: UISwitch {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        thumbTintColor = UIColor.lk.general(.hexFFFFFF)
-        backgroundColor = UIColor.lk.general(.hexBDBDBD)
-        onTintColor = UIColor.lk.general(.hexCF1F2E)
+        thumbTintColor = UIColor.lk.color(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexBDBDBD)
+        onTintColor = UIColor.lk.color(.hexCF1F2E)
         addTarget(self, action: #selector(changeDotStyle), for: .valueChanged)
     }
     

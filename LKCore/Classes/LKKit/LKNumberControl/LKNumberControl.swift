@@ -41,9 +41,9 @@ public class LKNumberControl: UIControl {
 
     private lazy var minusBtn: UIButton = {
         let aBtn = UIButton()
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6)), for: .normal)
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6)), for: .disabled)
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF3F3F3, alpha: 0.5)), for: .highlighted)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6)), for: .disabled)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF3F3F3, alpha: 0.5)), for: .highlighted)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
         aBtn.setImage(UIImage.image("lk_number_minus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         aBtn.addTarget(self, action: #selector(didClickOnMinusButton(_:)), for: .touchUpInside)
@@ -52,9 +52,9 @@ public class LKNumberControl: UIControl {
     
     private lazy var plusBtn: UIButton = {
         let aBtn = UIButton()
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6)), for: .normal)
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6)), for: .disabled)
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6, alpha: 0.5)), for: .highlighted)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6)), for: .disabled)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6, alpha: 0.5)), for: .highlighted)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
         aBtn.setImage(UIImage.image("lk_number_plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         aBtn.addTarget(self, action: #selector(didClickOnPlusButton(_:)), for: .touchUpInside)
@@ -64,8 +64,8 @@ public class LKNumberControl: UIControl {
     private lazy var valueBtn: UIButton = {
         let aBtn = UIButton()
         aBtn.isUserInteractionEnabled = false
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6)), for: .normal)
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6)), for: .disabled)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6)), for: .disabled)
         aBtn.titleLabel?.font = UIFont.lk.font(.nunitoSansBold, size: 16)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         aBtn.setTitleColor(UIColor.lk.text(.hex1B1B1B), for: .normal)
@@ -127,16 +127,16 @@ extension LKNumberControl {
     private func update() {
         let isValueEnable = self.isEnabled
         self.valueBtn.isEnabled = isValueEnable
-        self.valueBtn.tintColor = isValueEnable ? UIColor.lk.general(.hex1B1B1B) : UIColor.lk.general(.hexCDCDCD)
+        self.valueBtn.tintColor = isValueEnable ? UIColor.lk.color(.hex1B1B1B) : UIColor.lk.color(.hexCDCDCD)
         self.valueBtn.setTitle("\(value)", for: .normal)
         
         let isMinusEnable = self.isEnabled && self.value > self.config.minValue
         self.minusBtn.isEnabled = isMinusEnable
-        self.minusBtn.tintColor = isMinusEnable ? UIColor.lk.general(.hex1B1B1B) : UIColor.lk.general(.hexCDCDCD)
+        self.minusBtn.tintColor = isMinusEnable ? UIColor.lk.color(.hex1B1B1B) : UIColor.lk.color(.hexCDCDCD)
         
         let isPlusEnable = self.isEnabled && self.value < self.config.maxValue
         self.plusBtn.isEnabled = isPlusEnable
-        self.plusBtn.tintColor = isPlusEnable ? UIColor.lk.general(.hex1B1B1B) : UIColor.lk.general(.hexCDCDCD)
+        self.plusBtn.tintColor = isPlusEnable ? UIColor.lk.color(.hex1B1B1B) : UIColor.lk.color(.hexCDCDCD)
     }
     
     @objc

@@ -35,7 +35,7 @@ class LKMessageHUDView: LKBaseHUDView {
     private lazy var indicatorView: UIActivityIndicatorView = {
         let aIndicatorView = UIActivityIndicatorView(style: .medium)
         aIndicatorView.hidesWhenStopped = true
-        aIndicatorView.color = UIColor.lk.general(.hex1B1B1B)
+        aIndicatorView.color = UIColor.lk.color(.hex1B1B1B)
         return aIndicatorView
     }()
     
@@ -66,7 +66,7 @@ class LKMessageHUDView: LKBaseHUDView {
     
     private lazy var contentView: UIView = {
         let aView = UIView()
-        aView.backgroundColor = UIColor.lk.general(.hexFFFFFF, alpha: 0.9)
+        aView.backgroundColor = UIColor.lk.color(.hexFFFFFF, alpha: 0.9)
         aView.layer.cornerRadius = 16
         aView.layer.masksToBounds = true
         return aView

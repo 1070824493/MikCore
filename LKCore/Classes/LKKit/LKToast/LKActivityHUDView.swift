@@ -14,7 +14,7 @@ class LKActivityHUDView: LKBaseHUDView {
         let aIndicatorView = UIActivityIndicatorView(style: .medium)
         aIndicatorView.center = CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
         aIndicatorView.hidesWhenStopped = true
-        aIndicatorView.color = UIColor.lk.general(.hex1B1B1B)
+        aIndicatorView.color = UIColor.lk.color(.hex1B1B1B)
         return aIndicatorView
     }()
     

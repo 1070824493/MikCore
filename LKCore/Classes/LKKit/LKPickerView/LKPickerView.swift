@@ -32,7 +32,7 @@ open class LKPickerView: UIView {
     
     private lazy var pickerView: UIPickerView = {
         let aPickerView = UIPickerView()
-        aPickerView.backgroundColor = UIColor.lk.general(.hexF6F6F6)
+        aPickerView.backgroundColor = UIColor.lk.color(.hexF6F6F6)
         aPickerView.dataSource = self
         aPickerView.delegate = self
         seledtedIndexPaths.forEach({ aPickerView.selectRow($0.row, inComponent: $0.section, animated: false) })
@@ -75,7 +75,7 @@ open class LKPickerView: UIView {
 extension LKPickerView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexF6F6F6)
+        backgroundColor = UIColor.lk.color(.hexF6F6F6)
     }
     
     private func setupSubviews() {
@@ -193,13 +193,13 @@ class PVTitleView: UIView {
     private lazy var separateView: UIView = {
         let aView = UIView()
         aView.isUserInteractionEnabled = false
-        aView.backgroundColor = UIColor.lk.general(.hexF6F6F6)
+        aView.backgroundColor = UIColor.lk.color(.hexF6F6F6)
         return aView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
         
         addSubview(titleLabel)
         addSubview(closeButton)

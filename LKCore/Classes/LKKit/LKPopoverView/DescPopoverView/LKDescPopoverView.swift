@@ -127,7 +127,7 @@ public class LKDescPopoverView: UIView {
     
     private lazy var contentView: UIView = {
         let aView = UIView()
-        aView.backgroundColor = UIColor.lk.general(.hexF3F3F3)
+        aView.backgroundColor = UIColor.lk.color(.hexF3F3F3)
         aView.layer.cornerRadius = 4
         aView.layer.masksToBounds = true
         return aView

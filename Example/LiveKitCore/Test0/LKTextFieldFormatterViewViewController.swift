@@ -90,7 +90,7 @@ class LKTextFieldFormatterViewViewController: LKBaseViewController {
 extension LKTextFieldFormatterViewViewController {
     
     private func configure() {
-        view.backgroundColor = UIColor.lk.general(.hexF6F6F6)
+        view.backgroundColor = UIColor.lk.color(.hexF6F6F6)
     }
     
     private func setupSubviews() {

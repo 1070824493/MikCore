@@ -28,7 +28,7 @@ public extension UIView {
     ///   - buttonStyle: 事件按钮样式
     ///   - handler: 点击事件按钮的回调
     /// - Note: 显示缺省页之前会移除当前已存在的缺省页
-    func showEmpty(backgroundColor: UIColor = UIColor.lk.general(.hexFFFFFF),
+    func showEmpty(backgroundColor: UIColor = UIColor.lk.color(.hexFFFFFF),
                    image: UIImage? = nil,
                    title: String? = nil,
                    message: String? = nil,

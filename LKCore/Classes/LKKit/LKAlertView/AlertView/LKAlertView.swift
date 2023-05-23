@@ -116,8 +116,8 @@ public class LKAlertView: UIView {
     
     private func createActionButton() -> UIButton {
         let aBtn = UIButton()
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hex1B1B1B)), for: .normal)
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hex5F5F5F)), for: .highlighted)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hex1B1B1B)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hex5F5F5F)), for: .highlighted)
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         aBtn.titleLabel?.numberOfLines = 2
         aBtn.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -131,7 +131,7 @@ public class LKAlertView: UIView {
         self.actions = actions
 
         super.init(frame: .zero)
-        self.backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        self.backgroundColor = UIColor.lk.color(.hexFFFFFF)
         self.layer.cornerRadius = 16
         self.layer.masksToBounds = true
         
@@ -175,7 +175,7 @@ public class LKAlertView: UIView {
 extension LKAlertView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
     
     private func setupSubviews() {

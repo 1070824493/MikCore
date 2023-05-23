@@ -26,7 +26,7 @@ open class LKScrollView: UIScrollView {
         self.axis = axis
         
         super.init(frame: .zero)
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
         bounces = true
         alwaysBounceHorizontal = axis == .horizontal
         alwaysBounceVertical = axis == .vertical

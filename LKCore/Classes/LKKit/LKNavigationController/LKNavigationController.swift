@@ -46,7 +46,7 @@ open class LKNavigationController: UINavigationController {
 
     fileprivate var scrollViewUtil: LKNavigationScrollUtil?
 
-    private var navigationBarColor = UIColor.lk.general(.hexFFFFFF) {
+    private var navigationBarColor = UIColor.lk.color(.hexFFFFFF) {
         didSet {
             guard navigationBarColor.lk.rgbaValue() != oldValue.lk.rgbaValue() else { return }
             self.navigationBar.setBackgroundColor(color: navigationBarColor)
@@ -111,14 +111,14 @@ extension LKNavigationController {
         interactivePopGestureRecognizer?.delegate = self
 
         let config = UINavigationBarAppearance(barAppearance: navigationBar.standardAppearance)
-        config.backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        config.backgroundColor = UIColor.lk.color(.hexFFFFFF)
         config.shadowImage = UIImage()
         config.shadowColor = .clear
-        config.titleTextAttributes = [.foregroundColor: UIColor.lk.general(.hex1B1B1B),
+        config.titleTextAttributes = [.foregroundColor: UIColor.lk.color(.hex1B1B1B),
                                       .font: UIFont.lk.font(.IBMPlexSerifBold, size: 16)]
 
         navigationBar.barStyle = UIBarStyle.default
-        navigationBar.barTintColor = UIColor.lk.general(.hexFFFFFF)
+        navigationBar.barTintColor = UIColor.lk.color(.hexFFFFFF)
         navigationBar.scrollEdgeAppearance = config
         navigationBar.standardAppearance = config
     }
@@ -133,7 +133,7 @@ extension LKNavigationController {
         let backButton = UIButton(type: .custom)
         backButton.contentHorizontalAlignment = .left
         backButton.titleLabel?.font = UIFont.lk.font(.IBMPlexSerifBold, size: 16.rate)
-        backButton.setTitleColor(UIColor.lk.general(.hex1B1B1B), for: .normal)
+        backButton.setTitleColor(UIColor.lk.color(.hex1B1B1B), for: .normal)
         backButton.setImage(UIImage.image("nav_back"), for: .normal)
         backButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 4, bottom: 10, right: 14)
         backButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)

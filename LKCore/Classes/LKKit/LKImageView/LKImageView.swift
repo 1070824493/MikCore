@@ -14,9 +14,9 @@ fileprivate extension LKImageView.Style {
     var config: LKImageView.Config {
         switch self {
         case .buyer:
-            return LKImageView.Config(backgroundColor: UIColor.lk.general(.hexF3F3F3), placeholderImage: UIImage.image("lk_placeholder_buyer"))
+            return LKImageView.Config(backgroundColor: UIColor.lk.color(.hexF3F3F3), placeholderImage: UIImage.image("lk_placeholder_buyer"))
         case .seller:
-            return LKImageView.Config(backgroundColor: UIColor.lk.general(.hexF3F3F3), placeholderImage: UIImage.image("lk_placeholder_seller"))
+            return LKImageView.Config(backgroundColor: UIColor.lk.color(.hexF3F3F3), placeholderImage: UIImage.image("lk_placeholder_seller"))
         }
     }
     
@@ -103,7 +103,7 @@ fileprivate class ImagePlaceholderView: UIView {
     
     var isHighlight: Bool = false {
         didSet {
-            self.backgroundColor = isHighlight ? UIColor.lk.general(.hex000000, alpha: 0.05) : .clear
+            self.backgroundColor = isHighlight ? UIColor.lk.color(.hex000000, alpha: 0.05) : .clear
         }
     }
     

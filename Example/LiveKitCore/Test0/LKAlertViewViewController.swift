@@ -43,7 +43,7 @@ class LKAlertViewViewController: LKBaseViewController {
         button.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         button.setTitle("test \($0)", for: .normal)
         button.setTitleColor(UIColor.red, for: .normal)
-        button.addTarget(self, action: #selector(didClockOnTestButton(_:)), for: .touchUpInside)
+        button.addTarget(LKAlertViewViewController.self, action: #selector(didClockOnTestButton(_:)), for: .touchUpInside)
         return button
     })
     
@@ -89,8 +89,8 @@ class LKAlertViewViewController: LKBaseViewController {
         // 自定义样式
         let customAction: LKAlertAction = {
             let aAction = LKAlertAction { (aBtn) in
-                aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hex87CEFA)), for: .normal)
-                aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hex87CEFA, alpha: 0.5)), for: .highlighted)
+                aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hex87CEFA)), for: .normal)
+                aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hex87CEFA, alpha: 0.5)), for: .highlighted)
                 aBtn.layer.cornerRadius = 25
                 aBtn.layer.masksToBounds = true
                 aBtn.titleLabel?.font = UIFont.lk.font(.nunitoSansBold, size: 14)

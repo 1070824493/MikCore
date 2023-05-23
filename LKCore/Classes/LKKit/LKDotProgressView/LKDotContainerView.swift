@@ -18,9 +18,9 @@ class LKDotContainerView: UIView {
             self.dotImgViews.enumerated().forEach({
                 $1.isHighlighted = $0 == step
                 if $0 <= step {
-                    $1.backgroundColor = UIColor.lk.general(.hexCF1F2E)
+                    $1.backgroundColor = UIColor.lk.color(.hexCF1F2E)
                 }else {
-                    $1.backgroundColor = UIColor.lk.general(.hexCDCDCD)
+                    $1.backgroundColor = UIColor.lk.color(.hexCDCDCD)
                 }
             })
         }
@@ -30,7 +30,7 @@ class LKDotContainerView: UIView {
     
     private lazy var grayLayer: CAShapeLayer = {
         let aShapeLayer = CAShapeLayer()
-        aShapeLayer.strokeColor = UIColor.lk.general(.hexCDCDCD).cgColor
+        aShapeLayer.strokeColor = UIColor.lk.color(.hexCDCDCD).cgColor
         aShapeLayer.fillColor = UIColor.clear.cgColor
         aShapeLayer.lineWidth = 2
         return aShapeLayer
@@ -38,7 +38,7 @@ class LKDotContainerView: UIView {
     
     private lazy var redLayer: CAShapeLayer = {
         let aShapeLayer = CAShapeLayer()
-        aShapeLayer.strokeColor = UIColor.lk.general(.hexCF1F2E).cgColor
+        aShapeLayer.strokeColor = UIColor.lk.color(.hexCF1F2E).cgColor
         aShapeLayer.fillColor = UIColor.clear.cgColor
         aShapeLayer.lineWidth = 2
         return aShapeLayer
@@ -97,7 +97,7 @@ class LKDotContainerView: UIView {
 extension LKDotContainerView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
     
     private func setupSubviews() {
@@ -132,7 +132,7 @@ fileprivate class MDImageView: UIImageView {
     }
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexCDCDCD)
+        backgroundColor = UIColor.lk.color(.hexCDCDCD)
         highlightedImage = UIImage.image("lk_dot_progress_right")
         contentMode = .center
         layer.cornerRadius = kDotHeight * 0.5

@@ -14,7 +14,7 @@ class LKPopoverViewViewController: LKBaseViewController {
         button.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         button.setTitle("test\($0)", for: .normal)
         button.setTitleColor(UIColor.red, for: .normal)
-        button.addTarget(self, action: #selector(didClickOnTestButton(_:)), for: .touchUpInside)
+        button.addTarget(LKPopoverViewViewController.self, action: #selector(didClickOnTestButton(_:)), for: .touchUpInside)
         return button
     })
     

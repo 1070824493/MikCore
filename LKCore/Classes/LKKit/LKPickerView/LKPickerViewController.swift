@@ -42,7 +42,7 @@ public class LKPickerViewController: LKBottomPopViewController {
     
     private lazy var contentView: UIView = {
         let aView = UIView()
-        aView.backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        aView.backgroundColor = UIColor.lk.color(.hexFFFFFF)
         return aView
     }()
     

@@ -42,7 +42,7 @@ public class LKFilterViewCell: UIView {
             if isShowLayerLine {
                 self.bgButton.layer.cornerRadius = 4.rate
                 self.bgButton.layer.borderWidth = 1.0
-                self.bgButton.layer.borderColor = UIColor.lk.general(.hexAEAEAE).cgColor
+                self.bgButton.layer.borderColor = UIColor.lk.color(.hexAEAEAE).cgColor
                 self.bgButton.layer.rasterizationScale = layer.contentsScale // 避免离屏渲染，使用光栅化技术将圆角缓存
             }
         }
@@ -52,7 +52,7 @@ public class LKFilterViewCell: UIView {
         let button = UIButton.init(type: .custom)
         button.isUserInteractionEnabled = false
         button.setImage(UIImage.lk.image(.white), for: .normal)
-        button.setImage(UIImage.lk.image(UIColor.lk.general(.hexF6F6F6)), for: .selected)
+        button.setImage(UIImage.lk.image(UIColor.lk.color(.hexF6F6F6)), for: .selected)
         return button
     }()
     
@@ -119,7 +119,7 @@ public class LKFilterViewCell: UIView {
 extension LKFilterViewCell {
     
     public func setTitle(_ title: String, number: Int) {
-        let attr = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.font : UIFont.lk.font(size: 16.rate), NSAttributedString.Key.foregroundColor : UIColor.lk.general(.hex1B1B1B)])
+        let attr = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.font : UIFont.lk.font(size: 16.rate), NSAttributedString.Key.foregroundColor : UIColor.lk.color(.hex1B1B1B)])
         if number > 0 {
             let countAttr = NSAttributedString(string: "（\(number)）", attributes: [NSAttributedString.Key.font : UIFont.lk.font(.nunitoSans, size: 16.rate), NSAttributedString.Key.foregroundColor : UIColor.red])
             attr.append(countAttr)

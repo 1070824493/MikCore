@@ -20,8 +20,8 @@ class LKStarsViewViewController: LKBaseViewController {
         var config = LKStarsView.Config()
         config.maximumImage = UIImage(named: "lk_scorestar")
         config.minimumImage = UIImage(named: "lk_scorestarfill")
-        config.maximumTincolor = UIColor.lk.general(.hexCDCDCD)
-        config.minimumTincolor = UIColor.lk.general(.hexCF1F2E)
+        config.maximumTincolor = UIColor.lk.color(.hexCDCDCD)
+        config.minimumTincolor = UIColor.lk.color(.hexCF1F2E)
         config.starHeight = 20
         config.space = 30
         config.repeatCount = 3

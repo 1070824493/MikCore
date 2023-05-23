@@ -68,16 +68,16 @@ fileprivate extension LKToast.LKToastStyle {
     
     var backgroundColor: UIColor? {
         switch self {
-        case .information(_, _): return UIColor.lk.general(.hexFBFBFB)
-        case .success(_, _): return UIColor.lk.general(.hexECF6F4)
-        case .warn(_, _): return UIColor.lk.general(.hexF8F3EC)
-        case .error(_, _): return UIColor.lk.general(.hexFEF5F8)
+        case .information(_, _): return UIColor.lk.color(.hexFBFBFB)
+        case .success(_, _): return UIColor.lk.color(.hexECF6F4)
+        case .warn(_, _): return UIColor.lk.color(.hexF8F3EC)
+        case .error(_, _): return UIColor.lk.color(.hexFEF5F8)
         }
     }
     
     var borderColor: UIColor? {
         switch self {
-        case .information(_, _): return UIColor.lk.general(.hex1B1B1B, alpha: 0.5)
+        case .information(_, _): return UIColor.lk.color(.hex1B1B1B, alpha: 0.5)
         case .success(_, _): return UIColor.lk.text(.hex009783, alpha: 0.5)
         case .warn(_, _): return UIColor.lk.text(.hexA85D00, alpha: 0.5)
         case .error(_, _): return UIColor.lk.text(.hexEB003B, alpha: 0.5)

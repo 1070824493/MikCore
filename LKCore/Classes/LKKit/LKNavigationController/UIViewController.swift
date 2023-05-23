@@ -21,7 +21,7 @@ public extension UIViewController {
     
     /// ‘NavigationBar‘颜色
     var lk_navigationBarColor: UIColor {
-        get { objc_getAssociatedObject(self, &kNavigationBarBackgroundColorKey) as? UIColor ?? UIColor.lk.general(.hexFFFFFF) }
+        get { objc_getAssociatedObject(self, &kNavigationBarBackgroundColorKey) as? UIColor ?? UIColor.lk.color(.hexFFFFFF) }
         set { objc_setAssociatedObject(self, &kNavigationBarBackgroundColorKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     

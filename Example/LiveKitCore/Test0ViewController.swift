@@ -40,7 +40,7 @@ class Test0ViewController: UITableViewController {
         //        var colors: [UIColor] = LKNameSpace.HexColorsEnum.allCases.map({ UIColor.lk.general($0) })
         
         LKNameSpace.HexColorsEnum.allCases.forEach({
-            self.view.backgroundColor = UIColor.lk.general($0)
+            self.view.backgroundColor = UIColor.lk.color($0)
         })
     }
     

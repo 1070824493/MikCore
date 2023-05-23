@@ -111,7 +111,7 @@ public extension LKNameSpace where Base: UIColor {
     ///   - hexColor: 常用颜色
     ///   - alpha: 透明度（0~1.0）
     /// - Returns: 颜色
-    static func general(_ hexColor: HexColorsEnum, alpha: CGFloat? = nil) -> UIColor {
+    static func color(_ hexColor: HexColorsEnum, alpha: CGFloat? = nil) -> UIColor {
         return Self.name(hexColor.rawValue, alpha: alpha)
     }
     

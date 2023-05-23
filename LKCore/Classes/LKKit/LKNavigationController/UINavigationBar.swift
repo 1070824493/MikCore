@@ -20,7 +20,7 @@ internal extension UINavigationBar {
             if isHidden {
                 return UIImage()
             }else {
-                return UIImage.lk.image(color ?? UIColor.lk.general(.hexEAEAEA), size: CGSize(width: 1, height: 1))
+                return UIImage.lk.image(color ?? UIColor.lk.color(.hexEAEAEA), size: CGSize(width: 1, height: 1))
             }
         }()
         self.scrollEdgeAppearance = navConfig

@@ -29,8 +29,8 @@ public class LKStarsView: UIControl {
     public struct Config {
         public var maximumImage: UIImage? = UIImage.image("lk_littlestar_n")
         public var minimumImage: UIImage? = UIImage.image("lk_littlestar_s")
-        public var maximumTincolor: UIColor = UIColor.lk.general(.hexCDCDCD)
-        public var minimumTincolor: UIColor = UIColor.lk.general(.hexEBAB33)
+        public var maximumTincolor: UIColor = UIColor.lk.color(.hexCDCDCD)
+        public var minimumTincolor: UIColor = UIColor.lk.color(.hexEBAB33)
         public var starHeight: CGFloat = 12
         public var space: CGFloat = 4
         public var repeatCount: Int = 5
@@ -150,7 +150,7 @@ public class LKStarsView: UIControl {
 extension LKStarsView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
     
     private func setupSubviews() {

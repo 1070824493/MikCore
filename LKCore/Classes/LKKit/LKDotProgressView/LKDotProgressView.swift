@@ -65,7 +65,7 @@ open class LKDotProgressView: UIView {
 extension LKDotProgressView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
     
     private func setupSubviews() {

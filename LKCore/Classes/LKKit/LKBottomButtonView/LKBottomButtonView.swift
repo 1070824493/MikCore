@@ -14,7 +14,7 @@ public class LKBottomButtonView: UIView {
     
     lazy private var buttons = [UIButton]()
     
-    public init(title: String, titleColor: UIColor = UIColor.lk.text(.hexFFFFFF), bgColor: UIColor = UIColor.lk.general(.hexCF1F2E)) {
+    public init(title: String, titleColor: UIColor = UIColor.lk.text(.hexFFFFFF), bgColor: UIColor = UIColor.lk.color(.hexCF1F2E)) {
         super.init(frame: .zero)
         
         let button = UIButton.init(type: .custom)
@@ -24,12 +24,12 @@ public class LKBottomButtonView: UIView {
         button.setTitleColor(titleColor, for: .normal)
         button.setTitleColor(titleColor, for: .highlighted)
         if !self.isEqualToColor(colorA: titleColor, colorB: UIColor.white) {
-            button.setTitleColor(UIColor.lk.general(.hexCDCDCD), for: .disabled)
+            button.setTitleColor(UIColor.lk.color(.hexCDCDCD), for: .disabled)
         }
         button.setBackgroundImage(UIImage.lk.image(bgColor), for: .normal)
         button.setBackgroundImage(UIImage.lk.image(bgColor), for: .highlighted)
         if !self.isEqualToColor(colorA: bgColor, colorB: UIColor.white) {
-            button.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexCDCDCD)), for: .disabled)
+            button.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexCDCDCD)), for: .disabled)
         }
         button.layer.cornerRadius = 50.rate / 2
         button.tag = 1000
@@ -43,7 +43,7 @@ public class LKBottomButtonView: UIView {
         }
     }
     
-    public init(titles: [String], titleColors: [UIColor] = [UIColor.lk.text(.hexCF1F2E), UIColor.lk.text(.hexFFFFFF)], bgColors: [UIColor] = [UIColor.lk.general(.hexFFFFFF), UIColor.lk.general(.hexCF1F2E)]) {
+    public init(titles: [String], titleColors: [UIColor] = [UIColor.lk.text(.hexCF1F2E), UIColor.lk.text(.hexFFFFFF)], bgColors: [UIColor] = [UIColor.lk.color(.hexFFFFFF), UIColor.lk.color(.hexCF1F2E)]) {
         super.init(frame: .zero)
         
         let stackView = UIStackView()
@@ -66,12 +66,12 @@ public class LKBottomButtonView: UIView {
             button.setTitleColor(titleColors[index], for: .normal)
             button.setTitleColor(titleColors[index], for: .highlighted)
             if !self.isEqualToColor(colorA: titleColors[index], colorB: UIColor.white) {
-                button.setTitleColor(UIColor.lk.general(.hexCDCDCD), for: .disabled)
+                button.setTitleColor(UIColor.lk.color(.hexCDCDCD), for: .disabled)
             }
             button.setBackgroundImage(UIImage.lk.image(bgColors[index]), for: .normal)
             button.setBackgroundImage(UIImage.lk.image(bgColors[index]), for: .highlighted)
             if !self.isEqualToColor(colorA: bgColors[index], colorB: UIColor.white) {
-                button.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hexCDCDCD)), for: .disabled)
+                button.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hexCDCDCD)), for: .disabled)
             }
             button.layer.borderWidth = index == 0 ? 2 : 0
             button.layer.borderColor = UIColor.lk.text(.hexCF1F2E).cgColor
@@ -125,9 +125,9 @@ public extension LKBottomButtonView {
             button.isEnabled = isEnabled
             
             if isEnabled {
-                button.layer.borderColor = UIColor.lk.general(.hexCF1F2E).cgColor
+                button.layer.borderColor = UIColor.lk.color(.hexCF1F2E).cgColor
             } else {
-                button.layer.borderColor = UIColor.lk.general(.hexCDCDCD).cgColor
+                button.layer.borderColor = UIColor.lk.color(.hexCDCDCD).cgColor
             }
         }
     }

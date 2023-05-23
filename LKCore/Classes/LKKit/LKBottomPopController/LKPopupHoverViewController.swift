@@ -192,7 +192,7 @@ open class LKPopupHoverViewController: LKBaseViewController {
 extension LKPopupHoverViewController {
     
     private func configure() {
-        view.backgroundColor = UIColor.lk.general(.hex000000, alpha: 0)
+        view.backgroundColor = UIColor.lk.color(.hex000000, alpha: 0)
         lk_navigationBarColor = .clear
         
         addChild(hoverController)
@@ -269,7 +269,7 @@ extension LKPopupHoverViewController {
         
         let percent = (contentViewHeight - dimmingRangeTuple.min) / heightDiff
         
-        let backgroundColor = UIColor.lk.general(.hex000000, alpha: self.hoverController.dimmingAlpha * percent)
+        let backgroundColor = UIColor.lk.color(.hex000000, alpha: self.hoverController.dimmingAlpha * percent)
         
         if animated {
             UIView.animate(withDuration: 0.25) {

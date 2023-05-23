@@ -39,7 +39,7 @@ open class LKPopHeaderView: UIView {
     public private(set) lazy var separateView: UIView = {
         let aView = UIView()
         aView.isUserInteractionEnabled = false
-        aView.backgroundColor = UIColor.lk.general(.hexEAEAEA)
+        aView.backgroundColor = UIColor.lk.color(.hexEAEAEA)
         return aView
     }()
     
@@ -49,7 +49,7 @@ open class LKPopHeaderView: UIView {
         self.title = title
         
         super.init(frame: .zero)
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
         
         setupSubviews()
         setupSubviewsConstraints()

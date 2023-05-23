@@ -109,7 +109,7 @@ fileprivate class LKSegmentedIndicatorLineView: JXSegmentedIndicatorLineView {
     
     required init(indicatorSize: CGSize? = nil) {
         super.init(frame: .zero)
-        backgroundColor = UIColor.lk.general(.hexCF1F2E)
+        backgroundColor = UIColor.lk.color(.hexCF1F2E)
         
         lineStyle = .lengthenOffset
         isIndicatorWidthSameAsItemContent = true

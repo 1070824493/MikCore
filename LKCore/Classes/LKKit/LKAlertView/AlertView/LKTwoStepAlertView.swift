@@ -227,7 +227,7 @@ public class LKTwoStepAlertView: UIView {
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
         let aIndicatorView = UIActivityIndicatorView(style: .medium)
         aIndicatorView.hidesWhenStopped = true
-        aIndicatorView.color = UIColor.lk.general(.hex757575)
+        aIndicatorView.color = UIColor.lk.color(.hex757575)
         return aIndicatorView
     }()
 
@@ -236,7 +236,7 @@ public class LKTwoStepAlertView: UIView {
         self.title = title
         
         super.init(frame: .zero)
-        self.backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        self.backgroundColor = UIColor.lk.color(.hexFFFFFF)
         self.layer.cornerRadius = 16
         self.layer.masksToBounds = true
 
@@ -270,7 +270,7 @@ public class LKTwoStepAlertView: UIView {
 extension LKTwoStepAlertView {
 
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
 
     private func setupSubviews() {

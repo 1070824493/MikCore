@@ -66,7 +66,7 @@ public class LKToast {
     public static func configToastStyle() {
         ToastManager.shared.style.activityBackgroundColor = .clear
         ToastManager.shared.style.activitySize = CGSize(width: min(80.rate, 80), height: min(80.rate, 80))
-        ToastManager.shared.style.activityIndicatorColor = UIColor.lk.general(.hex1B1B1B)
+        ToastManager.shared.style.activityIndicatorColor = UIColor.lk.color(.hex1B1B1B)
         ToastManager.shared.style.verticalPadding = UIViewController.lk.safeAreaMax.bottom + 16
         
         ToastManager.shared.isTapToDismissEnabled = false

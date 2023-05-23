@@ -12,26 +12,26 @@ fileprivate extension LKEmptyValuesConfig.ButtonValues.Style {
     
     var backgroundColor: UIColor {
         switch self {
-        case .redFill: return UIColor.lk.general(.hexCF1F2E)
-        case .blackFill: return UIColor.lk.general(.hex1B1B1B)
-        case .redBorder, .blackBorder: return UIColor.lk.general(.hexFFFFFF)
+        case .redFill: return UIColor.lk.color(.hexCF1F2E)
+        case .blackFill: return UIColor.lk.color(.hex1B1B1B)
+        case .redBorder, .blackBorder: return UIColor.lk.color(.hexFFFFFF)
         case .refresh: return UIColor.clear
         }
     }
     
     var highlightBackgroundColor: UIColor {
         switch self {
-        case .redFill: return UIColor.lk.general(.hexEB003B)
-        case .blackFill: return UIColor.lk.general(.hex5F5F5F)
-        case .redBorder, .blackBorder: return UIColor.lk.general(.hex1B1B1B, alpha: 0.07)
+        case .redFill: return UIColor.lk.color(.hexEB003B)
+        case .blackFill: return UIColor.lk.color(.hex5F5F5F)
+        case .redBorder, .blackBorder: return UIColor.lk.color(.hex1B1B1B, alpha: 0.07)
         case .refresh: return UIColor.clear
         }
     }
     
     var borderColor: UIColor? {
         switch self {
-        case .redBorder: return UIColor.lk.general(.hexCF1F2E)
-        case .blackBorder: return UIColor.lk.general(.hex1B1B1B)
+        case .redBorder: return UIColor.lk.color(.hexCF1F2E)
+        case .blackBorder: return UIColor.lk.color(.hex1B1B1B)
         default: return nil
         }
     }
@@ -63,7 +63,7 @@ public struct LKEmptyValuesConfig {
         public var image: UIImage?
         public var tinColor: UIColor
         
-        public init(image: UIImage?, tinColor: UIColor = UIColor.lk.general(.hex1B1B1B)) {
+        public init(image: UIImage?, tinColor: UIColor = UIColor.lk.color(.hex1B1B1B)) {
             self.image = image
             self.tinColor = tinColor
         }
@@ -114,7 +114,7 @@ public struct LKEmptyValuesConfig {
     public init() {}
     
     /// 背景颜色
-    public var backgroundColor = UIColor.lk.general(.hexFFFFFF)
+    public var backgroundColor = UIColor.lk.color(.hexFFFFFF)
     /// 全视图点击事件
     public var tapHandler: (() -> Void)?
     /// 图片配置项

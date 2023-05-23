@@ -62,7 +62,7 @@ open class LKSegmentedView: UIView {
 extension LKSegmentedView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
         segmentedView.defaultSelectedIndex = defaultSelectedIndex
         segmentedView.listContainer = listContainerView.listContrainer
     }

@@ -11,7 +11,7 @@ class LKStepButton: UIButton {
 
     lazy var lineView: UIView = {
         let item = UIView()
-        item.backgroundColor = UIColor.lk.general(.hexCDCDCD)
+        item.backgroundColor = UIColor.lk.color(.hexCDCDCD)
         return item
     }()
 
@@ -34,9 +34,9 @@ class LKStepButton: UIButton {
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                self.lineView.backgroundColor = UIColor.lk.general(.hexCF1F2E)
+                self.lineView.backgroundColor = UIColor.lk.color(.hexCF1F2E)
             } else {
-                self.lineView.backgroundColor = UIColor.lk.general(.hexF8D2CB)
+                self.lineView.backgroundColor = UIColor.lk.color(.hexF8D2CB)
             }
         }
     }
@@ -45,9 +45,9 @@ class LKStepButton: UIButton {
     override var isEnabled: Bool {
         didSet {
             if isEnabled {
-                self.lineView.backgroundColor = UIColor.lk.general(.hexF8D2CB)
+                self.lineView.backgroundColor = UIColor.lk.color(.hexF8D2CB)
             } else {
-                self.lineView.backgroundColor = UIColor.lk.general(.hexCDCDCD)
+                self.lineView.backgroundColor = UIColor.lk.color(.hexCDCDCD)
             }
         }
     }

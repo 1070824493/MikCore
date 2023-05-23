@@ -53,7 +53,7 @@ class LKDotDescContainerView: UIView {
 extension LKDotDescContainerView {
     
     private func configure() {
-        backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        backgroundColor = UIColor.lk.color(.hexFFFFFF)
     }
     
     private func setupSubviews() {

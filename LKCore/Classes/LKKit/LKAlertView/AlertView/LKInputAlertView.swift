@@ -91,7 +91,7 @@ public class LKInputAlertView: UIView {
         textField.textColor = UIColor.lk.text(.hex1B1B1B)
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lk.general(.hexAEAEAE).cgColor
+        textField.layer.borderColor = UIColor.lk.color(.hexAEAEAE).cgColor
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 50))
         textField.leftViewMode = .always
         return textField
@@ -100,8 +100,8 @@ public class LKInputAlertView: UIView {
     
     private func createActionButton() -> UIButton {
         let aBtn = UIButton()
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hex1B1B1B)), for: .normal)
-        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.general(.hex5F5F5F)), for: .highlighted)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hex1B1B1B)), for: .normal)
+        aBtn.setBackgroundImage(UIImage.lk.image(UIColor.lk.color(.hex5F5F5F)), for: .highlighted)
         aBtn.layer.cornerRadius = kActionButtonHeight * 0.5        
         aBtn.layer.masksToBounds = true
         aBtn.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
@@ -116,7 +116,7 @@ public class LKInputAlertView: UIView {
     
     required public init(title: String?, message: String?, placeholder: String?, actions: [LKAlertAction]) {
         super.init(frame: .zero)
-        self.backgroundColor = UIColor.lk.general(.hexFFFFFF)
+        self.backgroundColor = UIColor.lk.color(.hexFFFFFF)
         self.layer.cornerRadius = 16
         self.layer.masksToBounds = true
         self.actions = actions

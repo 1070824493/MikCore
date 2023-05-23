@@ -115,7 +115,7 @@ public class LKDropBoxView: UIView {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor.lk.general(.hexF6F6F6)
+        tableView.backgroundColor = UIColor.lk.color(.hexF6F6F6)
         tableView.register(DropBoxViewCell.self, forCellReuseIdentifier: DropBoxViewCell.description())
         tableView.delegate = self
         tableView.dataSource = self

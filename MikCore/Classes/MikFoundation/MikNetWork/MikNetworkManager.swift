@@ -106,9 +106,6 @@ extension MikNetworkManager {
     /// - params:
     ///   - params: Array or Dictionary or String
     private func request(url: String, method: MethodType, params: [String: Any]?, bodys: AnyObject?, responseType: ResponseType, success: @escaping (_ success: Any) -> (), failure: @escaping (_ error: MikError) -> ()) {
-        if self.isDebug {
-            MikPrint("url: \(url) \n params: \(String(describing: params)) \n bodys: \(String(describing: bodys))")
-        }
         
         func sendError(message: String = "url cannot be empty") {
             // "Please close the proxy and try again"
@@ -195,31 +192,11 @@ extension MikNetworkManager {
                                         beginTime : TimeInterval,
                                         response : AFDataResponse<T>, success: @escaping (_ success: Any) -> (), failure: @escaping (_ error: MikError) -> ()){
         
-        let endTime = Date().timeIntervalSince1970
-        let duration = endTime - beginTime
-        var logModel = MikRequestLogModel()
-        logModel.url = url
-        logModel.method = method.rawValue
-        logModel.params = bodys as? [String : Any]
-        logModel.requestHeader = header
-        logModel.requestTime = beginTime
-        logModel.requestDuration = duration
-        logModel.responseTime = endTime
-        logModel.responseHeader = response.response?.allHeaderFields as? [String : Any]
-        logModel.httpCode = response.response?.statusCode
         
         switch response.result {
         case .success(_):
             success(response.value as Any)
-            let mikRes = MikResponse.init(value: response.value)
-
-            if mikRes.failedWhenAFSucceed {
-                logModel.response = String(data: response.data ?? Data(), encoding: .utf8)
-                logModel.errorDescription = (response.error?.errorDescription ?? "") + "\n" + (response.error?.localizedDescription ?? "")
-            }else{
-                logModel.isSuccess = true
-            }
-            MikLogger.saveApiLog(model: logModel)
+            
         case .failure(let error):
 
             
@@ -238,9 +215,7 @@ extension MikNetworkManager {
 
             failure(.requestError(info: errorInfo))
 
-            logModel.response = String(data: response.data ?? Data(), encoding: .utf8)
-            logModel.errorDescription = error.errorDescription ?? "" + "\n" + error.localizedDescription
-            MikLogger.saveApiLog(model: logModel)
+            
         }
     }
 }
@@ -333,27 +308,11 @@ extension MikNetworkManager {
                                   response: AFDataResponse<T>, result: MikRequestResultHandler?) {
         let endTime = Date().timeIntervalSince1970
         let duration = endTime - beginTime
-        var logModel = MikRequestLogModel()
-        logModel.url = url
-        logModel.method = method.rawValue
-        logModel.params = params
-        logModel.requestHeader = header
-        logModel.requestTime = beginTime
-        logModel.requestDuration = duration
-        logModel.responseTime = endTime
-        logModel.responseHeader = response.response?.allHeaderFields as? [String : Any]
-        logModel.httpCode = response.response?.statusCode
+        
         switch response.result {
         case .success(_):
             result?(.success(MikResponse(value: response.value)))
-            let mikRes = MikResponse.init(value: response.value)
-            if mikRes.failedWhenAFSucceed {
-                logModel.response = String(data: response.data ?? Data(), encoding: .utf8)
-                logModel.errorDescription = (response.error?.errorDescription ?? "") + "\n" + (response.error?.localizedDescription ?? "")
-            }else{
-                logModel.isSuccess = true
-            }
-            MikLogger.saveApiLog(model: logModel)
+            
         case .failure(let error):
 
             
@@ -378,9 +337,6 @@ extension MikNetworkManager {
                 result?(.failure(.requestError(info: errorInfo)))
             }
 
-            logModel.response = String(data: response.data ?? Data(), encoding: .utf8)
-            logModel.errorDescription = error.errorDescription ?? "" + "\n" + error.localizedDescription
-            MikLogger.saveApiLog(model: logModel)
         }
     }
     

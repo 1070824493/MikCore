@@ -17,7 +17,7 @@ class MikEmptyViewController: UIViewController {
         
         // 一般的调用方法
         self.view.showEmpty(image: UIImage(named: "tabbar_dash_n"), title: "No reviews yet", message: "Please click here to select a product group for this Featured Listing section.", buttonTitle: "Retry", buttonStyle: .blackFill, offsetCenterY: 0) {
-            MikPrint("handler call back")
+            
         }
         
         // 全视图响应点击事件

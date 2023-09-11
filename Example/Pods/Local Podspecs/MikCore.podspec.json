@@ -35,10 +35,10 @@
           "frameworks": "Photos",
           "dependencies": {
             "Kingfisher": [
-              "7.0.0"
+              "7.8.1"
             ],
             "KingfisherWebP": [
-              "1.4.0"
+              "1.5.2"
             ]
           }
         },
@@ -55,9 +55,6 @@
               "4.1.7"
             ],
             "MikCore/MikFoundation/NameSpace": [
-
-            ],
-            "MikCore/MikFoundation/MikLogger": [
 
             ]
           },
@@ -76,50 +73,14 @@
             "MikCore/MikFoundation/NameSpace": [
 
             ],
-            "MikCore/MikFoundation/MikLogger": [
-
-            ],
             "RxSwift": [
               "6.2.0"
             ],
             "RxCocoa": [
               "6.2.0"
-            ]
-          }
-        },
-        {
-          "name": "MikLogger",
-          "source_files": "MikCore/Classes/MikFoundation/MikLogger/**/*",
-          "dependencies": {
-            "HandyJSON": [
-              "5.0.2"
             ],
             "SwiftyJSON": [
               "5.0.1"
-            ],
-            "DatadogSDK": [
-              "1.8.0"
-            ],
-            "Firebase/Storage": [
-              "8.7.0"
-            ],
-            "Firebase/Auth": [
-              "8.7.0"
-            ],
-            "Firebase/Messaging": [
-              "8.7.0"
-            ],
-            "Firebase/Crashlytics": [
-              "8.7.0"
-            ],
-            "Firebase/DynamicLinks": [
-              "8.7.0"
-            ],
-            "MikCore/MikFoundation/NameSpace": [
-
-            ],
-            "MikCore/MikKit/MikToast": [
-
             ]
           }
         }
@@ -390,9 +351,6 @@
           "dependencies": {
             "MikCore/MikFoundation/NameSpace": [
 
-            ],
-            "MikCore/MikFoundation/MikLogger": [
-
             ]
           }
         },
@@ -500,7 +458,7 @@
           "source_files": "MikCore/Classes/MikKit/MikPullToRefresh/**/*",
           "dependencies": {
             "Kingfisher": [
-              "7.0.0"
+              "7.8.1"
             ],
             "MJRefresh": [
               "3.7.5"

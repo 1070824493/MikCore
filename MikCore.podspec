@@ -20,8 +20,8 @@ Pod::Spec.new do |s|
             a.source_files  = 'MikCore/Classes/MikFoundation/NameSpace/**/*'
             a.frameworks = 'UIKit', 'Foundation'
             a.frameworks = 'Photos'
-            a.dependency 'Kingfisher', '7.0.0'
-            a.dependency 'KingfisherWebP', '1.4.0'
+            a.dependency 'Kingfisher', '7.8.1'
+            a.dependency 'KingfisherWebP', '1.5.2'
         end
         
         mf.subspec 'MikValidateRegex' do |c|
@@ -35,7 +35,6 @@ Pod::Spec.new do |s|
             
             d.dependency 'ZLPhotoBrowser', '4.1.7'
             d.dependency 'MikCore/MikFoundation/NameSpace'
-            d.dependency 'MikCore/MikFoundation/MikLogger'
             d.frameworks = 'Photos'
         end
         
@@ -45,24 +44,9 @@ Pod::Spec.new do |s|
             e.dependency 'Alamofire', '5.4.4'
             e.dependency 'HandyJSON', '5.0.2'
             e.dependency 'MikCore/MikFoundation/NameSpace'
-            e.dependency 'MikCore/MikFoundation/MikLogger'
             e.dependency 'RxSwift', '6.2.0'
             e.dependency 'RxCocoa', '6.2.0'
-        end
-        
-        mf.subspec 'MikLogger' do |f|
-            f.source_files  = 'MikCore/Classes/MikFoundation/MikLogger/**/*'
-            f.dependency 'HandyJSON', '5.0.2'
-            f.dependency 'SwiftyJSON', '5.0.1'
-            f.dependency 'DatadogSDK', '1.8.0'
-            f.dependency 'Firebase/Storage', '8.7.0'
-            f.dependency 'Firebase/Auth', '8.7.0'
-            f.dependency 'Firebase/Messaging', '8.7.0'
-            f.dependency 'Firebase/Crashlytics', '8.7.0'
-            f.dependency 'Firebase/DynamicLinks', '8.7.0'
-            f.dependency 'MikCore/MikFoundation/NameSpace'
-            f.dependency 'MikCore/MikKit/MikToast'
-            
+            e.dependency 'SwiftyJSON', '5.0.1'
         end
         
     end
@@ -205,7 +189,6 @@ Pod::Spec.new do |s|
         mk.subspec 'MikBaseViewController' do |s|
             s.source_files  = 'MikCore/Classes/MikKit/MikBaseViewController/**/*'
             s.dependency 'MikCore/MikFoundation/NameSpace'
-            s.dependency 'MikCore/MikFoundation/MikLogger'
         end
 
         
@@ -259,7 +242,7 @@ Pod::Spec.new do |s|
         
         mk.subspec 'MikPullToRefresh' do |aa|
             aa.source_files  = 'MikCore/Classes/MikKit/MikPullToRefresh/**/*'
-            aa.dependency 'Kingfisher', '7.0.0'
+            aa.dependency 'Kingfisher', '7.8.1'
             aa.dependency 'MJRefresh', '3.7.5'
             aa.dependency 'MikCore/MikFoundation/NameSpace'
         end

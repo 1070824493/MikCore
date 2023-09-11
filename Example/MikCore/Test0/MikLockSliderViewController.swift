@@ -34,7 +34,7 @@ class MikLockSliderViewController: UIViewController {
     
     @objc
     private func next(_ sender: Any) {
-        MikPrint("MikLockSlider unlock success..")
+        
     }
 
 }

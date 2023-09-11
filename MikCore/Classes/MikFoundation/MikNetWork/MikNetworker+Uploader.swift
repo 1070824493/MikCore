@@ -62,7 +62,6 @@ fileprivate extension MikNetworker {
                                       headers: MikNetworkManager.shared.headers)
         
         uploadRequest.uploadProgress { (p) in
-            MikPrint("upload.... \(p.completedUnitCount) / \(p.totalUnitCount)")
             progress?(p)
         }
         

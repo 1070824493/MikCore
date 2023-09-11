@@ -13,7 +13,7 @@
 		01FA229628193FF30027FF47 /* CPM_API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA229528193FF30027FF47 /* CPM_API.swift */; };
 		01FA2298281940900027FF47 /* TestCPMRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA2297281940900027FF47 /* TestCPMRequestViewController.swift */; };
 		01FA229A281946030027FF47 /* CPMModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA2299281946030027FF47 /* CPMModel.swift */; };
-		4B82057C55412BDA1271BE5E /* Pods_MikCore_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30839BE197D789BAEDECE89A /* Pods_MikCore_Example.framework */; };
+		3002A1C9A50F07EDB8F56AAE /* Pods_MikCore_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A79E0D64240373450CC75D0 /* Pods_MikCore_Tests.framework */; };
 		530FD60F2819067C00EBC52C /* MIK_API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530FD60E2819067C00EBC52C /* MIK_API.swift */; };
 		530FD61128190FD700EBC52C /* TestMIKAPIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530FD61028190FD700EBC52C /* TestMIKAPIViewController.swift */; };
 		530FD6172819398A00EBC52C /* NetworkTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530FD6162819398A00EBC52C /* NetworkTestUtils.swift */; };
@@ -25,7 +25,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		91931198939C86A352A67B52 /* Pods_MikCore_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CB6D91A8CE2BE933B1455 /* Pods_MikCore_Tests.framework */; };
+		8AB5CE184412F327D809569E /* Pods_MikCore_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD079068AB38011E2FAD86B1 /* Pods_MikCore_Example.framework */; };
 		CE681F7C27A2284E008FC826 /* MikSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE681F4227A2284D008FC826 /* MikSwitchViewController.swift */; };
 		CE681F7D27A2284E008FC826 /* MikNumberControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE681F4327A2284D008FC826 /* MikNumberControlViewController.swift */; };
 		CE681F7E27A2284E008FC826 /* MikEmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE681F4427A2284D008FC826 /* MikEmptyViewController.swift */; };
@@ -101,9 +101,8 @@
 		01FA229528193FF30027FF47 /* CPM_API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPM_API.swift; sourceTree = "<group>"; };
 		01FA2297281940900027FF47 /* TestCPMRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCPMRequestViewController.swift; sourceTree = "<group>"; };
 		01FA2299281946030027FF47 /* CPMModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPMModel.swift; sourceTree = "<group>"; };
-		24243CFB5673E57CE07855D4 /* Pods-MikCore_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Tests.release.xcconfig"; path = "Target Support Files/Pods-MikCore_Tests/Pods-MikCore_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		24C268FB8210AFDF59431F54 /* Pods-MikCore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Example.release.xcconfig"; path = "Target Support Files/Pods-MikCore_Example/Pods-MikCore_Example.release.xcconfig"; sourceTree = "<group>"; };
-		30839BE197D789BAEDECE89A /* Pods_MikCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MikCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0910D3FC402B56866E473F5E /* Pods-MikCore_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Example.debug.xcconfig"; path = "Target Support Files/Pods-MikCore_Example/Pods-MikCore_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		3CB7F0E023363E2D098EB09F /* Pods-MikCore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Example.release.xcconfig"; path = "Target Support Files/Pods-MikCore_Example/Pods-MikCore_Example.release.xcconfig"; sourceTree = "<group>"; };
 		530FD60E2819067C00EBC52C /* MIK_API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIK_API.swift; sourceTree = "<group>"; };
 		530FD61028190FD700EBC52C /* TestMIKAPIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMIKAPIViewController.swift; sourceTree = "<group>"; };
 		530FD6162819398A00EBC52C /* NetworkTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTestUtils.swift; sourceTree = "<group>"; };
@@ -111,7 +110,6 @@
 		530FD626281A76DF00EBC52C /* TestQAAPIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQAAPIViewController.swift; sourceTree = "<group>"; };
 		530FD628281A827500EBC52C /* TestAPIsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPIsViewController.swift; sourceTree = "<group>"; };
 		53A8862327F1575300872157 /* TestPopupHoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPopupHoverViewController.swift; sourceTree = "<group>"; };
-		5C14FA855F2EE3EB6C28E484 /* Pods-MikCore_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Example.debug.xcconfig"; path = "Target Support Files/Pods-MikCore_Example/Pods-MikCore_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* MikCore_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikCore_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,10 +118,11 @@
 		607FACE51AFB9204008FA782 /* MikCore_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MikCore_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		6A79E0D64240373450CC75D0 /* Pods_MikCore_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MikCore_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BEC432B83DE64D04C08D77A /* MikCore.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MikCore.podspec; path = ../MikCore.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7B333C5C5AAF72CC8083CB50 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		952CB6D91A8CE2BE933B1455 /* Pods_MikCore_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MikCore_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC31769154BC348E6D3C6764 /* Pods-MikCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Tests.debug.xcconfig"; path = "Target Support Files/Pods-MikCore_Tests/Pods-MikCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		A67DFC4BAB37FB2568AF7FE3 /* Pods-MikCore_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Tests.release.xcconfig"; path = "Target Support Files/Pods-MikCore_Tests/Pods-MikCore_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		C940C5AD5CF52B3DE06F3041 /* Pods-MikCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MikCore_Tests.debug.xcconfig"; path = "Target Support Files/Pods-MikCore_Tests/Pods-MikCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE681F4227A2284D008FC826 /* MikSwitchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikSwitchViewController.swift; sourceTree = "<group>"; };
 		CE681F4327A2284D008FC826 /* MikNumberControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikNumberControlViewController.swift; sourceTree = "<group>"; };
 		CE681F4427A2284D008FC826 /* MikEmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikEmptyViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +180,7 @@
 		CED471C72809BC2000A08303 /* USR_API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USR_API.swift; sourceTree = "<group>"; };
 		CED4F34828239E21001E8ECB /* CMS_API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMS_API.swift; sourceTree = "<group>"; };
 		F61F2BA38F8B7C4A010D0F22 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		FD079068AB38011E2FAD86B1 /* Pods_MikCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MikCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,7 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B82057C55412BDA1271BE5E /* Pods_MikCore_Example.framework in Frameworks */,
+				8AB5CE184412F327D809569E /* Pods_MikCore_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91931198939C86A352A67B52 /* Pods_MikCore_Tests.framework in Frameworks */,
+				3002A1C9A50F07EDB8F56AAE /* Pods_MikCore_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +211,7 @@
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				CA9A45036254E2B24A3725FF /* Pods */,
-				6102130D1ACEE121230E205A /* Frameworks */,
+				80F10E8AC34898156C36401B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -277,11 +277,11 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		6102130D1ACEE121230E205A /* Frameworks */ = {
+		80F10E8AC34898156C36401B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				30839BE197D789BAEDECE89A /* Pods_MikCore_Example.framework */,
-				952CB6D91A8CE2BE933B1455 /* Pods_MikCore_Tests.framework */,
+				FD079068AB38011E2FAD86B1 /* Pods_MikCore_Example.framework */,
+				6A79E0D64240373450CC75D0 /* Pods_MikCore_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -289,10 +289,10 @@
 		CA9A45036254E2B24A3725FF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5C14FA855F2EE3EB6C28E484 /* Pods-MikCore_Example.debug.xcconfig */,
-				24C268FB8210AFDF59431F54 /* Pods-MikCore_Example.release.xcconfig */,
-				AC31769154BC348E6D3C6764 /* Pods-MikCore_Tests.debug.xcconfig */,
-				24243CFB5673E57CE07855D4 /* Pods-MikCore_Tests.release.xcconfig */,
+				0910D3FC402B56866E473F5E /* Pods-MikCore_Example.debug.xcconfig */,
+				3CB7F0E023363E2D098EB09F /* Pods-MikCore_Example.release.xcconfig */,
+				C940C5AD5CF52B3DE06F3041 /* Pods-MikCore_Tests.debug.xcconfig */,
+				A67DFC4BAB37FB2568AF7FE3 /* Pods-MikCore_Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -415,11 +415,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "MikCore_Example" */;
 			buildPhases = (
-				2E8F1A9C66ADAA3744711453 /* [CP] Check Pods Manifest.lock */,
+				5228839428F3356041E5D830 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				8B194790917079984C4766AC /* [CP] Embed Pods Frameworks */,
+				7440784CD6EF4BC88D6A0305 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -434,7 +434,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "MikCore_Tests" */;
 			buildPhases = (
-				02872D0F18EA45CC95A4AB49 /* [CP] Check Pods Manifest.lock */,
+				EDC68DE4B515B662C53459F9 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -513,29 +513,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02872D0F18EA45CC95A4AB49 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MikCore_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E8F1A9C66ADAA3744711453 /* [CP] Check Pods Manifest.lock */ = {
+		5228839428F3356041E5D830 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -557,7 +535,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8B194790917079984C4766AC /* [CP] Embed Pods Frameworks */ = {
+		7440784CD6EF4BC88D6A0305 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -566,27 +544,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-MikCore_Example/Pods-MikCore_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/DatadogSDK/Datadog.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseDynamicLinks/FirebaseDynamicLinks.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseMessaging/FirebaseMessaging.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseStorage/FirebaseStorage.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/JXSegmentedView/JXSegmentedView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/KingfisherWebP/KingfisherWebP.framework",
-				"${BUILT_PRODUCTS_DIR}/Kronos/Kronos.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MikCore/MikCore.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -594,33 +558,18 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/ZLPhotoBrowser/ZLPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActiveLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Datadog.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseDynamicLinks.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseMessaging.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseStorage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXSegmentedView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KingfisherWebP.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kronos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MikCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
@@ -628,11 +577,32 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZLPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MikCore_Example/Pods-MikCore_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDC68DE4B515B662C53459F9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MikCore_Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -854,7 +824,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C14FA855F2EE3EB6C28E484 /* Pods-MikCore_Example.debug.xcconfig */;
+			baseConfigurationReference = 0910D3FC402B56866E473F5E /* Pods-MikCore_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -874,7 +844,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24C268FB8210AFDF59431F54 /* Pods-MikCore_Example.release.xcconfig */;
+			baseConfigurationReference = 3CB7F0E023363E2D098EB09F /* Pods-MikCore_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -894,7 +864,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC31769154BC348E6D3C6764 /* Pods-MikCore_Tests.debug.xcconfig */;
+			baseConfigurationReference = C940C5AD5CF52B3DE06F3041 /* Pods-MikCore_Tests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 656W8T2CR9;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -917,7 +887,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24243CFB5673E57CE07855D4 /* Pods-MikCore_Tests.release.xcconfig */;
+			baseConfigurationReference = A67DFC4BAB37FB2568AF7FE3 /* Pods-MikCore_Tests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 656W8T2CR9;
 				FRAMEWORK_SEARCH_PATHS = (

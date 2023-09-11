@@ -18,12 +18,12 @@ open class MikBaseViewController: UIViewController {
 
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        MikLogger.info("\(type(of: self)) viewDidAppear")
+        
     }
 
     open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        MikLogger.info("\(type(of: self)) viewDidDisappear")
+        
     }
     
     deinit {

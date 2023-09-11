@@ -13,7 +13,7 @@ class TestLoggerAsync: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        MikLogger.logInit()
+        
     }
 
     override func tearDownWithError() throws {
@@ -47,12 +47,12 @@ class TestLoggerAsync: XCTestCase {
 
         print("for loop begin")
 
-        for i in 0...1000 {
-            MikLogger.debug("test message \(i)", ["debugKey" : "debugValue"])
-            MikLogger.info("test message \(i)", ["infoKey" : i])
-            MikLogger.warn("test message \(i)", ["warnKey" : ["warnKey2" : "warnKey2Value"]])
-            MikLogger.error("test message \(i)", ["errorKey": ["\(i)"]])
-        }
+//        for i in 0...1000 {
+//            MikLogger.debug("test message \(i)", ["debugKey" : "debugValue"])
+//            MikLogger.info("test message \(i)", ["infoKey" : i])
+//            MikLogger.warn("test message \(i)", ["warnKey" : ["warnKey2" : "warnKey2Value"]])
+//            MikLogger.error("test message \(i)", ["errorKey": ["\(i)"]])
+//        }
 
         print("for loop end")
 

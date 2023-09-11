@@ -20,9 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UIFont.mik.registerCustomFonts()
         MikToast.configToastStyle()
-        MikLogger.logInit()
-        MikLogger.config(enableConsoleLog: true)
-
+        
         self.window = {
             let aWindow = UIWindow()
 
